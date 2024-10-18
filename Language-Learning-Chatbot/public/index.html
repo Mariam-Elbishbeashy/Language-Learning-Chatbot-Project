@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Chatbot</title>
+    <link rel="stylesheet" href="../public/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="logo">
+            <a href="#">
+                <img src="./images/ai-technology.png" id="logo-icon"alt="Chatbot">
+                chatbot
+            </a>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Language</a>
+                <div class="dropdown-content">
+                    <a href="#">English</a>
+                    <a href="#">French</a>
+                    <a href="#">Spanish</a>
+                </div>
+            </li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="#" class="signup-btn">Sign Up</a>
+            <a href="#" class="login-btn">Log In</a>
+        </div>
+    </nav>
+
+
+    <main>
+        <!-- Slideshow container for entire hero section -->
+        <div class="slideshow-container">
+            <!-- First slide -->
+            <section class="hero slide fade">
+                <div class="hero-text">
+                    <h1>AI Chatbot Trained On Your Custom Data</h1>
+                    <p>This chatbot platform offers support and resolves queries of customers through the use of fine-tuned custom AI models.</p>
+                    <div class="buttons">
+                        <a class="button build-btn" href="#">Build Your ChatBot</a>
+                        <a class="button watch-video-btn" href="#">Watch Video</a>
+                    </div>
+                </div>
+                <div class="chatbot-image">
+                    <img src="../public/images/6605347.webp" alt="Chatbot">
+                </div>
+            </section>
+
+            <!-- Second slide -->
+            <section class="hero slide fade">
+                <div class="hero-text">
+                    <h1>Transform Your Business with AI</h1>
+                    <p>Our platform integrates AI with your business, enhancing customer engagement with powerful chatbots trained on your specific data.</p>
+                    <div class="buttons">
+                        <a class="button build-btn" href="#">Get Started</a>
+                        <a class="button watch-video-btn" href="#">Learn More</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Third slide -->
+            <section class="hero slide fade">
+                <div class="hero-text">
+                    <h1>Enhance Your Customer Experience</h1>
+                    <p>Provide 24/7 customer support and boost satisfaction using AI-powered chatbots tailored to your audience.</p>
+                    <div class="buttons">
+                        <a class="button build-btn" href="#">Start Now</a>
+                        <a class="button watch-video-btn" href="#">Explore</a>
+                    </div>
+                </div>
+                
+            </section>
+            <div class="slideshow-dots">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+        <!-- chatbot Section -->
+        <section class="chatbot-section">
+            <div class="chatbot-container">
+                <div class="chatbot-text">
+                    <h2>Chatbot</h2>
+                    <p>Convert conversations into growth opportunities by engaging customers where they are – on their favorite messaging channel.</p>
+                </div>
+                <div class="chatbot1-image">
+                    <img src="./images/WhyConvoAi.png" alt="ConvoAI Illustration">
+                </div>
+            </div>
+        </section>
+
+       
+    </main>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
