@@ -9,12 +9,13 @@ body, html {
 .container {
     display: flex;
     height: 100vh;
+    background: linear-gradient(to bottom, #4a0b8d 0%, #6745c4 100%);
 }
 
 
 .sidebar {
-    background: linear-gradient(to top, #7831aed1 0%, #f6f3ff 100%);
-    color: black;
+
+    color: white;
     width: 20%;
     display: flex;
     flex-direction: column;
@@ -37,7 +38,7 @@ body, html {
 }
 
 .menu li a {
-    color: black;
+    color: white;
     text-decoration: none;
     font-size: 18px;
     display: flex;
@@ -45,10 +46,10 @@ body, html {
     padding: 3px 3px;
     border-radius: 20px;
     width: 70%;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
 }
 .menu a:hover {
-    background-color: #eeeaea
+    color: #9072e2 
 }
 .icon{
     display: flex;
@@ -64,7 +65,7 @@ body, html {
 .chat-list ul {
     list-style-type: none;
     padding: 0;
-    color: black;
+    color: white;
 }
 
 .chat-list li {
@@ -87,7 +88,7 @@ body, html {
 .user-info {
     margin-top: 20px;
     font-size: 14px;
-    color: black;
+    color: white;
 }
 
 .upgrade-btn {
@@ -102,10 +103,13 @@ body, html {
 }
 
 .main-content {
-    background: linear-gradient(to top, #7831aed1 0%, #f6f3ff 100%);
+    /* background: linear-gradient(to right, #17044d 0%, #1c2251 100%); */
+    background-color: rgb(255, 255, 255);
     width: 80%;
     padding: 30px;
     color: #FFFFFF;
+    margin: 10px;
+    border-radius: 10px;
 }
 
 .main-content h1 {
@@ -126,11 +130,13 @@ body, html {
 }
 
 .feature {
-    background-color: #9391911e;
+    background-color: #d7d4d437;
     padding: 20px;
     width: 30%;
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    border-bottom: 0.8px solid #9072e2 ;
+    border-right: 0.8px solid #9072e2;
+    box-shadow: 0px 3px 12px rgba(156, 84, 182, 0.501);
     margin-right: 20px;
 }
 
@@ -148,15 +154,29 @@ body, html {
 .feature li {
     margin-bottom: 10px;
     color: #555;
-    background-color: #9784a427;
+    /* background-color: rgba(149, 146, 146, 0.325); */
     border-radius: 8px;
     padding: 5px;
+    border-bottom: 0.5px solid #9072e2 ;
+    border-right: 0.5px solid #9072e2 ;
+    box-shadow: 1px 2px 12px rgba(156, 84, 182, 0.348);
+}
+.main-icon{
+    display: flex;
+    justify-content: center;        
+    margin-bottom: 15px;
+    color: black;
+}
+.main-icon svg {
+    font-size: 48px;          
+    width: 48px;             
+    height: 48px;             
 }
 
 .prompt-box {
     display: flex;
     align-items: center;
-    margin-top: 180px;
+    margin-top: 130px;
 }
 
 .prompt-box input {
@@ -188,10 +208,11 @@ body, html {
     font-size: 16px;
     border-radius: 8px;
     background-color: transparent;
-    transition: background-color 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .prompt-box button:hover{
-    background-color: #eeeaea;
+    color: white;
+    background-color: #9072e2 ;
     
 }
