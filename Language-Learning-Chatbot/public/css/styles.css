@@ -26,6 +26,7 @@ body {
   max-height: 80vh;
   position: relative;
   margin: auto;
+  margin-top: 25px;
   overflow: hidden;
 }
 
@@ -126,6 +127,11 @@ body {
   padding: 15px 50px;
   background-color: #ffffff;
   border-bottom: 3px solid #dcdcdc;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1000; 
+
 }
 
 .nav-links {
@@ -229,6 +235,27 @@ body {
 }
 
 @media (max-width: 768px) {
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    top: 100%;  
+    left: 50%;  
+    transform: translateX(-50%); 
+    width: max-content;
+  }
+
+  
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+
+
+  .dropdown-content a {
+    text-align: center;
+  }
   .nav-links {
       display: none;
       flex-direction: column;
@@ -1173,3 +1200,100 @@ a {
     padding: 20px;
   }
 }
+
+
+
+
+
+
+
+/*
+
+
+
+
+
+.about-us {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5%;
+  background: rgb(238, 235, 243);
+  margin-top: 100px;
+  margin-bottom: 150px;
+}
+
+.about-content {
+  margin-right: 100px;
+  max-width: 500px;
+  text-shadow: 2px 2px #898192;
+  color: #dddcde;
+}
+
+.about-content h2 {
+ 
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px #afa6bb;
+  color: #452692;
+}
+
+.about-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.about-image {
+  padding-left: 5%;
+}
+
+.about-img {
+  width: 80%;
+  height: auto;
+}/*
+
+/* Media query for mobile responsiveness *//*
+@media (max-width: 768px) {
+  .about-us {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+  }
+
+  .about-content {
+      margin: 0;
+      max-width: 100%;
+  }
+
+  .about-content h2 {
+      font-size: 28px;
+  }
+
+  .about-content p {
+      font-size: 16px;
+  }
+
+  .about-image {
+      padding-left: 0;
+      margin-bottom: 20px;
+  }
+
+  .about-img {
+      width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-content h2 {
+      font-size: 24px;
+  }
+
+  .about-content p {
+      font-size: 14px;
+  }
+
+  .about-img {
+      width: 100%;
+  }
+}
+*/
