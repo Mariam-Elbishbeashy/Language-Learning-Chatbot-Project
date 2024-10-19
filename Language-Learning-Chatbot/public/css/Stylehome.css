@@ -2,8 +2,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
     color: #333;
+    
 }
 
 .container {
@@ -13,7 +13,7 @@ body, html {
 
 
 .sidebar {
-    background: linear-gradient(to top, #681da2d1 0%, #f6f3ff 100%);
+    background: linear-gradient(to top, #7831aed1 0%, #f6f3ff 100%);
     color: black;
     width: 20%;
     display: flex;
@@ -33,13 +33,27 @@ body, html {
 }
 
 .menu li {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .menu li a {
     color: black;
     text-decoration: none;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 3px 3px;
+    border-radius: 20px;
+    width: 70%;
+    transition: all 0.5s ease;
+}
+.menu a:hover {
+    background-color: #eeeaea
+}
+.icon{
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
 }
 
 .chat-list h3 {
@@ -88,7 +102,7 @@ body, html {
 }
 
 .main-content {
-    background: linear-gradient(to top, #681da2d1 0%, #f6f3ff 100%);
+    background: linear-gradient(to top, #7831aed1 0%, #f6f3ff 100%);
     width: 80%;
     padding: 30px;
     color: #FFFFFF;
@@ -108,18 +122,22 @@ body, html {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+    width: 87%
 }
 
 .feature {
-    background-color: #FFF;
+    background-color: #9391911e;
     padding: 20px;
     width: 30%;
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
 }
 
 .feature h3 {
+    text-align: center;
     margin-bottom: 20px;
+    color: black;
 }
 
 .feature ul {
@@ -130,28 +148,50 @@ body, html {
 .feature li {
     margin-bottom: 10px;
     color: #555;
+    background-color: #9784a427;
+    border-radius: 8px;
+    padding: 5px;
 }
 
 .prompt-box {
     display: flex;
     align-items: center;
+    margin-top: 180px;
 }
 
 .prompt-box input {
     width: 80%;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #CCC;
+    border: 0.3px solid #CCC;
     margin-right: 10px;
+    background-color: transparent;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+.prompt-box input::placeholder {
+    color: #5a5858; 
+    opacity: 1; 
+}
+.prompt-box input:focus {
+    border-color: #CCC;
+    outline: none;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
 }
 
 .prompt-box button {
-    background-color: #eeeaea;
     color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
+    padding-top: 15px ;
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+}
+
+.prompt-box button:hover{
+    background-color: #eeeaea;
+    
 }
