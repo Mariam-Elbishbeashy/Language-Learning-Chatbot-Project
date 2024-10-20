@@ -119,21 +119,21 @@
             <div class="steps">
                 <!-- Step 1 -->
                 <div class="step">
-                    <img src="C:\Users\DELL\Downloads\LANGUA~2\LANGUA~1\LANGUA~1\public\images\AI-VID~1.WEB" alt="Upload Data">
-                    <h3>Choose Your Language</h3>
-                    <p>Select the language you want to learn and let our chatbot guide you through tailored lessons.</p>
+                    <img src="./images/ai-video-3d-icon-download-in-png-blend-fbx-gltf-file-formats--content-advertising-technology-artificial-intelligence-pack-science-icons-9473241.webp" alt="Upload Data">
+                    <h3>Track Your Progress and Analysis</h3>
+                    <p>Receive feedback and detailed analysis of your learning journey as you track your improvement over time.</p>
                 </div>
                 <!-- Step 2 -->
                 <div class="step">
                     <img src="./images/9473245.webp" alt="Train AI">
-                    <h3>Interactive Learning</h3>
-                    <p>Engage in conversations with the chatbot to practice speaking and comprehension skills.</p>
+                    <h3>Engage in Interactive Learning</h3>
+                    <p>Work on improving your grammar skills and engage in conversations with the chatbot to practice comprehension.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="step">
-                    <img src="C:\Users\DELL\Downloads\LANGUA~2\LANGUA~1\LANGUA~1\public\images\3D-REN~1.WEB" alt="Deploy Chatbot">
-                    <h3>Track Your Progress</h3>
-                    <p>Receive feedback and track your improvement as you progress through lessons.</p>
+                    <img src="./images/3d-render-of-purple-game-controller-joystick-side-icon-for-ui-ux-web-mobile-apps-social-media-ads-design-png.webp" alt="Deploy Chatbot">
+                    <h3>Gamified Learning</h3>
+                    <p>Stay motivated through fun quizzes, challenges, and interactive games designed to make learning enjoyable.</p>
                 </div>
             </div>
         </div>
