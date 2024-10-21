@@ -1,0 +1,121 @@
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+  .plan-section{
+    margin-bottom: 15px;
+  }
+  .main-content {
+    color: black;
+    justify-content: unset; 
+   }
+
+   .main-content p {
+    color: white;
+    margin-bottom: 10px; 
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3%;
+  }
+  
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .username {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 30px;
+    margin: 10px;
+    border-radius: 10px; 
+    box-shadow: 1px 2px 3px lightgray;
+  }
+  
+  .card img {
+    width: 35%; 
+    height: auto; 
+    object-fit: cover;
+  }
+  
+  .listening {
+    background-color: #50C3EF;
+    width: 30%;
+  }
+  
+  .reading {
+    background-color: #ec87cb;
+    width: 30%;
+
+  }
+  
+  .learn-words {
+    background-color: #967ff5;
+    width: 30%;
+  }
+  
+  .training-section {
+    width: 100%; 
+  }
+
+  .training-section .card {
+    background-color: #FFC2D4;
+    padding: 20px;
+    margin-top: 20px;
+    height: 100%;
+    padding-left: 3%;
+  }
+  .training-section .cards{
+    height: 60%;
+  }
+  
+  .card.grammar img{
+    width: 30%;
+    padding-right: 30px;
+
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px lightgray;
+  }
+
+  button:hover {
+    background-color: lightgrey;
+  }
+  
+  @media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .main-content{
+    width: 98%;
+  }
+  .card {
+    margin-bottom: 20px;
+    width: 90%;
+  }
+}
