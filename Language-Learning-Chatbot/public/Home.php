@@ -86,10 +86,10 @@
             </div>
             <button class="new-list-btn">New List</button>
             <div class="user-info">
-                <p>Courtney Henry</p>
-                <p>HenryJ@gmail.com</p>
-                <button class="upgrade-btn">Upgrade Now</button>
-            </div>
+    <p class="close">Courtney Henry</p>
+    <p class="close2">HenryJ@gmail.com</p>
+    <button class="upgrade-btn">Upgrade Now</button>
+</div>
         </div>
 
         <div class="main-content">
