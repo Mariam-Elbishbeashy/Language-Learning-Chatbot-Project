@@ -144,8 +144,8 @@
             </div>
             <div class="card grammar">
                 <div class= "card-content">
-                    <h3>Syntax Training</h3>
-                    <p>Present Simple</p>
+                    <h3>Vocabulary Training</h3>
+                    <p>3 lessons</p>
                     <button>Continue</button>
                 </div>
                 <img src="./images/pinch.png" alt="Grammar Training">
