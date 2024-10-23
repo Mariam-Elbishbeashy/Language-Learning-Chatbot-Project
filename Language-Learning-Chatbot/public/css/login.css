@@ -238,6 +238,14 @@ body {
   margin-top: 25px;
 }
 
+.welcome-message {
+  font-size: 18px;
+  font-weight: 600;
+  color: #330867;
+  margin-bottom: 20px;
+  text-align: center; 
+}
+
 .container #flip {
   display: none;
 }
