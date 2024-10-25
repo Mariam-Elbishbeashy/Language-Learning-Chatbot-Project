@@ -36,14 +36,14 @@ body {
     width: var(--containerWidth);
     background: #fff;
     text-align: center;
-    padding: 30px 25px 5px 25px; /* Further reduced padding */
+    padding: 30px 25px 5px 25px;
     box-shadow: rgba(0, 0, 0, 0.4) 0 5px 15px;
 }
 
 .container header {
-    font-size: 30px; /* Slightly smaller header */
+    font-size: 30px; 
     font-weight: 600;
-    margin: 0 0 20px 0; /* Reduced margin */
+    margin: 0 0 20px 0;
 }
 
 .container .form-outer {
@@ -63,21 +63,21 @@ body {
 
 .form-outer form .page .title {
     text-align: left;
-    font-size: 22px; /* Slightly smaller title */
+    font-size: 22px; 
     font-weight: 500;
 }
 
 .form-outer form .page .field {
-    width: 100%; /* Adjusted to 100% to maintain layout */
-    height: 38px; /* Further reduced height */
-    margin: 30px 0; /* Reduced margin between fields */
+    width: 100%; 
+    height: 35px; 
+    margin: 25px 0; 
     display: flex;
     position: relative;
 }
 
 form .page .field .label {
     position: absolute;
-    top: -22px; /* Adjusted label position */
+    top: -22px; 
     font-weight: 500;
 }
 
@@ -87,9 +87,9 @@ form .page .field input {
     width: 100%;
     border: 1px solid var(--inputBorderColor);
     border-radius: 5px;
-    padding-left: 12px; /* Reduced padding */
+    padding-left: 12px; 
     margin: 0 1px;
-    font-size: 15px; /* Slightly smaller font */
+    font-size: 15px; 
     transition: border-color 150ms ease;
 }
 
@@ -100,19 +100,19 @@ form .page .field input.invalid-input {
 form .page .field select {
     width: 100%;
     padding-left: 10px;
-    font-size: 15px; /* Reduced font size */
+    font-size: 15px; 
     font-weight: 500;
 }
 
 form .page .field button {
     width: 100%;
-    height: 42px; /* Further reduced button height */
+    height: 42px; 
     border: none;
     background: var(--secondary);
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    font-size: 16px; /* Slightly reduced font size */
+    font-size: 16px; 
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -129,7 +129,7 @@ form .page .btns button {
 
 form .page .btns button.prev {
     margin-right: 3px;
-    font-size: 16px; /* Slightly smaller button */
+    font-size: 16px; 
 }
 
 form .page .btns button.next {
@@ -138,7 +138,7 @@ form .page .btns button.next {
 
 .container .progress-bar {
     display: flex;
-    margin: 30px 0; /* Reduced margin */
+    margin: 30px 0; 
     user-select: none;
 }
 
@@ -150,13 +150,13 @@ form .page .btns button.next {
 
 .container .progress-bar .step p {
     font-weight: 500;
-    font-size: 16px; /* Reduced font size */
+    font-size: 16px;
     color: #000;
-    margin-bottom: 5px; /* Reduced margin */
+    margin-bottom: 5px; 
 }
 
 .progress-bar .step .bullet {
-    height: 20px; /* Further reduced size */
+    height: 20px; 
     width: 20px;
     border: 2px solid #000;
     display: inline-block;
@@ -164,7 +164,7 @@ form .page .btns button.next {
     position: relative;
     transition: 0.2s;
     font-weight: 500;
-    font-size: 14px; /* Reduced font size */
+    font-size: 14px; 
     line-height: 20px;
 }
 
@@ -188,9 +188,9 @@ form .page .btns button.next {
     position: absolute;
     content: "";
     bottom: 9px;
-    right: -45px; /* Adjusted size */
+    right: -45px; 
     height: 2px;
-    width: 38px; /* Adjusted size */
+    width: 38px; 
     background: #262626;
 }
 
@@ -221,7 +221,7 @@ form .page .btns button.next {
     position: absolute;
     left: 50%;
     top: 70%;
-    font-size: 14px; /* Slightly smaller */
+    font-size: 14px; 
     transform: translate(-50%, -50%);
     display: none;
 }
@@ -233,50 +233,53 @@ form .page .btns button.next {
 
 .radio-group {
     display: flex;
-    justify-content: space-between; /* Distributes radio buttons horizontally */
-    align-items: center; /* Aligns vertically in case of different heights */
+    justify-content: space-between; 
+    align-items: center; 
 }
 
 .radio {
     display: flex;
-    align-items: center; /* Aligns text and icons vertically */
-    margin-right: 15px; /* Adds some space between radio options */
-}
-
-.radio img {
-    margin-right: 8px; /* Adds space between the icon and the text */
+    align-items: center; 
+    margin-right: 15px; 
 }
 
 .success-message {
-    font-size: 20px; /* Larger font size for emphasis */
-    font-weight: 600; /* Bold text */
-    color: var(--primary); /* Use the primary color for consistency */
-    margin: 10px 0; /* Add some margin for spacing */
+    font-size: 20px; 
+    font-weight: 600; 
+    color: var(--primary); 
+    margin: 10px 0; 
 }
 
 .submit {
-    display: inline-block; /* Make it behave like a button */
-    width: 100%; /* Full width */
-    height: 42px; /* Button height */
-    border: none; /* No border */
-    background: var(--secondary); /* Background color */
-    border-radius: 5px; /* Rounded corners */
-    color: #fff; /* Text color */
-    cursor: pointer; /* Pointer on hover */
-    font-size: 16px; /* Font size */
-    font-weight: 500; /* Font weight */
-    letter-spacing: 1px; /* Letter spacing */
-    text-transform: uppercase; /* Uppercase text */
-    text-align: center; /* Centered text */
-    line-height: 42px; /* Center text vertically */
-    transition: 0.5s ease; /* Transition effect */
-    text-decoration: none; /* Remove underline */
+    display: inline-block; 
+    width: 100%; 
+    height: 42px; 
+    border: none; 
+    background: var(--secondary); 
+    border-radius: 5px; 
+    color: #fff; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: 500; 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+    text-align: center; 
+    line-height: 42px; 
+    transition: 0.5s ease; 
+    text-decoration: none; 
 }
 
 .submit:hover {
-    background: #000; /* Change background on hover */
+    background: #000; 
 }
 
+.error {
+    color: red;
+    font-size: 80%;
+    display: block;
+   
+  }
+  
 
 @media screen and (max-width: 660px) {
     :root {
