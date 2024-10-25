@@ -6,7 +6,6 @@ function validateNewPassword() {
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
-    // Reset error messages
     passwordError.textContent = "";
     confirmPasswordError.textContent = "";
 

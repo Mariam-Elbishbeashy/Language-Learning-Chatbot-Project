@@ -2,7 +2,6 @@ function validateEmail() {
     const email = document.getElementById("email").value.trim();
     const emailError = document.getElementById("emailError");
 
-    // Reset error message
     emailError.textContent = "";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
