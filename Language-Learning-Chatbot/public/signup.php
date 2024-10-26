@@ -165,7 +165,7 @@
                         <p class="success-message">You have successfully signed up!</p>
                     </div>
                     <div class="field btns">
-                        <a class="submit" href="../public/login.html">Got It</a>
+                        <a class="submit" href="../public/login.php">Got It</a>
                     </div>
                 </div>
             </form>

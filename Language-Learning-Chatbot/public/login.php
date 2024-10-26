@@ -42,7 +42,7 @@
                   <input type="password" id="loginPassword" placeholder="Enter your password"  >
                 </div>
                 <div class="error" id="loginPasswordError"></div> 
-                <div class="text"><a href="../public/forgotPassword.html">Forgot password?</a></div>
+                <div class="text"><a href="../public/forgotPassword.php">Forgot password?</a></div>
                 <div class="button input-box">
                   <input type="submit" value="Submit">
                 </div>

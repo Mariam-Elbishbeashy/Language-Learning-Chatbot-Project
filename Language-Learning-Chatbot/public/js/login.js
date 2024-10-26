@@ -73,6 +73,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
 document.getElementById("continueSignupBtn").addEventListener("click", function() {
     if (validateSignupForm()) {
-        window.location.href = "../public/signup.html";
+        window.location.href = "../public/signup.php";
     }
 });

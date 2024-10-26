@@ -33,5 +33,5 @@ function validateNewPassword() {
 }
 
 function goToLogin() {
-    window.location.href = '../public/login.html';
+    window.location.href = '../public/login.php';
 }

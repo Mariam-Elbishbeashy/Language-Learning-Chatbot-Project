@@ -16,7 +16,7 @@ function validateEmail() {
 }
 
 function goToResetCode() {
-    window.location.href = '../public/reset-code.html';
+    window.location.href = '../public/reset-code.php';
 }
 
 
