@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Learning Chatbot</title>
     <link rel="stylesheet" href="../public/css/styles.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -17,6 +18,7 @@
         </div>
         <div class="logo">
             <a href="#">
+
                 <img src="./images/ai-technology.png" id="logo-icon" alt="Chatbot">
                 chatbot
             </a>
@@ -30,18 +32,20 @@
                     <a href="#">Spanish</a>
                 </div>
             </li>
+
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#how-it-works">Features</a></li>
             <li><a href="#About">About</a></li>
         </ul>
-        <div class="auth-buttons">
-            <a href="#" class="signup-btn">Sign Up</a>
-            <a href="#" class="login-btn">Log In</a>
-        </div>
+         <div class="auth-buttons">
+          <a href="../public/login.php" class="login-btn">Log In</a>
+          <a href="../public/login.php?signup=true" class="signup-btn">Sign Up</a>
+           </div>
     </nav>
 
     <main>
         <div class="slideshow-container">
+
             <!-- First slide -->
             <section class="hero slide fade">
                 <div class="hero-text">
@@ -50,12 +54,14 @@
                     <div class="buttons">
                         <a class="button build-btn" href="#">Start Learning</a>
                         <a class="button watch-video-btn" href="#">Watch Demo</a>
+
                     </div>
                 </div>
                 <div class="chatbot-image">
                     <img src="../public/images/6605347.webp" alt="Chatbot">
                 </div>
             </section>
+
 
             <!-- Second slide -->
             <section class="hero slide fade">
@@ -65,9 +71,11 @@
                     <div class="buttons">
                         <a class="button build-btn" href="#">Get Started</a>
                         <a class="button watch-video-btn" href="#">Explore Features</a>
+
                     </div>
                 </div>
             </section>
+
 
             <!-- Third slide -->
             <section class="hero slide fade">
@@ -77,6 +85,7 @@
                     <div class="buttons">
                         <a class="button build-btn" href="#">Try It Now</a>
                         <a class="button watch-video-btn" href="#">Learn More</a>
+
                     </div>
                 </div>
             </section>
@@ -87,12 +96,14 @@
             </div>
         </div>
 
+
         <!-- Chatbot Section -->
         <section class="chatbot-section">
             <div class="chatbot-container">
                 <div class="chatbot-text">
                     <h2>Your Personal Language Tutor</h2>
                     <p>Engage in immersive conversations to improve your fluency. Our chatbot is designed to support your learning journey with personalized interactions.</p>
+
                 </div>
                 <div class="chatbot1-image">
                     <img src="./images/WhyConvoAi.png" alt="ConvoAI Illustration">
@@ -166,8 +177,10 @@
         </div>
     </section>
     
+
     <!-- Pricing Section -->
     <section class="pricing-plans" id="pricing">
+
         <h1>Affordable Pricing Plans</h1>
         <p>Choose a plan that's right for your business needs.</p>
         <div class="toggle-buttons">
@@ -175,7 +188,9 @@
             <button class="toggle-btn">Pay Yearly</button>
         </div>
         <div class="plans-container">
+
             <!-- Welcome Plan -->
+
             <div class="plan">
                 <h3>Welcome Plan</h3>
                 <p class="price">$0 / Month</p>
@@ -193,7 +208,9 @@
                     <li class="disabled">Integrations with other services</li>
                 </ul>
             </div>
+
             <!-- Standard Plan (Most Popular) -->
+
             <div class="plan popular">
                 <h3>Standard Plan</h3>
                 <p class="price" style="color: black;">$25 / Month</p>
@@ -211,7 +228,9 @@
                     <li class="disabled">Email support</li>
                 </ul>
             </div>
+
             <!-- Pro Plan -->
+
             <div class="plan">
                 <h3>Pro Plan</h3>
                 <p class="price">$100 / Month</p>

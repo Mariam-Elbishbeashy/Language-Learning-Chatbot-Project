@@ -1,0 +1,329 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --primary: #7d2ae8;
+    --secondary: #7d2ae8;
+    --errorColor: red;
+    --stepNumber: 6;
+    --containerWidth: 500px;
+    --bgColor: #7d2ae8;
+    --inputBorderColor: lightgray;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: url("https://i.pinimg.com/originals/39/6d/b5/396db544d568edf5624accb36eb8a2df.gif");
+    background-size: 100%;
+}
+
+::selection {
+    color: #fff;
+    background: var(--primary);
+}
+
+.container {    
+    width: var(--containerWidth);
+    background: #fff;
+    text-align: center;
+    padding: 30px 25px 5px 25px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 15px;
+}
+
+.container header {
+    font-size: 30px; 
+    font-weight: 600;
+    margin: 0 0 20px 0;
+}
+
+.container .form-outer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.container .form-outer form {
+    display: flex;
+    width: calc(100% * var(--stepNumber));
+}
+
+.form-outer form .page {
+    width: calc(100% / var(--stepNumber));
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.form-outer form .page .title {
+    text-align: left;
+    font-size: 22px; 
+    font-weight: 500;
+}
+
+.form-outer form .page .field {
+    width: 100%; 
+    height: 35px; 
+    margin: 25px 0; 
+    display: flex;
+    position: relative;
+}
+
+form .page .field .label {
+    position: absolute;
+    top: -22px; 
+    font-weight: 500;
+}
+
+form .page .field input {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 5px;
+    padding-left: 12px; 
+    margin: 0 1px;
+    font-size: 15px; 
+    transition: border-color 150ms ease;
+}
+
+form .page .field input.invalid-input {
+    border-color: var(--errorColor);
+}
+
+form .page .field select {
+    width: 100%;
+    padding-left: 10px;
+    font-size: 15px; 
+    font-weight: 500;
+}
+
+form .page .field button {
+    width: 100%;
+    height: 42px; 
+    border: none;
+    background: var(--secondary);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px; 
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+}
+
+form .page .field button:hover {
+    background: #000;
+}
+
+form .page .btns button {
+    margin-top: -20px !important;
+}
+
+form .page .btns button.prev {
+    margin-right: 3px;
+    font-size: 16px; 
+}
+
+form .page .btns button.next {
+    margin-left: 3px;
+}
+
+.container .progress-bar {
+    display: flex;
+    margin: 30px 0; 
+    user-select: none;
+}
+
+.container .progress-bar .step {
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+.container .progress-bar .step p {
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 5px; 
+}
+
+.progress-bar .step .bullet {
+    height: 20px; 
+    width: 20px;
+    border: 2px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 14px; 
+    line-height: 20px;
+}
+
+.progress-bar .step .bullet.active {
+    border-color: var(--primary);
+    background: var(--primary);
+}
+
+.progress-bar .step .bullet span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.progress-bar .step .bullet.active span {
+    display: none;
+}
+
+.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after {
+    position: absolute;
+    content: "";
+    bottom: 9px;
+    right: -45px; 
+    height: 2px;
+    width: 38px; 
+    background: #262626;
+}
+
+.progress-bar .step .bullet.active:after {
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+}
+
+@keyframes animate {
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after {
+    display: none;
+}
+
+.progress-bar .step p.active {
+    color: var(--primary);
+    transition: 0.2s linear;
+}
+
+.progress-bar .step .check {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    font-size: 14px; 
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.progress-bar .step .check.active {
+    display: block;
+    color: #fff;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.radio {
+    display: flex;
+    align-items: center; 
+    margin-right: 15px; 
+}
+
+.success-message {
+    font-size: 20px; 
+    font-weight: 600; 
+    color: var(--primary); 
+    margin: 10px 0; 
+}
+
+.submit {
+    display: inline-block; 
+    width: 100%; 
+    height: 42px; 
+    border: none; 
+    background: var(--secondary); 
+    border-radius: 5px; 
+    color: #fff; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: 500; 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+    text-align: center; 
+    line-height: 42px; 
+    transition: 0.5s ease; 
+    text-decoration: none; 
+}
+
+.submit:hover {
+    background: #000; 
+}
+
+.error {
+    color: red;
+    font-size: 80%;
+    display: block;
+   
+  }
+  
+
+@media screen and (max-width: 660px) {
+    :root {
+        --containerWidth: 400px;
+    }
+
+    .progress-bar .step p {
+        display: none;
+    }
+
+    .progress-bar .step .bullet::after,
+    .progress-bar .step .bullet::before {
+        display: none;
+    }
+
+    .progress-bar .step .bullet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .progress-bar .step .check {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 15px;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+
+    .step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    :root {
+        --containerWidth: 100%;
+    }
+
+    .container {
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+}
