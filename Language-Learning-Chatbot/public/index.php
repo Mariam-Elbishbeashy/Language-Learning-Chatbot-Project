@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Learning Chatbot</title>
     <link rel="stylesheet" href="../public/css/styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <nav class="navbar">
@@ -15,7 +18,8 @@
         </div>
         <div class="logo">
             <a href="#">
-                <img src="./images/ai-technology.png" id="logo-icon"alt="Chatbot">
+
+                <img src="./images/ai-technology.png" id="logo-icon" alt="Chatbot">
                 chatbot
             </a>
         </div>
@@ -28,11 +32,12 @@
                     <a href="#">Spanish</a>
                 </div>
             </li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">About</a></li>
+
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how-it-works">Features</a></li>
+            <li><a href="#About">About</a></li>
         </ul>
-        <div class="auth-buttons">
+         <div class="auth-buttons">
           <a href="../public/login.php" class="login-btn">Log In</a>
           <a href="../public/login.php?signup=true" class="signup-btn">Sign Up</a>
            </div>
@@ -40,13 +45,16 @@
 
     <main>
         <div class="slideshow-container">
+
+            <!-- First slide -->
             <section class="hero slide fade">
                 <div class="hero-text">
-                    <h1>AI Chatbot Trained On Your Custom Data</h1>
-                    <p>This chatbot platform offers support and resolves queries of customers through the use of fine-tuned custom AI models.</p>
+                    <h1>Learn Languages Effortlessly with AI</h1>
+                    <p>Our AI language learning chatbot is here to guide you through interactive conversations, helping you grasp new languages at your own pace.</p>
                     <div class="buttons">
-                        <a class="button build-btn" href="#">Build Your ChatBot</a>
-                        <a class="button watch-video-btn" href="#">Watch Video</a>
+                        <a class="button build-btn" href="#">Start Learning</a>
+                        <a class="button watch-video-btn" href="#">Watch Demo</a>
+
                     </div>
                 </div>
                 <div class="chatbot-image">
@@ -54,24 +62,30 @@
                 </div>
             </section>
 
+
+            <!-- Second slide -->
             <section class="hero slide fade">
                 <div class="hero-text">
-                    <h1>Transform Your Business with AI</h1>
-                    <p>Our platform integrates AI with your business, enhancing customer engagement with powerful chatbots trained on your specific data.</p>
+                    <h1>Enhance Your Vocabulary and Skills</h1>
+                    <p>With tailored lessons and real-time feedback, our chatbot adapts to your learning style, making language acquisition enjoyable and effective.</p>
                     <div class="buttons">
                         <a class="button build-btn" href="#">Get Started</a>
-                        <a class="button watch-video-btn" href="#">Learn More</a>
+                        <a class="button watch-video-btn" href="#">Explore Features</a>
+
                     </div>
                 </div>
             </section>
 
+
+            <!-- Third slide -->
             <section class="hero slide fade">
                 <div class="hero-text">
-                    <h1>Enhance Your Customer Experience</h1>
-                    <p>Provide 24/7 customer support and boost satisfaction using AI-powered chatbots tailored to your audience.</p>
+                    <h1>Practice Anytime, Anywhere</h1>
+                    <p>Our chatbot is available 24/7, providing you with instant language practice, whether you're at home or on the go.</p>
                     <div class="buttons">
-                        <a class="button build-btn" href="#">Start Now</a>
-                        <a class="button watch-video-btn" href="#">Explore</a>
+                        <a class="button build-btn" href="#">Try It Now</a>
+                        <a class="button watch-video-btn" href="#">Learn More</a>
+
                     </div>
                 </div>
             </section>
@@ -81,12 +95,15 @@
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
         </div>
-        
+
+
+        <!-- Chatbot Section -->
         <section class="chatbot-section">
             <div class="chatbot-container">
                 <div class="chatbot-text">
-                    <h2>Chatbot</h2>
-                    <p>Convert conversations into growth opportunities by engaging customers where they are – on their favorite messaging channel.</p>
+                    <h2>Your Personal Language Tutor</h2>
+                    <p>Engage in immersive conversations to improve your fluency. Our chatbot is designed to support your learning journey with personalized interactions.</p>
+
                 </div>
                 <div class="chatbot1-image">
                     <img src="./images/WhyConvoAi.png" alt="ConvoAI Illustration">
@@ -94,8 +111,61 @@
             </div>
         </section>
 
-       
     </main>
+    <section class="block-section1"> 
+        <div class="block-image">
+            <img src="./images/Screenshot 2024-10-18 221736-Photoroom.png" alt="Chatbot Image" class="block-img">
+        </div>
+        <div class="block-content">
+            <h1>Start Your Language Learning Journey Today</h1>
+            <p>Unlock the potential of our AI chatbot to make language learning fun and effective. Join now for a personalized experience!</p>
+            <button class="cta-btn">Start Free Trial</button>
+        </div>
+    </section>
+    <hr>
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <p>Empower Your Language Skills with AI</p>
+            <div class="steps">
+                <!-- Step 1 -->
+                <div class="step">
+                    <img src="./images/ai-video-3d-icon-download-in-png-blend-fbx-gltf-file-formats--content-advertising-technology-artificial-intelligence-pack-science-icons-9473241.webp" alt="Upload Data">
+                    <h3>Track Your Progress and Analysis</h3>
+                    <p>Receive feedback and detailed analysis of your learning journey as you track your improvement over time.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="step">
+                    <img src="./images/9473245.webp" alt="Train AI">
+                    <h3>Engage in Interactive Learning</h3>
+                    <p>Work on improving your grammar skills and engage in conversations with the chatbot to practice comprehension.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="step">
+                    <img src="./images/3d-render-of-purple-game-controller-joystick-side-icon-for-ui-ux-web-mobile-apps-social-media-ads-design-png.webp" alt="Deploy Chatbot">
+                    <h3>Gamified Learning</h3>
+                    <p>Stay motivated through fun quizzes, challenges, and interactive games designed to make learning enjoyable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="integration-section">
+      <div class="icons">
+          <img src="./images/idea.png" alt="Notion">
+          <img src="./images/word.png" alt="Word">
+          <img src="./images/google-drive.png" alt="Google Drive">
+          <img src="./images/slack.png" alt="Slack">
+          <img src="./images/whatsapp.png" alt="WhatsApp">
+      </div>
+      <h1>Our Chatbots Integrate With Your Channels</h1>
+      <p>Let our chatbots help your customers across multiple social media channels at once.</p>
+  </section>
+ 
+  <div class="whatsapp-button" onclick="openWhatsApp()">
+    <i class="fab fa-whatsapp"></i>
+</div>
+
     <section class="block-section"> 
         <div class="block-image">
             <img src="./images/Intelligent-robot-digital-life-intelligence-technological-sense-luminous-efficiency_133025_wh860-removebg.png" alt="Chatbot Image" class="block-img">
@@ -107,7 +177,10 @@
         </div>
     </section>
     
-    <section class="pricing-plans">
+
+    <!-- Pricing Section -->
+    <section class="pricing-plans" id="pricing">
+
         <h1>Affordable Pricing Plans</h1>
         <p>Choose a plan that's right for your business needs.</p>
         <div class="toggle-buttons">
@@ -115,6 +188,9 @@
             <button class="toggle-btn">Pay Yearly</button>
         </div>
         <div class="plans-container">
+
+            <!-- Welcome Plan -->
+
             <div class="plan">
                 <h3>Welcome Plan</h3>
                 <p class="price">$0 / Month</p>
@@ -132,6 +208,9 @@
                     <li class="disabled">Integrations with other services</li>
                 </ul>
             </div>
+
+            <!-- Standard Plan (Most Popular) -->
+
             <div class="plan popular">
                 <h3>Standard Plan</h3>
                 <p class="price" style="color: black;">$25 / Month</p>
@@ -149,6 +228,9 @@
                     <li class="disabled">Email support</li>
                 </ul>
             </div>
+
+            <!-- Pro Plan -->
+
             <div class="plan">
                 <h3>Pro Plan</h3>
                 <p class="price">$100 / Month</p>

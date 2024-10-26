@@ -26,6 +26,7 @@ body {
   max-height: 80vh;
   position: relative;
   margin: auto;
+  margin-top: 25px;
   overflow: hidden;
 }
 
@@ -126,6 +127,11 @@ body {
   padding: 15px 50px;
   background-color: #ffffff;
   border-bottom: 3px solid #dcdcdc;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1000; 
+
 }
 
 .nav-links {
@@ -229,6 +235,27 @@ body {
 }
 
 @media (max-width: 768px) {
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    top: 100%;  
+    left: 50%;  
+    transform: translateX(-50%); 
+    width: max-content;
+  }
+
+  
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+
+
+  .dropdown-content a {
+    text-align: center;
+  }
   .nav-links {
       display: none;
       flex-direction: column;
@@ -236,7 +263,7 @@ body {
       position: absolute;
       top: 60px;
       left: 0;
-      background-color: #dcc2ff;
+      background-color: #f7f1ff;
       gap: 10px;
       z-index: 10;
       margin-top: 14px;
@@ -249,12 +276,20 @@ body {
   .hero:nth-child(1) .chatbot-image {
     display: none;
   }
-  .navbar{
-    padding: 15px 15px
+  .buttons {
+    justify-content: center;
+    align-items: center; 
+    margin-bottom: 20px; 
+    left: 50%;
   }
+  .navbar{
+    padding: 15px 15px;
+  }
+
   .logo{
     flex-grow: 10;
   }
+
   .auth-buttons {
       gap: 10px;
       margin-top: 10px;
@@ -265,6 +300,7 @@ body {
   .nav-links li {
       text-align: center;
       padding: 15px 0;
+      border-bottom: 1px solid #d1cece;
   }
 
   .ris {
@@ -291,13 +327,29 @@ body {
       margin-left: 0;
   }
 
+  .chatbot-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .chatbot-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chatbot-text {
+    margin: 0;
+    max-width: 100%;
+    font-size: 10px;
+  }
+
   .chatbot-image {
-      margin-right: 0;
-      margin-top: 20px;
+    margin-top: 30px;
   }
 
   .chatbot-image img {
-      width: 80%;
+      width: 90%;
   }
 }
 
@@ -311,7 +363,7 @@ body {
 .hamburger .bar {
   width: 20px;
   height: 2px;
-  background-color: #7d3cff;
+  background-color: #773bf0;
 }
 
 /* Responsive Menu Toggle */
@@ -332,7 +384,7 @@ body {
 
 /* chatbot Section */
 .chatbot-section {
-  padding: 80px 50px;
+  padding: 10% 5%;
   background-color: #f9f9f9;
 }
 
@@ -348,10 +400,11 @@ body {
   flex: 1;
   max-width: 50%;
   margin-right: 20%;
+  margin-left: 10%;
 }
 
 .chatbot-text h2 {
-  font-size: 4rem;
+  font-size: 3rem;
   color: #7d3cff;
   font-weight: bold;
   margin-bottom: 20px;
@@ -365,7 +418,7 @@ body {
 
 .chatbot1-image {
   flex: 1;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .chatbot1-image img {
@@ -374,15 +427,63 @@ body {
 }
 
 
+/*how it works*/
+.container {
+  padding: 90px 50px;
+  color: #fff; 
+  text-align: center;
+}
 
+.how-it-works h2 {
+  font-size: 3rem;
+  color: #452692;
+  text-shadow: 1px 1px 10px #847f96;
+  margin-bottom: 20px;
+}
 
+.how-it-works p {
+  font-size: 1.2rem;
+  color: #4c2c9e;
+  margin-bottom: 50px;
+}
 
+.steps {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
 
+.step {
+  flex: 1;
+  background-color: #f1f1edcb;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 2px 15px #3d2679;
+}
 
+.step img {
+  width: 50%;
+  height: 50%;
+  margin-bottom: 20px;
+}
 
+.step h3 {
+  font-size: 1.5rem;
+  color: #3d2679;
+  margin-bottom: 15px;
+}
 
+.step p {
+  font-size: 1rem;
+  color: #5b5374;
+}
 
-
+@media (max-width: 768px) {
+  .steps {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
 
 
 /* Core Features Section */
@@ -465,45 +566,19 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*pricing*/
 .pricing-plans {
   text-align: center;
   padding: 60px 20px;
   background-color: #f8f9fa;
+  margin-top: 12px;
 }
 
 .pricing-plans h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
   text-shadow: 2px 2px #afa6bb;
-  color: #2b1a5e;
+  color: #452692;
 }
 
 .pricing-plans p {
@@ -519,7 +594,7 @@ body {
 
 
 .toggle-btn {
-  padding: 8px 16px;
+  padding: 10px 18px;
   text-decoration: none;
   border-radius: 5px;
   border: 2px solid #7d3cff;
@@ -547,7 +622,7 @@ body {
 .plans-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 40px;
   flex-wrap: wrap; 
 }
 
@@ -557,7 +632,7 @@ body {
   border-radius: 8px;
   padding: 20px;
   width: 300px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 7px #633bc9;
   margin-bottom: 20px; }
 
 .plan.popular {
@@ -665,7 +740,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px;
+  padding: 5%;
   background-image: linear-gradient(-45deg, #883cba, #ca8dd6);
   color: white;
 }
@@ -701,12 +776,11 @@ body {
 }
 
 .block-image {
-  flex-shrink: 0; 
-  padding-left: 20px; 
+  padding-left: 7%; 
 }
 
 .block-img {
-  width: 60%; 
+  width: 80%; 
   height: auto; 
 }
 
@@ -1045,7 +1119,7 @@ a {
 
 
 /* Media Query For different screens */
-@media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+@media (min-width:320px) and (max-width:479px)  { 
   .footer-content {
     margin-left: auto;
     margin-right: auto;
@@ -1054,7 +1128,7 @@ a {
     position: relative;
   }
 }
-@media (min-width:480px) and (max-width:599px)  { /* smartphones, Android phones, landscape iPhone */
+@media (min-width:480px) and (max-width:599px)  {
   .footer-content {
     margin-left: auto;
     margin-right: auto;
@@ -1063,7 +1137,7 @@ a {
     position: relative;
   }
 }
-@media (min-width:600px) and (max-width: 800px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+@media (min-width:600px) and (max-width: 800px)  { 
   .footer-content {
     margin-left: auto;
     margin-right: auto;
@@ -1072,13 +1146,13 @@ a {
     position: relative;
   }
 }
-@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width:801px)  { 
 
 }
-@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+@media (min-width:1025px) { 
 
 }
-@media (min-width:1281px) { /* hi-res laptops and desktops */
+@media (min-width:1281px) { 
 
 }
 
@@ -1106,4 +1180,222 @@ a {
   /* .footer-content-column {
       width: 49.99%;
   } */
+}
+
+
+
+.block-section1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px;
+  background-image: linear-gradient(-45deg, #ba61f5, #e8caee);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .block-section1 {
+    flex-direction: column; 
+    text-align: center; 
+    padding: 20px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.integration-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 40px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  position: relative;
+  width: 80%;
+  height: 600px;
+  margin: 50px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.integration-section::before,
+.integration-section::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+}
+
+.integration-section::before {
+  top: -50px;
+  left: -50px;
+}
+
+.integration-section::after {
+  bottom: -50px;
+  right: -50px;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin-bottom: 30px;
+}
+
+.icons img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.integration-section h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.integration-section p {
+  font-size: 1.3em;
+  color: #777;
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+.cta-button {
+  background-color: #3d2679;
+  color: white;
+  padding: 20px 40px;
+  font-size: 1.3em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #6c3d87;
+}
+
+/* Responsive Design */
+
+/* Medium screens (tablets, 768px and above) */
+@media (max-width: 768px) {
+  .integration-section {
+      padding: 80px 30px;
+      width: 90%;
+      height: auto; 
+  }
+  
+  .integration-section h1 {
+      font-size: 2em;
+  }
+  
+  .integration-section p {
+      font-size: 1.1em;
+  }
+  
+  .icons {
+      width: 80%; 
+  }
+  
+  .icons img {
+      width: 60px;
+      height: 60px;
+  }
+}
+
+/* Small screens (mobile devices, 480px and below) */
+@media (max-width: 480px) {
+  .integration-section {
+      padding: 60px 20px;
+      width: 95%;
+      height: auto; 
+  }
+  
+  .integration-section h1 {
+      font-size: 1.8em;
+  }
+  
+  .integration-section p {
+      font-size: 1em;
+  }
+  
+  .icons {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+  }
+  
+  .icons img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px; 
+  }
+  
+  .cta-button {
+      padding: 15px 30px;
+      font-size: 1.1em;
+  }
+}
+
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366; 
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px; 
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.whatsapp-button:hover {
+  background-color: #20b857; 
+}
+
+.whatsapp-button i {
+  margin: 0; 
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .whatsapp-button {
+      width: 50px;
+      height: 50px;
+      font-size: 24px; 
+      bottom: 15px;
+      right: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .whatsapp-button {
+      width: 45px;
+      height: 45px;
+      font-size: 20px; 
+      bottom: 10px;
+      right: 10px;
+  }
 }
