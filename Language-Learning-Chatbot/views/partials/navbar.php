@@ -4,7 +4,7 @@
             </div>
             <ul class="menu">
                 <li>
-                    <a href="#">
+                    <a href="home.php">
                         <span class="icon">
                             <i class="bi bi-chat-dots"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
@@ -67,7 +67,7 @@
             </div>
             <button class="new-list-btn">New List</button>
             <div class="user-info">
-                <a href="#" class="user-profile">
+                <a href="userProfile.php" class="user-profile">
                     <span class="user-icon">
                         <i class="bi bi-person-circle"></i>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -76,7 +76,7 @@
                         </svg>
                     </span>
                 </a>
-                <a href="../../public/index.php" class="logout">
+                <a href="index.php" class="logout">
                 <span class="logout-icon">
                         <i class="bi bi-box-arrow-left"></i>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">

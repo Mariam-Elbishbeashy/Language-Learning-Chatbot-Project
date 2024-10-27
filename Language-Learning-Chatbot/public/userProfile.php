@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
- <div class="container">
+ <div class="container" style= "padding-right: 0px; padding-left: 0px;">
     <?php include "../views/partials/navbar.php"; ?>
     <div class="main-content">
         <div class="row gutters">
@@ -23,11 +23,11 @@
                                 </div>
                             </div>
                             <div class="text-center mt-4 my-3">
-                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('uploadProfilePic').click()">Change Profile Picture</button>
+                                <button type="button" class="btn" style="border: 1px solid lightgrey" onclick="document.getElementById('uploadProfilePic').click()">Change Profile Picture</button>
                                 <input type="file" id="uploadProfilePic" style="display:none" onchange="previewImage(event)">
                             </div>
                             <div class="text-center about">
-                                <h5 style= color:black;>About</h5>
+                                <h5 style= color:#4D1193;>About</h5>
                                 <p>I'm Yuki, a Full Stack Designer. I enjoy creating user-centric, delightful, and human experiences.</p>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                         <!-- Personal Details Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                                <h6 class="mb-2 " style="color:#4D1193;">Personal Details</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -71,7 +71,7 @@
                         <!-- Account Information Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 text-primary">Account Information</h6>
+                                <h6 class="mt-3 mb-2 " style="color:#4D1193;">Account Information</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -106,7 +106,7 @@
                         <!-- Login Credentials Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 text-primary">Login Credentials</h6>
+                                <h6 class="mt-3 mb-2" style="color:#4D1193;">Login Credentials</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
