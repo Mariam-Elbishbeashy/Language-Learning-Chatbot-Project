@@ -19,7 +19,7 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="text-center user-avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User Profile Picture" style=border-radius:50%;>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User Profile Picture" style="border-radius:50%; width: 100%">
                                 </div>
                             </div>
                             <div class="text-center mt-4 my-3">
@@ -59,7 +59,11 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="gender">Gender</label>
-                                    <input type="text" class="form-control" id="gender" placeholder="Enter gender">
+                                    <select class="form-control" id="gender">
+                                        <option value="" disabled selected>Select gender</option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +83,7 @@
                                 <div class="form-group">
                                     <label for="role">Role</label>
                                     <select class="form-control" id="role">
+                                        <option value="" disabled selected>Select role</option>
                                         <option value="tutor">Tutor</option>
                                         <option value="admin">Admin</option>
                                         <option value="student">Student</option>
@@ -89,6 +94,7 @@
                                 <div class="form-group">
                                     <label for="language">Language</label>
                                     <select class="form-control" id="language">
+                                        <option value="" disabled selected>Select language</option>
                                         <option value="english">English</option>
                                         <option value="french">French</option>
                                         <option value="spanish">Spanish</option>
@@ -133,5 +139,6 @@
     </div>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../public/js/userProfile.js"></script>
 </body>
 </html>
