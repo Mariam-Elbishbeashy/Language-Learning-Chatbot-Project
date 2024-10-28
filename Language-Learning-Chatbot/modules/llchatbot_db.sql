@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2024 at 11:09 AM
+-- Generation Time: Oct 28, 2024 at 09:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -36,6 +36,29 @@ CREATE TABLE `activities` (
   `vocab` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `Id` int(11) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `comfirmPassword` varchar(128) NOT NULL,
+  `firstName` text NOT NULL,
+  `lastName` text NOT NULL,
+  `gender` text NOT NULL,
+  `role` text NOT NULL,
+  `language` text NOT NULL,
+  `score` text NOT NULL,
+  `profileImage` text NOT NULL,
+  `progress` int(11) NOT NULL,
+  `postsCount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -47,6 +70,13 @@ ALTER TABLE `activities`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -55,6 +85,12 @@ ALTER TABLE `activities`
 --
 ALTER TABLE `activities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
