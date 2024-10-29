@@ -1,3 +1,15 @@
+<?php
+session_start();
+include_once "../config/dbh.inc.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Store first name and last name in session variables
+    $_SESSION['firstName'] = htmlspecialchars($_POST['firstName']);
+    $_SESSION['lastName'] = htmlspecialchars($_POST['lastName']);
+    header("Location: ../public/signup.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -52,21 +64,21 @@
           </div>
           <div class="signup-form">
             <div class="title">Signup</div>
-            <form action="#" id="signupForm">
+            <form action="" id="signupForm" method="post">
               <div class="input-boxes">
                 <div class="welcome-message">Welcome! Let's create your account.</div>
                 <div class="input-box">
                   <i class="fas fa-user"></i>
-                  <input type="text" id="firstName" placeholder="Enter your first name"  >
+                  <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"  >
                 </div>
                 <div class="error" id="firstNameError"></div> 
                 <div class="input-box">
                   <i class="fas fa-user"></i>
-                  <input type="text" id="lastName" placeholder="Enter your last name"  >
+                  <input type="text" id="lastName" name="lastName" placeholder="Enter your last name"  >
                 </div>
                 <div class="error" id="lastNameError"></div> 
                 <div class="button input-box">
-                  <button type="button" class="continue-signup-btn" id="continueSignupBtn">Continue to Signup</button>
+                <button type="submit" class="continue-signup-btn" id="continueSignupBtn">Continue to Signup</button>
                 </div>            
                 <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
               </div>
@@ -77,5 +89,3 @@
   </div>
 
   <script src="../public/js/login.js"></script>
-</body>
-</html>

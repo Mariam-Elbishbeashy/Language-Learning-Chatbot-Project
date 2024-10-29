@@ -1,3 +1,55 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['firstName']) || !isset($_SESSION['lastName'])) {
+    header("Location: ../public/login.php");
+    exit();
+}
+
+// Retrieve names from session
+$firstName = $_SESSION['firstName'];
+$lastName = $_SESSION['lastName'];
+
+include_once "../config/dbh.inc.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = htmlspecialchars($_POST["email"]);
+    $username = htmlspecialchars($_POST["username"]);
+    $password = htmlspecialchars($_POST["password"]);
+    $confirmPassword = htmlspecialchars($_POST["confirmPassword"]);
+    $gender = htmlspecialchars($_POST["gender"]);
+    $role = htmlspecialchars($_POST["role"]);
+    $language = htmlspecialchars($_POST["language"]);
+
+    $sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
+    $result = mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
+
+    if ($num == 0) {
+        if ($password === $confirmPassword) {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "INSERT INTO users (firstName, lastName, username, password, email, gender, role, language) 
+                    VALUES ('$firstName', '$lastName', '$username', '$hash', '$email', '$gender', '$role', '$language')";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result) {
+                unset($_SESSION['firstName']);
+                unset($_SESSION['lastName']);
+                header("Location: ../public/login.php");
+                exit();
+            } else {
+                $error = "Database error: " . mysqli_error($conn);
+            }
+        } else {
+            $error = "Passwords do not match.";
+        }
+    } else {
+        $error = "Username or email not available.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,17 +109,17 @@
         </div>
 
         <div class="form-outer">
-            <form id="signupForm" action="#">
+            <form id="signupForm" action="" method="post">
                 <div class="page slide-page">
                     <div class="title">Contact:</div>
                     <div class="field">
                         <div class="label">Email Address</div>
-                        <input type="text" id="email" />
+                        <input type="text" id="email" name="email" />
                     </div>
                     <div class="error" id="emailError"></div> 
                     <div class="field">
                         <div class="label">Username</div>
-                        <input type="text" id="username"   />
+                        <input type="text" id="username"  name="username" />
                     </div>
                     <div class="error" id="usernameError"></div> 
                     <div class="field">
@@ -79,12 +131,12 @@
                     <div class="title">Security:</div>
                     <div class="field">
                         <div class="label">Password</div>
-                        <input type="password" id="password">
+                        <input type="password" id="password" name="password">
                     </div>
                     <div class="error" id="passwordError"></div> 
                     <div class="field">
                         <div class="label">Confirm Password</div>
-                        <input type="password" id="confirmPassword"   />
+                        <input type="password" id="confirmPassword" name="confirmPassword" />
                     </div>
                     <div class="error" id="confirmPasswordError"></div> 
                     <div class="field btns">
@@ -142,17 +194,14 @@
                     <div class="title">Languages:</div>
                     <div class="field">
                         <div class="label">Select Language</div>
-                        <select id="language"  >
+                        <select id="language" name="language" >
                             <option value="" disabled selected>Select a language</option>
                             <option value="english">English</option>
-                            <option value="spanish">Spanish</option>
                             <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="chinese">Chinese</option>
-                            <option value="japanese">Japanese</option>
+                            <option value="spanish">Spanish</option>
                         </select>
                     </div>
-                    <div class="error" id="languageError"></div> <!-- Error message -->
+                    <div class="error" id="languageError"></div> 
                     <div class="field btns">
                         <button class="prev-4 prev">Previous</button>
                         <button class="next-4 next">Next</button>
@@ -165,7 +214,7 @@
                         <p class="success-message">You have successfully signed up!</p>
                     </div>
                     <div class="field btns">
-                        <a class="submit" href="../public/login.php">Got It</a>
+                        <input type ="submit" class="submit" value="Sign Up"></a>
                     </div>
                 </div>
             </form>
@@ -175,3 +224,4 @@
     <script src="../public/js/signup.js"></script>
 </body>
 </html>
+
