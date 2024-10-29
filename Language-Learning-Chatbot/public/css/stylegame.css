@@ -81,6 +81,12 @@ body {
     background-color: #50C3EF;
     width: 30%;
   }
+  #quiz-total-points-pic{
+    width: 20px;
+  }
+  #quiz-total-points-score{
+    font-size: 15px;
+  }
 /* Overlay Style */
 .popup-overlay {
   display: none;
@@ -197,6 +203,79 @@ body {
     background-color: #967ff5;
     width: 30%;
   }
+  #gamespopupOverlay .popup-content {
+    width: 20%;
+    height: 50%;
+    position: relative; 
+    overflow: auto; 
+}
+
+#gamesForm h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#gamesForm ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+}
+
+#gamesForm ul li {
+    text-align: center;
+}
+
+#gamesForm ul li button {
+    text-decoration: none; 
+    font-size: 18px;
+    padding: 20px; 
+    border: 2px solid #967ff5; 
+    border-radius: 5px; 
+    background-color: #967ff5; 
+    transition: background-color 0.3s, color 0.3s; 
+    color: white;
+    box-shadow: 1px 2px 3px lightgray; 
+    display: block; 
+    height: 100%;
+}
+
+#gamesForm ul li button:hover {
+    background-color: transparent; 
+    color: #967ff5; 
+}
+#gamesForm .quiz-buttons{
+  margin-left: 10px;
+}
+
+#gameInfoPopup .popup-content {
+  width: 25%; 
+  height: auto; 
+  text-align: center;
+}
+#wordGuessingGame .popup-content {
+  width: 20%;
+  height: 20%;
+  text-align: center;
+}
+#spellingBeeGame .popup-content {
+  width: 20%;
+  height: 25%;
+  text-align: center;
+}
+#wordAssociationGame .popup-content {
+  width: 20%;
+  height: 25%;
+  text-align: center;
+}
+#scrambledWordsGame .popup-content {
+  width: 20%;
+  height: 25%;
+  text-align: center;
+}
+
+
   
   .training-section {
     width: 100%; 

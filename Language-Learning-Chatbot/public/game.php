@@ -114,26 +114,31 @@
                 <div class="card listening">
                     <div class= "card-content">
                         <h3>Quizzes</h3>
-                        <p>785 Words</p>
+                        <p>     
+                            <div class="points">
+                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-total-points-pic">
+                                <span class="score" id="quiz-total-points-score" >25</span>
+                            </div>
+                        </p>
                         <button onclick="openPopup()">Start</button>
                     </div>
                     <img src="./images/online-exam.png" alt="Listening">
-                    <div id="popupOverlay" class="popup-overlay" onclick="closePopup()">
+                    <div id="popupOverlay" class="popup-overlay" onclick="confirmCancel()">
                         <div class="popup-content" onclick="event.stopPropagation()">
                             <span class="close-btn" onclick="confirmCancel()">&times;</span>
 
                             <form id="quizForm">
-                            <div class="quiz-buttons">
-                                <!-- Question 1: Multiple Choice -->
-                                <div class="question">
-                                    <p><strong>1. What is the opposite of 'hot'?</strong></p>
-                                    <input type="radio" name="question1" value="Cold" required> Cold<br>
-                                    <input type="radio" name="question1" value="Warm"> Warm<br>
-                                    <input type="radio" name="question1" value="Cool"> Cool<br>
-                                    <span class="feedback" id="feedback1"></span> <!-- Feedback placeholder -->
+                                <div class="quiz-buttons">
+                                    <!-- Question 1: Multiple Choice -->
+                                    <div class="question">
+                                        <p><strong>1. What is the opposite of 'hot'?</strong></p>
+                                        <input type="radio" name="question1" value="Cold" required> Cold<br>
+                                        <input type="radio" name="question1" value="Warm"> Warm<br>
+                                        <input type="radio" name="question1" value="Cool"> Cool<br>
+                                        <span class="feedback" id="feedback1"></span> <!-- Feedback placeholder -->
+                                    </div>
+                                    <img src="./images/quiz.png" alt="quiz picture">
                                 </div>
-                                <img src="./images/quiz.png" alt="quiz picture">
-                            </div>
                                 <!-- Question 2: Fill in the Blank -->
                                 <div class="question">
                                     <p><strong>2. I ___ to the store yesterday. (go)</strong></p>
@@ -211,7 +216,7 @@
                                 <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
                                 <span class="score" id="totalScore"></span>
                             </div>
-                            <p>Points are added.</p>
+                            <p>Points are added to your score.</p>
                             <button onclick="closeScorePopup()">Close</button>
                         </div>
                     </div>
@@ -226,11 +231,91 @@
                 </div>
                 <div class="card learn-words">
                     <div class= "card-content"> 
-                        <h3>Learn Words</h3>
+                        <h3>Games</h3>
                         <p>17 Words</p>
-                        <button>Start</button>
+                        <button onclick="openGameSectionPopup()">Start</button>
                     </div>
                     <img src="./images/struggle.png" alt="Learn Words">
+                    <!-- Games options popup -->
+                    <div id="gamespopupOverlay" class="popup-overlay" onclick="closeGamesPopup()">
+                        <div class="popup-content" onclick="event.stopPropagation()">
+                            <span class="close-btn" onclick="closeGamesPopup()">&times;</span>
+
+                            <form id="gamesForm">
+                                <div class="quiz-buttons">
+                                    <h2>Select a Game</h2>
+                                    <img src="./images/game-console.png" class="games-pic" alt="Learn Words">
+                                </div>
+                                <ul>
+                                    <li><button type="button" onclick="openGameInfoPopup('Word Guessing Game', 'Guess the word based on the hint.', 40, './images/ask.png')">Word Guessing Game</button></li>
+                                    <li><button type="button" onclick="openGameInfoPopup('Spelling Bee Game', 'Spell the word correctly, the word will appear only for 3 seconds.', 15,'./images/bee.png')">Spelling Bee Game</button></li>
+                                    <li><button type="button" onclick="openGameInfoPopup('Word Association Game', 'Match words to their meanings.', 20, './images/link.png')">Word Association Game</button></li>
+                                    <li><button type="button" onclick="openGameInfoPopup('Scrambled Words Game', 'Unscramble the letters to form the correct word.', 30, './images/shuffle-arrows.png')">Scrambled Words Game</button></li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Game Info Popup -->
+                    <div id="gameInfoPopup" class="popup-overlay" onclick="closeGameInfoPopup()">
+                        <div class="popup-content" onclick="event.stopPropagation()">
+                            <span class="close-btn" onclick="closeGameInfoPopup()">&times;</span>
+                            <img class="games-pic" alt="Learn Words" id="game-pic">
+                            <h2 id="gameTitle"></h2>
+                            <p id="gameDescription"></p>
+                            <div class="points" id="quiz-points">
+                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                <span class="score" id="gamePoints"></span>
+                            </div>
+                            <button onclick="startGame()">Start</button>
+                        </div>
+                    </div>
+                    <!-- Word Guessing Game Popup -->
+                    <div id="wordGuessingGame" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeGameContainer('wordGuessingGame')">&times;</span>
+                            <p id="hint"></p>
+                            <input type="text" id="guess" placeholder="Type your guess here" />
+                            <button id="submit">Submit Guess</button>
+                            <p id="result"></p>
+                        </div>
+                    </div>
+
+                    <!-- Spelling Bee Game Popup -->
+                    <div id="spellingBeeGame" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeGameContainer('spellingBeeGame')">&times;</span>
+                            <h2>Spelling Bee</h2>
+                            <p id="spelling-word"></p>
+                            <input type="text" id="spelling-guess" placeholder="Type your guess here" />
+                            <button id="submit-spelling">Submit Guess</button>
+                            <p id="spelling-result"></p>
+                        </div>
+                    </div>
+
+                    <!-- Word Association Game Popup -->
+                    <div id="wordAssociationGame" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeGameContainer('wordAssociationGame')">&times;</span>
+                            <h2>Word Association</h2>
+                            <p id="association-word"></p>
+                            <input type="text" id="association-guess" placeholder="Type your related word here" />
+                            <button id="submit-association">Submit</button>
+                            <p id="association-result"></p>
+                        </div>
+                    </div>
+                    <!-- Scrambled Words Game Popup -->
+                    <div id="scrambledWordsGame" class="popup-overlay" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close-btn" onclick="closeGameContainer('scrambledWordsGame')">&times;</span>
+                            <h2>Scrambled Words Game</h2>
+                            <p id="scrambled-word"></p>
+                            <input type="text" id="scrambled-guess" placeholder="Type your guess here" />
+                            <button id="submit-scrambled">Submit Guess</button>
+                            <p id="scrambled-result"></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             </div>
