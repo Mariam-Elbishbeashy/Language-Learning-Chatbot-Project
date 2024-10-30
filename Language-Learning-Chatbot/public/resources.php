@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="Ask online Form">
-    <meta name="description" content="The Ask is a bootstrap design help desk, support forum website template coded and designed with bootstrap Design, Bootstrap, HTML5 and CSS. Ask ideal for wiki sites, knowledge base sites, support forum sites">
-    <meta name="keywords" content="HTML, CSS, JavaScript,Bootstrap,js,Forum,webstagram ,webdesign ,website ,web ,webdesigner ,webdevelopment,blog,template">
+    <meta name="description" content="discussion forum website">
+    <meta name="keywords" content="English, French, Spanish">
     <meta name="robots" content="index, nofollow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
@@ -36,12 +36,10 @@
     <div class="top-menu-bottom932">
         <nav class="navbar navbar-default">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                     <a class="navbar-brand" href="#"><img src="./images/logo.png" alt="Logo"></a>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -50,12 +48,9 @@
                                 <li><a href="../public/resources.php">Resources </a></li>
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.container-fluid -->
         </nav>
     </div>
-<!--===breadcrumb=====-->
     <section class="header-descriptin329">
         <div class="container">
             <h3>Blog</h3>
@@ -124,7 +119,7 @@
                             <li><a href="#">Spanish</a></li>
                         </ul>
                     </div>
-                    <!--              highest part-->
+                    <!--              highest points-->
                     <div class="highest-part302">
                         <h4>Top Users</h4>
                         <div class="pints-wrapper">

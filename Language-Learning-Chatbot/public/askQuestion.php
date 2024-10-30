@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="Ask online Form">
-    <meta name="description" content="The Ask is a bootstrap design help desk, support forum website template coded and designed with bootstrap Design, Bootstrap, HTML5 and CSS. Ask ideal for wiki sites, knowledge base sites, support forum sites">
-    <meta name="keywords" content="HTML, CSS, JavaScript,Bootstrap,js,Forum,webstagram ,webdesign ,website ,web ,webdesigner ,webdevelopment">
+    <meta name="description" content="discussion forum website">
+    <meta name="keywords" content="English, French, Spanish">
     <meta name="robots" content="index, nofollow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
@@ -51,9 +51,7 @@
                         <li><a href="../public/forum.php">Home</a></li>
                         <li><a href="../public/askQuestion.php">Ask Question</a></li>
                         <li><a href="../public/resources.php">Resources</a></li>
-                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.container-fluid -->
         </nav>
     </div>
     <section class="header-descriptin329">
@@ -113,7 +111,7 @@
                  </ul>
              </div>
            
-<!--              highest part-->
+<!--              highest points-->
               <div class="highest-part302">
                 <h4>Highest Points</h4>  
                 <div class="pints-wrapper">

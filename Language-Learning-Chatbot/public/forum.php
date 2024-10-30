@@ -1158,7 +1158,7 @@
                             <li><a href="#">Spanish</a></li>
                         </ul>
                     </div>
-                    <!--              highest part-->
+                    <!--              highest points-->
                     <div class="highest-part302">
                         <h4>Top Users</h4>
                         <div class="pints-wrapper">
