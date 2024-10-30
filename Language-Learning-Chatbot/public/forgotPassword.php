@@ -1,3 +1,5 @@
+<?php include '../controllers/PasswordController.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,7 @@
     <title>Forgot Password</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/forgotPassword.css">
+    <script src="../public/js/forgotPassword.js"></script> 
 </head>
 <body>
     <div class="container">
@@ -13,20 +16,19 @@
                 <img src="./images/password.png" class="img-fluid password-image" alt="Password Reset Image">
             </div>
             <div class="col-md-6">
-                <form id="forgotPasswordForm" autocomplete="off">
+                <form id="forgotPasswordForm" action="forgotPassword.php" method="post" autocomplete="off" onsubmit="return validateEmail()">
                     <h2 class="text-center">Forgot Password</h2>
                     <p class="text-center">Enter your email address</p>
                     <div class="form-group">
-                        <input class="form-control" type="email" id="email" placeholder="Enter email address" required>
-                        <div class="error" id="emailError"></div> 
+                        <input class="form-control" type="email" id="email" name="email" placeholder="Enter email address" required>
+                        <div class="error text-danger" id="emailError"><?php echo $message; ?></div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control button" type="button" value="Continue" onclick="validateEmail()">
+                        <input class="form-control button" type="submit" value="Continue">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script src="../public/js/forgotPassword.js"></script>
 </body>
 </html>

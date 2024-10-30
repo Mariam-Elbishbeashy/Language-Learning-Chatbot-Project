@@ -6,11 +6,13 @@ function validateNewPassword() {
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
+    // Clear previous error messages
     passwordError.textContent = "";
     confirmPasswordError.textContent = "";
 
     let isValid = true;
 
+    // Validate password
     if (password === "") {
         passwordError.textContent = "Please enter a password";
         isValid = false;
@@ -19,6 +21,7 @@ function validateNewPassword() {
         isValid = false;
     }
 
+    // Validate confirm password
     if (confirmPassword === "") {
         confirmPasswordError.textContent = "Please confirm your password";
         isValid = false;
@@ -27,11 +30,5 @@ function validateNewPassword() {
         isValid = false;
     }
 
-    if (isValid) {
-        goToLogin();
-    }
-}
-
-function goToLogin() {
-    window.location.href = '../public/login.php';
+    return isValid;
 }
