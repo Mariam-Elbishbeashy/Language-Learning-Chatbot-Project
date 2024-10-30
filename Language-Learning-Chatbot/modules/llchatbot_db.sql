@@ -11,21 +11,18 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `llchatbot_db`
+-- Database: `llchatbot_db.sql`
 --
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `activities`
---
 
 CREATE TABLE `activities` (
   `activity_id` int(11) NOT NULL,
@@ -34,9 +31,7 @@ CREATE TABLE `activities` (
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `challenge`
---
 
 CREATE TABLE `challenge` (
   `challenge_id` int(11) NOT NULL,
@@ -48,9 +43,7 @@ CREATE TABLE `challenge` (
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `quiz_questions`
---
 
 CREATE TABLE `quiz_questions` (
   `question_id` int(11) NOT NULL,
@@ -67,9 +60,7 @@ CREATE TABLE `quiz_questions` (
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `Id` int(11) NOT NULL,
@@ -89,9 +80,7 @@ CREATE TABLE `users` (
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `vocabulary`
---
 
 CREATE TABLE `vocabulary` (
   `vocab_gane_id` int(11) NOT NULL,
@@ -102,99 +91,102 @@ CREATE TABLE `vocabulary` (
   `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
 
---
+-- Table structure for table `userprogress`
+
+CREATE TABLE `userprogress` (
+  `progress_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `conversations_completed` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `vocabulary_focus` varchar(255) NOT NULL,
+  `corrections_received` varchar(255) NOT NULL,
+  `last_activity_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+-- Indexes for dumped tables
+
 -- Indexes for table `activities`
---
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`activity_id`);
 
---
 -- Indexes for table `challenge`
---
 ALTER TABLE `challenge`
   ADD PRIMARY KEY (`challenge_id`),
   ADD KEY `foreign_key` (`activity_id`) USING BTREE;
 
---
 -- Indexes for table `quiz_questions`
---
 ALTER TABLE `quiz_questions`
   ADD PRIMARY KEY (`question_id`),
   ADD KEY `foreign_key` (`activity_id`) USING BTREE;
 
---
 -- Indexes for table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `email` (`email`);
 
---
 -- Indexes for table `vocabulary`
---
 ALTER TABLE `vocabulary`
   ADD PRIMARY KEY (`vocab_gane_id`),
   ADD KEY `foreign_key` (`activity_id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
+-- Indexes for table `userprogress`
+ALTER TABLE `userprogress`
+  ADD PRIMARY KEY (`progress_id`),
+  ADD KEY `foreign_key` (`user_id`);
 
---
+-- --------------------------------------------------------
+
+-- AUTO_INCREMENT for dumped tables
+
 -- AUTO_INCREMENT for table `activities`
---
 ALTER TABLE `activities`
   MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `challenge`
---
 ALTER TABLE `challenge`
   MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `quiz_questions`
---
 ALTER TABLE `quiz_questions`
   MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `users`
---
 ALTER TABLE `users`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `vocabulary`
---
 ALTER TABLE `vocabulary`
   MODIFY `vocab_gane_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Constraints for dumped tables
---
+-- AUTO_INCREMENT for table `userprogress`
+ALTER TABLE `userprogress`
+  MODIFY `progress_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
+-- --------------------------------------------------------
+
+-- Constraints for dumped tables
+
 -- Constraints for table `challenge`
---
 ALTER TABLE `challenge`
   ADD CONSTRAINT `Test` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
 
---
 -- Constraints for table `quiz_questions`
---
 ALTER TABLE `quiz_questions`
   ADD CONSTRAINT `Test_quiz` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
 
---
 -- Constraints for table `vocabulary`
---
 ALTER TABLE `vocabulary`
   ADD CONSTRAINT `foreign_key` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+
+-- Constraints for table `userprogress`
+ALTER TABLE `userprogress`
+  ADD CONSTRAINT `fk_userprogress_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`)
+  ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

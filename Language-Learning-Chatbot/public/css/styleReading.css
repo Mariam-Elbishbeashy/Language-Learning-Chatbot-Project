@@ -1,0 +1,89 @@
+/* General styling for the article container */
+.main-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Space between the article and notes */
+    padding: 20px;
+    position: relative;
+}
+.article-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    font-family: Arial, sans-serif; /* Consistent font */
+    flex: 3;
+}
+
+/* Styling for article title */
+.article-container h2 {
+    font-size: 2em;
+    color: #333; /* Dark color for strong readability */
+    margin-bottom: 16px;
+    text-align: center; /* Center title */
+}
+
+/* Paragraph styling */
+.article-container p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555; /* Medium color for comfortable reading */
+    margin-bottom: 16px;
+    text-align: justify; /* Justify text for neat look */
+}
+
+/* Optional styling for emphasized sections or quotes */
+.article-container p.important {
+    background-color: #eef5ff; /* Light blue background */
+    border-left: 4px solid #5a9bf1; /* Emphasized border */
+    padding: 12px;
+    font-style: italic;
+}
+.notes-container {
+    flex: 1; /* Takes up less space */
+    background-color: #f8f9fa; /* Light background for distinction */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    margin: 40px auto;
+}
+.note-pic{
+    width: 60px;
+    height: 60px;
+}
+.back-button {
+    position: absolute; /* Use absolute positioning */
+    top: 10px; /* Position from the top */
+    left: 10px; /* Position from the left */
+}
+
+.complete-button {
+ margin-top: 30%;
+ margin-left: 30%;
+    
+}
+button:hover{
+    color: white;
+    background-color: #9072e2;
+}
+.result-pic{
+    width: 100px;
+    height: 100px;
+}
+/* Additional media query for mobile view */
+@media (max-width: 768px) {
+    .article-container {
+        padding: 10px;
+    }
+
+    .article-container h2 {
+        font-size: 1.6em;
+    }
+
+    .article-container p {
+        font-size: 1em;
+    }
+}
