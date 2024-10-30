@@ -225,14 +225,16 @@
                     <div class= "card-content">
                         <h3>Reading</h3>
                         <p>1290 Characters</p>
-                        <button>Start</button>
+                        <form action="reading.php">
+                         <button href>Start</button>
+                        </form>
                     </div>
                     <img src="./images/chat-app.png" alt="Reading"> 
                 </div>
                 <div class="card learn-words">
                     <div class= "card-content"> 
                         <h3>Games</h3>
-                        <p>17 Words</p>
+                        <p>4 Vocabulary Games</p>
                         <button onclick="openGameSectionPopup()">Start</button>
                     </div>
                     <img src="./images/struggle.png" alt="Learn Words">
