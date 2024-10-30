@@ -174,18 +174,18 @@
             </div>
             <!-- Score Popup -->
             <div id="scorePopup" class="popup-overlay" onclick="closeScorePopup()">
-                        <div class="popup-content" onclick="event.stopPropagation()">
-                            <span class="close-btn" onclick="closeScorePopup()">×</span>
-                            <img src="./images/test-results.png" alt="Reading" class="result-pic"> 
-                            <h2 id="scoreMessage" >You Completed an article!</h2>
-                            <div class="points" id="quiz-points">
-                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="totalScore"></span>
-                            </div>
-                            <p>Points are added to your score.</p>
-                            <button onclick="closeScorePopup()">Close</button>
-                        </div>
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeScorePopup()">×</span>
+                    <img src="./images/test-results.png" alt="Reading" class="result-pic"> 
+                    <h2 id="scoreMessage" >You Completed an article!</h2>
+                    <div class="points" id="quiz-points">
+                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                        <span class="score" id="totalScore"></span>
                     </div>
+                    <p>Points are added to your score.</p>
+                    <button onclick="closeScorePopup()">Close</button>
+                </div>
+            </div>
         </div>
         
     </div>
