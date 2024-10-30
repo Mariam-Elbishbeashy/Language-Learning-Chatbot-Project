@@ -297,7 +297,17 @@ body {
     padding-right: 30px;
 
   }
-  
+  .challenge-pic{
+    width: 100px;
+    height: 100px;
+  }
+#challengePopupOverlay .popup-content{
+  text-align: center;
+  height: 35%;
+}
+#challenge-points{
+  margin-left: 40%;
+}
   button {
     margin-top: 10px;
     padding: 10px 20px;
