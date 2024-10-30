@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 04:37 PM
+-- Generation Time: Oct 29, 2024 at 09:43 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -76,7 +76,6 @@ CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `comfirmPassword` varchar(128) NOT NULL,
   `firstName` text NOT NULL,
   `lastName` text NOT NULL,
   `gender` text NOT NULL,

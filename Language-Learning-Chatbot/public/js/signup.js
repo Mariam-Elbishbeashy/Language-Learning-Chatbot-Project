@@ -21,7 +21,7 @@ function initMultiStepForm() {
         nextButtons[i].addEventListener("click", function (event) {
             event.preventDefault();
 
-            let inputsValid = validateInputs(this, current);  // Pass the current step for validation
+            let inputsValid = validateInputs(this, current);  
 
             if (inputsValid) {
                 slidePage.style.marginLeft = `-${(100 / stepsNumber) * current}%`;
@@ -49,7 +49,7 @@ function initMultiStepForm() {
         const inputs = ths.parentElement.parentElement.querySelectorAll("input, select");
         const errorContainers = ths.parentElement.parentElement.querySelectorAll(".error");
 
-        errorContainers.forEach(error => error.textContent = "");  // Clear previous errors
+        errorContainers.forEach(error => error.textContent = "");  
 
         switch (currentStep) {
             case 1: // Contact step

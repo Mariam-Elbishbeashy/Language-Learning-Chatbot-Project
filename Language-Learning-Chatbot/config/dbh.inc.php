@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$DB = "LLchatbot_db";
+$DB = "llchatbot_db";
 
 $conn = mysqli_connect($servername,$username,$password,$DB);
 

@@ -3,18 +3,19 @@ window.onload = function() {
     const isSignup = urlParams.get('signup');
     const flipElement = document.getElementById('flip');
     const container = document.querySelector('.container');
-  
+
     container.classList.add('no-animation');
-  
+
     if (isSignup === 'true') {
-      flipElement.checked = true; 
+        flipElement.checked = true; 
     }
-  
+
     flipElement.addEventListener('change', function() {
-      container.classList.remove('no-animation');
+        container.classList.remove('no-animation');
     });
-  };
-  function validateLoginForm() {
+};
+
+function validateLoginForm() {
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     const emailError = document.getElementById("loginEmailError");
@@ -65,14 +66,17 @@ function validateSignupForm() {
 
     return isValid;
 }
+
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     if (!validateLoginForm()) {
         event.preventDefault(); 
     }
 });
 
-document.getElementById("continueSignupBtn").addEventListener("click", function() {
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
     if (validateSignupForm()) {
-        window.location.href = "../public/signup.php";
+        this.submit(); 
     }
 });
