@@ -4,7 +4,7 @@ include_once "../config/dbh.inc.php";
 
 function restrictPageAccess($requiredRole, $redirectUrl) {
     if (!isset($_SESSION['userId'])) {
-        header("Location: login.php");
+        header("Location: ../public/login.php");
         exit();
     }
 
