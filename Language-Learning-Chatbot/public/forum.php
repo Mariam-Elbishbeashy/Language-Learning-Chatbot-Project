@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="Ask online Form">
-    <meta name="description" content="The Ask is a bootstrap design help desk, support forum website template coded and designed with bootstrap Design, Bootstrap, HTML5 and CSS. Ask ideal for wiki sites, knowledge base sites, support forum sites">
-    <meta name="keywords" content="HTML, CSS, JavaScript,Bootstrap,js,Forum,webstagram ,webdesign ,website ,web ,webdesigner ,webdevelopment">
+    <meta name="description" content="discussion forum website">
+    <meta name="keywords" content="English, French, Spanish">
     <meta name="robots" content="index, nofollow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
@@ -49,8 +49,9 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="../public/forum.php">Home</a></li>
                         <li><a href="../public/askQuestion.php">Ask Question</a></li>
+                        <li><a href="../public/resources.php">Resources</a></li>
                 </div>
             </div>
         </nav>
@@ -128,7 +129,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
+                        <h3><a href="#" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can someone explain the rules for conjugating verbs in the past tense in French? I keep getting confused with the -er, -ir, and -re verb endings.</p>
@@ -168,7 +169,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">Understanding English Present Perfect Tense</a></h3>
+                        <h3><a href="#" target="_blank">Understanding English Present Perfect Tense</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can anyone explain when to use the present perfect tense in English? I always mix it up with simple past tense.</p>
@@ -207,7 +208,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">Best Way to Practice Spanish Pronunciation?</a></h3>
+                        <h3><a href="#" target="_blank">Best Way to Practice Spanish Pronunciation?</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>I am learning Spanish and struggling with pronunciation. Any tips for getting better?</p>
@@ -245,7 +246,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How do I use reflexive verbs in Spanish?</a></h3>
+                    <h3><a href="#" target="_blank">How do I use reflexive verbs in Spanish?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>Reflexive verbs seem tricky in Spanish. Could someone explain the basics?</p>
@@ -283,7 +284,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What is the best way to learn French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">What is the best way to learn French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I'm struggling with certain sounds in French. Any tips?</p>
@@ -321,7 +322,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How to master English idioms?</a></h3>
+                    <h3><a href="#" target="_blank">How to master English idioms?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I'm often confused by English idioms. Any advice on how to learn them more effectively?</p>
@@ -359,7 +360,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">When to use subjunctive mood in Spanish?</a></h3>
+                    <h3><a href="#" target="_blank">When to use subjunctive mood in Spanish?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I often see the subjunctive in Spanish, but when should I actually use it?</p>
@@ -397,7 +398,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">Is it better to learn French or Spanish first?</a></h3>
+                    <h3><a href="#" target="_blank">Is it better to learn French or Spanish first?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I’m interested in both languages. What are the benefits of learning one before the other?</p>
@@ -436,7 +437,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
+                    <h3><a href="#" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>Phrasal verbs in English are challenging for me. Could anyone suggest methods or resources to learn and remember them better?</p>
@@ -475,7 +476,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How can I improve my French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">How can I improve my French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I've been learning French for a few months, but I still struggle with pronunciation. Any tips or exercises to help me sound more natural?</p>
@@ -519,7 +520,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">Best Way to Practice Spanish Pronunciation?</a></h3>
+                        <h3><a href="#" target="_blank">Best Way to Practice Spanish Pronunciation?</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>I am learning Spanish and struggling with pronunciation. Any tips for getting better?</p>
@@ -557,7 +558,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What is the best way to learn French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">What is the best way to learn French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I'm struggling with certain sounds in French. Any tips?</p>
@@ -595,7 +596,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">When to use subjunctive mood in Spanish?</a></h3>
+                    <h3><a href="#" target="_blank">When to use subjunctive mood in Spanish?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I often see the subjunctive in Spanish, but when should I actually use it?</p>
@@ -633,7 +634,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">Is it better to learn French or Spanish first?</a></h3>
+                    <h3><a href="#" target="_blank">Is it better to learn French or Spanish first?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I’m interested in both languages. What are the benefits of learning one before the other?</p>
@@ -678,7 +679,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
+                        <h3><a href="#" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can someone explain the rules for conjugating verbs in the past tense in French? I keep getting confused with the -er, -ir, and -re verb endings.</p>
@@ -718,7 +719,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">Understanding English Present Perfect Tense</a></h3>
+                        <h3><a href="#" target="_blank">Understanding English Present Perfect Tense</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can anyone explain when to use the present perfect tense in English? I always mix it up with simple past tense.</p>
@@ -756,7 +757,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What is the best way to learn French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">What is the best way to learn French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I'm struggling with certain sounds in French. Any tips?</p>
@@ -794,7 +795,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">Is it better to learn French or Spanish first?</a></h3>
+                    <h3><a href="#" target="_blank">Is it better to learn French or Spanish first?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I’m interested in both languages. What are the benefits of learning one before the other?</p>
@@ -833,7 +834,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How can I improve my French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">How can I improve my French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I've been learning French for a few months, but I still struggle with pronunciation. Any tips or exercises to help me sound more natural?</p>
@@ -877,7 +878,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How do I use reflexive verbs in Spanish?</a></h3>
+                    <h3><a href="#" target="_blank">How do I use reflexive verbs in Spanish?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>Reflexive verbs seem tricky in Spanish. Could someone explain the basics?</p>
@@ -915,7 +916,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How to master English idioms?</a></h3>
+                    <h3><a href="#" target="_blank">How to master English idioms?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I'm often confused by English idioms. Any advice on how to learn them more effectively?</p>
@@ -954,7 +955,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
+                    <h3><a href="#" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>Phrasal verbs in English are challenging for me. Could anyone suggest methods or resources to learn and remember them better?</p>
@@ -998,7 +999,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
+                        <h3><a href="#" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can someone explain the rules for conjugating verbs in the past tense in French? I keep getting confused with the -er, -ir, and -re verb endings.</p>
@@ -1038,7 +1039,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
+                    <h3><a href="#" target="_blank">What are some effective ways to learn English phrasal verbs?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>Phrasal verbs in English are challenging for me. Could anyone suggest methods or resources to learn and remember them better?</p>
@@ -1077,7 +1078,7 @@
         <div class="col-md-9">
             <div class="right-description893">
                 <div id="que-hedder2983">
-                    <h3><a href="post-details.html" target="_blank">How can I improve my French pronunciation?</a></h3>
+                    <h3><a href="#" target="_blank">How can I improve my French pronunciation?</a></h3>
                 </div>
                 <div class="ques-details10018">
                     <p>I've been learning French for a few months, but I still struggle with pronunciation. Any tips or exercises to help me sound more natural?</p>
@@ -1116,7 +1117,7 @@
             <div class="col-md-9">
                 <div class="right-description893">
                     <div id="que-hedder2983">
-                        <h3><a href="post-details.html" target="_blank">Understanding English Present Perfect Tense</a></h3>
+                        <h3><a href="#" target="_blank">Understanding English Present Perfect Tense</a></h3>
                     </div>
                     <div class="ques-details10018">
                         <p>Can anyone explain when to use the present perfect tense in English? I always mix it up with simple past tense.</p>

@@ -50,6 +50,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../public/forum.php">Home</a></li>
                         <li><a href="../public/askQuestion.php">Ask Question</a></li>
+                        <li><a href="../public/resources.php">Resources</a></li>
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
@@ -173,7 +174,7 @@
                   <hr>
                   <div class="pints-wrapper">
                  <div class="left-user3898">
-                     <a href="#"><img src="./images/boy.png" alt="Image"></a>
+                     <a href="#"><img src="./images/girl.png" alt="Image"></a>
                      <div class="imag-overlay39">
                          <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </div>
