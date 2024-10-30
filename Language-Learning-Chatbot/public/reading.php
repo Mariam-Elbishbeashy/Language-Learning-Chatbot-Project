@@ -20,7 +20,7 @@
             <div class="article-container">
                 <h2>Bonfire Night</h2>
                 <p>
-                    <!-- Add your article content here -->
+                    <!-- Article content here -->
                      <p>
                         If you're ever in the UK on the evening of 5 November, you might wonder why you can hear fireworks. Bonfire Night is celebrated all over the country, but what is it about? Find out about the history of this well-loved event in this article.
                     </p>

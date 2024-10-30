@@ -52,7 +52,7 @@ function submitQuiz() {
         question5: "Joyful"
     };
 
-    // Check each question
+    
     for (let i = 1; i <= 5; i++) {
         const question = "question" + i;
         const userAnswer = form[question].value;
@@ -105,19 +105,19 @@ function startGame() {
 
     switch (title) {
         case 'Word Guessing Game':
-            document.getElementById("wordGuessingGame").style.display = "flex"; // Show as popup
+            document.getElementById("wordGuessingGame").style.display = "flex"; 
             startWordGuessingGame(); // Start the Word Guessing Game
             break;
         case 'Spelling Bee Game':
-            document.getElementById("spellingBeeGame").style.display = "flex"; // Show as popup
+            document.getElementById("spellingBeeGame").style.display = "flex"; 
             startSpellingBeeGame();
             break;
         case 'Word Association Game':
-            document.getElementById("wordAssociationGame").style.display = "flex"; // Show as popup
+            document.getElementById("wordAssociationGame").style.display = "flex";
             startWordAssociationGame();
             break;
         case 'Scrambled Words Game':
-            document.getElementById("scrambledWordsGame").style.display = "flex"; // Show as popup
+            document.getElementById("scrambledWordsGame").style.display = "flex"; 
             startScrambledWordsGame();
             break;
     }
@@ -153,7 +153,7 @@ function startWordGuessingGame() {
     document.getElementById("result").innerText = "";
     document.getElementById("guess").value = "";
 
-    document.getElementById("wordGuessingGame").style.display = "flex"; // Show as popup
+    document.getElementById("wordGuessingGame").style.display = "flex"; 
 }
 
 document.getElementById("submit").addEventListener("click", function() {
@@ -172,7 +172,7 @@ const spellingWords = [
     { word: "accommodate", correct: "accommodate" },
     { word: "definitely", correct: "definitely" },
     { word: "independent", correct: "independent" },
-    // Add more words as needed
+    // More words will be added as needed
 ];
 
 let currentSpellingIndex = 0;
@@ -181,7 +181,7 @@ function startSpellingBeeGame() {
     currentSpellingIndex = 0;
     document.getElementById("spelling-result").innerText = "";
     displaySpellingWord();
-    document.getElementById("spellingBeeGame").style.display = "flex"; // Show the popup
+    document.getElementById("spellingBeeGame").style.display = "flex";
 }
 
 function displaySpellingWord() {
@@ -229,7 +229,7 @@ const associationWords = [
         { word: "Ocean", related: "Water" },
         { word: "Sun", related: "Light" },
         { word: "Tree", related: "Leaf" },
-        // Add more words as needed
+       // More words will be added as needed
     ];
 
     let currentAssociationIndex = 0;
@@ -238,7 +238,7 @@ const associationWords = [
         currentAssociationIndex = 0;
         document.getElementById("association-result").innerText = "";
         displayAssociationWord();
-        document.getElementById("wordAssociationGame").style.display = "flex"; // Show the popup
+        document.getElementById("wordAssociationGame").style.display = "flex"; 
     }
 
     function displayAssociationWord() {
@@ -273,6 +273,7 @@ const associationWords = [
         { word: "cherry", scrambled: "yrceh" },
         { word: "grape", scrambled: "earpg" },
         { word: "orange", scrambled: "geonra" }
+        // More words will be added as needed
     ];
     
     let currentScrambledIndex = 0;
@@ -280,8 +281,8 @@ const associationWords = [
     function startScrambledWordsGame() {
         currentScrambledIndex = 0;
         document.getElementById("scrambled-result").innerText = "";
-        displayScrambledWord(); // Call to display the first scrambled word
-        document.getElementById("scrambledWordsGame").style.display = "flex"; // Show the popup
+        displayScrambledWord(); // to display the first scrambled word
+        document.getElementById("scrambledWordsGame").style.display = "flex"; 
     }
     
     function displayScrambledWord() {
@@ -317,13 +318,13 @@ const associationWords = [
 
 
 function closePopup() {
-    document.getElementById("popupOverlay").style.display = "none"; // Hide the quiz popup
+    document.getElementById("popupOverlay").style.display = "none"; 
 }
 function closeConfirmPopup() {
-    document.getElementById("confirmPopup").style.display = "none"; // Hide the confirmation popup
+    document.getElementById("confirmPopup").style.display = "none"; 
 }
 function closeConfirmSubmitPopup() {
-    document.getElementById("confirmSubmitPopup").style.display = "none"; // Hide the confirmation popup
+    document.getElementById("confirmSubmitPopup").style.display = "none"; 
 }
 
 function closeScorePopup() {
