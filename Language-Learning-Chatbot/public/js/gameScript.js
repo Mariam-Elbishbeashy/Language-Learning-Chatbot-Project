@@ -10,6 +10,12 @@ function openGameSectionPopup() {
 function openConfirmSubmitPopup() {
     document.getElementById("confirmSubmitPopup").style.display = "flex"; // Show the quiz popup
 }
+function showChallengePopup(title, description) {
+    document.getElementById("popupTitle").innerText = title;
+    document.getElementById("popupDescription").innerText = description;
+    document.getElementById("challengePopupOverlay").style.display = "flex";
+}
+
 
 let isSubmitted = false;
 function confirmCancel() {
@@ -326,4 +332,7 @@ function closeScorePopup() {
 
 function closeGamesPopup() {
     document.getElementById("gamespopupOverlay").style.display = "none";
+}
+function closeChallengePopup() {
+    document.getElementById("challengePopupOverlay").style.display = "none";
 }

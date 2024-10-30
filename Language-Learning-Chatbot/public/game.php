@@ -239,25 +239,41 @@
             </div>
 
             <div class="training-section">
-            <h2>Training</h2>
-            <div class="cards">
-            <div class="card grammar">
-                <div class= "card-content">
-                    <h3>Grammar Training</h3>
-                    <p>Present Simple</p>
-                    <button>Continue</button>
+                <h2>Training</h2>
+                <div class="cards">
+                    <div class="card grammar">
+                        <div class= "card-content">
+                            <h3>Grammar Training challenge</h3>
+                            <p>Present Simple</p>
+                            <button onclick="showChallengePopup('Grammar Training Challenge - Present Simple Practice','Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.')">Continue</button>
+                        </div>
+                        <img src="./images/robot-assistant.png" alt="Grammar Training">
+                    </div>
+                    <div class="card grammar">
+                        <div class= "card-content">
+                            <h3>Vocabulary Training Challenge</h3>
+                            <p>3 lessons</p>
+                            <button onclick="showChallengePopup('Vocabulary Training Challenge - Building Associations','Create a word web for the topic &quot;Daily Routine&quot;. List related words or phrases for each item, including activities, objects, or people involved in your routine.')">Continue</button>
+                        </div>
+                        <img src="./images/pinch.png" alt="Grammar Training">
+                    </div>
                 </div>
-                <img src="./images/robot-assistant.png" alt="Grammar Training">
             </div>
-            <div class="card grammar">
-                <div class= "card-content">
-                    <h3>Vocabulary Training</h3>
-                    <p>3 lessons</p>
-                    <button>Continue</button>
+            <!-- Challenge Popup  -->
+            <div class="popup-overlay" id="challengePopupOverlay">
+                <div class="popup-content">
+                    <span class="close-btn" onclick="closeChallengePopup()">&times;</span>
+                    <div class="quiz-buttons">
+                        <h3 id="popupTitle"></h3>
+                        <img class="challenge-pic" src="./images/effect.png" alt="target">
+                    </div>
+                    <div class="points" id="challenge-points">
+                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                <span class="score" id="gamePoints">40</span>
+                            </div>
+                    <h4 id="popupDescription"></h4>
+                    <button class="challenge-closeBtn" onclick="closeChallengePopup()">Close</button>
                 </div>
-                <img src="./images/pinch.png" alt="Grammar Training">
-            </div>
-            </div>
             </div>
 
         </div>
