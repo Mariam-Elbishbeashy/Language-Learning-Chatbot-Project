@@ -215,7 +215,6 @@
     <script src="../public/js/adminmainjs.js"></script>
 
     <script>
-        // Data for the chart based on language analysis
         const chartData = {
             Spanish: [30, 25, 45],
             French: [35, 15, 50],
@@ -229,65 +228,60 @@
             English: [40, 30, 30]
         };
     
-        // Function to show the analysis modal
-        function showAnalysis(language) {
-            const data = chartData[language];
-            const ctx = document.getElementById('analysisChart').getContext('2d');
-    
-            // Create the chart
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Grammar', 'Culture', 'Literature'], // Example topics
-                    datasets: [{
-                        label: 'Usage Distribution',
-                        data: data, // Corresponding data for the selected language
-                        backgroundColor: [
-                            'rgba(105, 240, 174, 0.6)',
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(54, 162, 235, 0.6)'
-                        ],
-                        borderColor: [
-                            'rgba(105, 240, 174, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Usage Percentage'
-                            }
-                        }
+let analysisChart;
+
+function showAnalysis(language) {
+    const data = chartData[language];
+    const ctx = document.getElementById('analysisChart').getContext('2d');
+
+    if (analysisChart) {
+        analysisChart.destroy();
+    }
+
+    analysisChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Grammar', 'Culture', 'Literature'], 
+            datasets: [{
+                label: 'Usage Distribution',
+                data: data, 
+                backgroundColor: [
+                    'rgba(105, 240, 174, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(105, 240, 174, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Usage Percentage'
                     }
                 }
-            });
-    
-            // Update the title of the modal
-            document.getElementById('analysisTitle').innerText = `Analysis for ${language}`;
-            
-            // Show the modal
-            document.getElementById('analysisModal').style.display = 'block';
-        }
-    
-        // Function to close the modal
-        function closeModal() {
-            document.getElementById('analysisModal').style.display = 'none';
-        }
-    
-        // Event listener to close the modal when clicking outside of it
-        window.onclick = function (event) {
-            const modal = document.getElementById('analysisModal');
-            if (event.target === modal) {
-                closeModal();
             }
         }
+    });
+
+    document.getElementById('analysisTitle').innerText = `Analysis for ${language}`;
+
+    document.getElementById('analysisModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('analysisModal').style.display = 'none';
+}
+
+        
     </script>
     <script src="assets/js/main.js"></script>
     

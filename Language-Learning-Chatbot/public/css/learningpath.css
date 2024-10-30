@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Full-width Learning Path Container */
+.container-custom {
+    width: 100%;
+    max-width: none;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+}
+
+.container-custom header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.container-custom .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Checkbox and Button Styles */
+.options input[type="checkbox"] { display: none; }
+.options label {
+    display: flex;
+    align-items: center;
+    background: #e6e6e6;
+    padding: 12px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.options label::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 2px solid #D236D9;
+    border-radius: 4px;
+    margin-right: 10px;
+    display: inline-block;
+    transition: background 0.3s, border-color 0.3s;
+}
+.options input[type="checkbox"]:checked + label::before { background: #a036d9; border-color: #8447aa; }
+
+/* Pinky-Purple Button Styles */
+.level-btn { 
+    background: linear-gradient(to bottom,  #8447aa 0%, #6745c4 100%);
+    border: none;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    flex: 1 1 calc(33.333% - 10px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.level-btn.selected { background: #C255BE; }
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+    background: linear-gradient(to bottom, #a036d9 0%, #8447aa 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s; 
+}
+
+/* Modal for Displaying Selected Preferences */
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #a036d9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}

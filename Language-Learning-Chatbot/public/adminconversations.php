@@ -18,27 +18,7 @@
 <!------------------------------ User Management Section ---------------------------->
             <section>
                 <div class="user-management">
-                    <h2>User Management</h2>
-                    <form id="user-form">
-                        <input type="text" id="username" placeholder="Username" required>
-                        <select id="role" required>
-                            <option value="" disabled selected>Select Role</option>
-                            <option value="Student">Student</option>
-                            <option value="Tutor">Tutor</option>
-                        </select>
-                        <select id="language" required>
-                            <option value="" disabled selected>Select Language</option>
-                            <option value="English">English</option>
-                            <option value="Spanish">Spanish</option>
-                            <option value="French">French</option>
-                            <option value="German">German</option>
-                            <option value="Mandarin">Mandarin</option>
-                            <!-- Add more languages as needed -->
-                        </select>
-                        <input type="email" id="email" placeholder="Email" required>
-                        <button type="submit">Add User</button>
-                    </form>
-                    
+                
                     <table>
                         <thead>
                             <tr>

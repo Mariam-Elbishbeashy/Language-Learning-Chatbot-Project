@@ -39,7 +39,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers" style="font-weight: bold;">284</div>
-                        <div class="cardName" style="font-weight: bold; color: purple;" >Lessons Completed</div>
+                        <div class="cardName" style="font-weight: bold; " >Lessons Completed</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="book-outline" style="color: #ff9800;"></ion-icon>

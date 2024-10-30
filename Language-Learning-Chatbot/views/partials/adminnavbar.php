@@ -30,7 +30,7 @@
                         <span class="icon">
                             <ion-icon name="book-outline"></ion-icon>
                         </span>
-                        <span class="title">Scheduled Lessons</span>
+                        <span class="title">Chatbot interactions</span>
                     </a>
                 </li>
 
@@ -53,11 +53,11 @@
                 </li>
 
                 <li>
-                    <a href="setting.php">
+                    <a href="admingame.php">
                         <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
+                            <ion-icon name="game-controller-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">view Gamifications</span>
                     </a>
                 </li>
 
@@ -81,11 +81,6 @@
                 <div class="logoo">
                    <h1>Chatbot</h1>
                 </div>
-                <div class="theme-toggler">
-                    <span class="material-symbols-sharp active" id="light-mode">light_mode</span>
-                    <span class="material-symbols-sharp" id="dark-mode">dark_mode</span>
-                </div>
-                
                 <div class="search">
                     <label>
                         <input type="text" placeholder="Search users, lessons...">
