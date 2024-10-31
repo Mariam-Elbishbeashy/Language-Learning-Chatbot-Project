@@ -213,9 +213,10 @@ body {
 
 <div class="topnav" id="myTopnav">
   <a href="Home.php" class="active">Home</a>
-  <a href="gamification.php">Games</a>
+  <a href="game.php">Games</a>
+  <a href="forum.php">Community</a>
   <a href="#">Settings</a>
-  <a href="#">Logout</a>
+  <a href="index.php">Logout</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
