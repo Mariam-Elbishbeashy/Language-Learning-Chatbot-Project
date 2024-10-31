@@ -30,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['firstName'] = $user['firstName']; // Optional: store first name
                 $_SESSION['lastName'] = $user['lastName']; // Optional: store last name
                 $_SESSION['role'] = $user['role']; // Store role in session
-
+                $_SESSION['email'] = $user['email'];
+                
                 // Redirect based on role
                 switch ($user['role']) {
                     case 'student':
