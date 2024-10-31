@@ -159,7 +159,7 @@ body {
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background: linear-gradient(to bottom, #4a0b8d 0%, #6745c4 100%);
 }
 
 .topnav a {
@@ -173,21 +173,12 @@ body {
 }
 
 .topnav a:hover {
-  background-color: #04AA6D; /* Green background on hover */
+  background-color: #6745c4; /* Lighter shade from the gradient for hover */
   color: white; /* White text on hover */
 }
 
-/* Active link style */
-.topnav a.active {
-  background-color: #04AA6D; /* Active link color */
-  color: white; /* Active text color */
-}
 
-/* Prevent hover effect on active link */
-.topnav a.active:hover {
-  background-color: #04AA6D; /* Keep green background on hover over active link */
-  color: white; /* Keep text color white */
-}
+/* Active link style */
 
 .topnav .icon {
   display: none;
@@ -222,9 +213,9 @@ body {
 
 <div class="topnav" id="myTopnav">
   <a href="Home.php" class="active">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About Us</a>
+  <a href="gamification.php">Games</a>
+  <a href="#">Settings</a>
+  <a href="#">Logout</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>

@@ -26,12 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Verify password
             if (password_verify($loginPassword, $user['password'])) {
                 // Check the user's role
-                $_SESSION['userId'] = $user['Id']; // Store user ID in session
-                $_SESSION['firstName'] = $user['firstName']; // Optional: store first name
-                $_SESSION['lastName'] = $user['lastName']; // Optional: store last name
-                $_SESSION['role'] = $user['role']; // Store role in session
+
+                $_SESSION['userId'] = $user['Id']; 
+                $_SESSION['firstName'] = $user['firstName']; 
+                $_SESSION['lastName'] = $user['lastName'];
+                $_SESSION['role'] = $user['role']; 
                 $_SESSION['email'] = $user['email'];
                 
+
                 // Redirect based on role
                 switch ($user['role']) {
                     case 'student':
