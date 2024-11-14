@@ -1,10 +1,9 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
-include_once '../config/dbh.inc.php';
+session_start();
+
+include '../config/dbh.inc.php';
 
 
 class UserManager {
@@ -72,7 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $role = $_POST['role'];
         $language = $_POST['language'];
+
         $password = isset($_POST['password']) ? $_POST['password'] : '';
+
         $message = $userManager->addUser($username, $email, $role, $language, $password);
     } elseif (isset($_POST['editUser'])) {
         $id = $_POST['id'];
@@ -80,7 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $role = $_POST['role'];
         $language = $_POST['language'];
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+        $password = isset($_POST['password']) ? $_POST['password'] : ''; // Check if password is set
+
         $message = $userManager->editUser($id, $username, $email, $role, $language, $password);
     } elseif (isset($_POST['removeUser'])) {
         $id = $_POST['id'];
@@ -90,4 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $users = $userManager->fetchUsers();
 $conn->close();
+
 ?>
+
+

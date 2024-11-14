@@ -8,6 +8,7 @@ class UserController {
         $this->conn = $dbConnection;
     }
 
+
     public function updateProfile($Id, $firstName, $lastName, $gender, $email, $role, $language, $currentPassword, $newPassword, $confirmPassword) {
         // Start with the basic SQL statement
         $sql = "UPDATE users SET firstName = '$firstName', lastName = '$lastName', gender = '$gender', email = '$email', role = '$role', language = '$language'".$_SESSION['ID'];

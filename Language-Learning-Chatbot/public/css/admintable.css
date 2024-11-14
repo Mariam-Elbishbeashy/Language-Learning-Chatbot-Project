@@ -48,9 +48,10 @@
     padding: 8px; /* Decreased padding */
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: calc(20% - 10px); /* Adjusted width */
+    width: calc(17% - 5px); /* Adjusted width */
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-right: 10px; /* Added margin */
+    margin: 20px;
 }
 
 .user-management button {

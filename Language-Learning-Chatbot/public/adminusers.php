@@ -1,9 +1,4 @@
-<?php
-include '../controllers/restrict.php';
-
-restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users to home page
-?><?php include '../controllers/adminusercontroller.php'; ?>
-
+<?php include '../controllers/adminusercontroller.php'; ?>
 
 
 <!DOCTYPE html>
@@ -100,6 +95,7 @@ restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users t
             background-color: rgb(0,0,0); 
             background-color: rgba(0,0,0,0.4); 
             padding-top: 60px; 
+
         }
 
         .modal-content {
@@ -137,12 +133,14 @@ restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users t
             <h2>User Management</h2>
             <form id="user-form" method="post">
                 <input type="hidden" name="id" id="user-id">
-                <input type="text" name="username" id="username" placeholder="Username" required>   
+                <input type="text" name="username" id="username" placeholder="Username" required>
+
                 <select name="role" id="role" required>
                     <option value="" disabled>Select Role</option>
                     <option value="Student">Student</option>
                     <option value="Tutor">Tutor</option>
-                    <option value="admin">Admin</option>
+                    <option value="Admin">Admin</option>
+
                 </select>
                 <select name="language" id="language" required>
                     <option value="" disabled>Select Language</option>

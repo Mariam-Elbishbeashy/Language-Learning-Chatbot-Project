@@ -9,7 +9,6 @@
 <body>
     <div class="container">
         <?php include "../views/partials/navbar.php"; ?>
-
         <div class="main-content">
             <h1 class="logo2">Chatrock</h1>
             <p class="intro">Delve into profound perspectives, participate in enriching dialogues, and discover fresh opportunities with Chatrock.</p>

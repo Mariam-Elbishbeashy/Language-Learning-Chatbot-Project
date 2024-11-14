@@ -11,8 +11,8 @@
 <body>
     
     <div class="container">
-        <?php include "../views/partials/navbar.php"; ?>
 
+        <?php include "../views/partials/navbar.php"; ?>
         <div class="main-content">
             <div class="quiz-buttons">
                 <div class="profile">
