@@ -1,3 +1,7 @@
+<?php
+include '../controllers/restrict.php';
+restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users to home page
+?>
 <!DOCTYPE html>
 <html lang="en">
 

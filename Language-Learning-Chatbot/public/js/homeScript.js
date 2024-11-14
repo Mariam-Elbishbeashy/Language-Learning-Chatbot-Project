@@ -3,7 +3,7 @@ document.getElementById("sendMessage").addEventListener("click", sendMessage);
 document.getElementById("messageInput").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // Prevent the default form submission (if applicable)
-        sendMessage(); // Call the sendMessage function
+        sendMessage(); 
     }
 });
 
@@ -12,7 +12,7 @@ function sendMessage() {
     const message = document.getElementById("messageInput").value;
 
     if (message.trim() !== "") {
-        // Create a new paragraph element for the message
+        // Create a new paragraph for the message
         const newMessage = document.createElement("p");
         newMessage.textContent = message;
         newMessage.classList.add("new-message"); // Add the new-message class

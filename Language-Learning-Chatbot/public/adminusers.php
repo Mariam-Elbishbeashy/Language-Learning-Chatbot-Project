@@ -1,5 +1,6 @@
 <?php include '../controllers/adminusercontroller.php'; ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +95,7 @@
             background-color: rgb(0,0,0); 
             background-color: rgba(0,0,0,0.4); 
             padding-top: 60px; 
+
         }
 
         .modal-content {
@@ -132,11 +134,13 @@
             <form id="user-form" method="post">
                 <input type="hidden" name="id" id="user-id">
                 <input type="text" name="username" id="username" placeholder="Username" required>
+
                 <select name="role" id="role" required>
                     <option value="" disabled>Select Role</option>
                     <option value="Student">Student</option>
                     <option value="Tutor">Tutor</option>
                     <option value="Admin">Admin</option>
+
                 </select>
                 <select name="language" id="language" required>
                     <option value="" disabled>Select Language</option>

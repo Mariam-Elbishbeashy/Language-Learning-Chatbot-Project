@@ -41,14 +41,28 @@
                     </a>
                 </li>
                 <li>
-                <a href="learningpath.php">
-    <span class="icon">
-        <i class="fa-solid fa-route"></i>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="fa-solid fa-route" viewBox="0 0 24 24">
-            <!-- Insert the SVG path data for a new icon here, if needed -->
-        </svg>
-    </span>
-                         Learning Path
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+                    <a href="../public/forum.php">
+                        <span class="icon">
+                            <i class="bi bi-people"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                            </svg>
+                        </span>
+                        Community
+                    </a>
+                </li>
+                <li>
+                    <a href="../public/learningpath.php">
+                        <span class="icon">
+                            <i class="bi bi-book"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                                <path d="M1 2.828c.885-.37 2.154-.691 3.5-.691 1.71 0 3.102.337 4 1.05 0-.713.458-1.05 1-1.05h5.5a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H9.5c-.542 0-1-.336-1-1.05-.898.713-2.29 1.05-4 1.05-1.346 0-2.615-.322-3.5-.691V2.828zm1-.81v9.844c.855.255 1.987.463 3.5.463 1.518 0 2.71-.234 3.5-.65V2.015c-.79-.416-1.982-.65-3.5-.65-1.513 0-2.645.208-3.5.463z"/>
+                            </svg>
+                        </span>
+                        Learning Path
                     </a>
                 </li>
 

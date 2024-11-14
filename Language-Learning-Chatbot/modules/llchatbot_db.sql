@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 09:43 PM
+-- Generation Time: Oct 31, 2024 at 01:10 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,6 +49,33 @@ CREATE TABLE `challenge` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chathistory`
+--
+
+CREATE TABLE `chathistory` (
+  `chathistory_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `language_analysis`
+--
+
+CREATE TABLE `language_analysis` (
+  `languageAnalysis_id` int(11) NOT NULL,
+  `language_name` varchar(50) NOT NULL,
+  `usage_percentage` decimal(5,2) NOT NULL,
+  `common_topics` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quiz_questions`
 --
 
@@ -76,6 +103,7 @@ CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
+  `comfirmPassword` varchar(128) NOT NULL,
   `firstName` text NOT NULL,
   `lastName` text NOT NULL,
   `gender` text NOT NULL,
@@ -85,6 +113,26 @@ CREATE TABLE `users` (
   `profileImage` text NOT NULL,
   `progress` int(11) NOT NULL,
   `postsCount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_progress`
+--
+
+CREATE TABLE `user_progress` (
+  `user_progress_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `conversation_date` date NOT NULL,
+  `conversation_score` int(11) NOT NULL,
+  `vocabulary_focus_grammar` int(11) NOT NULL,
+  `vocabulary_focus_pronunciation` int(11) NOT NULL,
+  `vocabulary_focus_vocabulary` int(11) NOT NULL,
+  `correction_grammar` int(11) NOT NULL,
+  `correction_pronunciation` int(11) NOT NULL,
+  `correction_vocabulary` int(11) NOT NULL,
+  `activity_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -120,6 +168,20 @@ ALTER TABLE `challenge`
   ADD KEY `foreign_key` (`activity_id`) USING BTREE;
 
 --
+-- Indexes for table `chathistory`
+--
+ALTER TABLE `chathistory`
+  ADD PRIMARY KEY (`chathistory_id`),
+  ADD KEY `foreign_keyyy` (`user_id`);
+
+--
+-- Indexes for table `language_analysis`
+--
+ALTER TABLE `language_analysis`
+  ADD PRIMARY KEY (`languageAnalysis_id`),
+  ADD KEY `foreign` (`user_id`);
+
+--
 -- Indexes for table `quiz_questions`
 --
 ALTER TABLE `quiz_questions`
@@ -132,6 +194,14 @@ ALTER TABLE `quiz_questions`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `user_progress`
+--
+ALTER TABLE `user_progress`
+  ADD PRIMARY KEY (`user_progress_id`),
+  ADD KEY `foreign_keyy` (`activity_id`),
+  ADD KEY `foreign-key` (`user_id`);
 
 --
 -- Indexes for table `vocabulary`
@@ -157,6 +227,18 @@ ALTER TABLE `challenge`
   MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `chathistory`
+--
+ALTER TABLE `chathistory`
+  MODIFY `chathistory_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `language_analysis`
+--
+ALTER TABLE `language_analysis`
+  MODIFY `languageAnalysis_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `quiz_questions`
 --
 ALTER TABLE `quiz_questions`
@@ -166,7 +248,13 @@ ALTER TABLE `quiz_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_progress`
+--
+ALTER TABLE `user_progress`
+  MODIFY `user_progress_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vocabulary`
@@ -185,10 +273,29 @@ ALTER TABLE `challenge`
   ADD CONSTRAINT `Test` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
 
 --
+-- Constraints for table `chathistory`
+--
+ALTER TABLE `chathistory`
+  ADD CONSTRAINT `foreign_keyyy` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
+
+--
+-- Constraints for table `language_analysis`
+--
+ALTER TABLE `language_analysis`
+  ADD CONSTRAINT `foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
+
+--
 -- Constraints for table `quiz_questions`
 --
 ALTER TABLE `quiz_questions`
   ADD CONSTRAINT `Test_quiz` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+
+--
+-- Constraints for table `user_progress`
+--
+ALTER TABLE `user_progress`
+  ADD CONSTRAINT `foreign-key` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`),
+  ADD CONSTRAINT `foreign_keyy` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
 
 --
 -- Constraints for table `vocabulary`
