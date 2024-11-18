@@ -3,29 +3,16 @@ session_start();
 require_once '../config/dbh.inc.php';
 require_once '../controllers/UserController.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Create an instance of UserController
-    $userController = new UserController($conn);
+$userController = new UserController($conn);
+$userController->handleProfileUpdate();
 
-    if (isset($_SESSION['userId'])) {
-    $userId = $_SESSION['userId'];
-    $firstName = $_POST['firstName'] ?? '';
-    $lastName = $_POST['lastName'] ?? '';
-    $gender = $_POST['gender'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $role = $_POST['role'] ?? '';
-    $language = $_POST['language'] ?? '';
-    $currentPassword = $_POST['currentPassword'] ?? ''; 
-    $newPassword = $_POST['newPassword'] ?? '';
-    $confirmPassword = $_POST['confirmPassword'] ?? '';
+$errors = $_SESSION['errors'] ?? [];
+$updateMessage = $_SESSION['update_message'] ?? '';
 
-    $result = $userController->updateProfile($userId, $firstName, $lastName,$gender, $email, $role, $language, $currentPassword, $newPassword, $confirmPassword);
 
-    echo $result;
-} else {
-    echo "User ID not found in session.";
-}
-
+if (!isset($_SESSION['userId'])) {
+    header("Location: ../public/error.php");
+    exit();
 }
 
 ?>
@@ -44,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
  <div class="container" style= "padding-right: 0px; padding-left: 0px;">
     <?php include "../views/partials/navbar.php"; ?>
     <div class="main-content">
-    <form action="userProfile.php" method="POST">
+    <form action="userProfile.php" method="POST" enctype="multipart/form-data">
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -52,12 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="text-center user-avatar">
-                                    <img src="" alt="User Profile Picture" style="border-radius:50%; width: 100%">
+                                    <img id="profileImage" name="profileImage" src="../public/<?= $_SESSION['profileImage'] ?? '../public/images/user.png' ?>" alt="User Profile Picture" style="border-radius:50%; width: 100%; aspect-ratio: 1 / 1; object-fit: cover" >
                                 </div>
                             </div>
                             <div class="text-center mt-4 my-3">
                                 <button type="button" class="btn" style="border: 1px solid lightgrey" onclick="document.getElementById('uploadProfilePic').click()">Change Profile Picture</button>
-                                <input type="file" id="uploadProfilePic" style="display:none" onchange="previewImage(event)">
+                                <input type="file" id="uploadProfilePic" name="profileImage" style="display:none" onchange="previewImage(event)">
                             </div>
                             <div class="text-center about">
                                 <h5 style= color:#4D1193;>About</h5>
@@ -80,23 +67,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="firstName" style= "color: #4D1193;">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" value="<?=$_SESSION['firstName']?>">
-                                    </div>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?= htmlspecialchars($_POST['firstName'] ?? $_SESSION['firstName']) ?>">
+                                    <?php if (!empty($errors['firstName'])): ?>
+                                        <small class="form-text text-danger"><?= $errors['firstName'] ?></small>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="lastName" style= "color: #4D1193;">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" value="<?=$_SESSION['lastName']?>">
-                                    </div>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?= htmlspecialchars($_POST['lastName'] ?? $_SESSION['lastName']) ?>">
+                                    <?php if (!empty($errors['lastName'])): ?>
+                                        <small class="form-text text-danger"><?= $errors['lastName'] ?></small>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="gender" style= "color: #4D1193;">Gender</label>
-                                    <select class="form-control" id="gender">
+                                    <select class="form-control" id="gender" name="gender">
                                         <option value="" disabled>Select gender</option>
-                                        <option value="female" <?= (isset($_SESSION['gender']) && $_SESSION['gender'] === 'female') ? 'selected' : '' ?>>Female</option>
-                                        <option value="male" <?= (isset($_SESSION['gender']) && $_SESSION['gender'] === 'male') ? 'selected' : '' ?>>Male</option>
+                                        <option value="male" <?= (($_POST['gender'] ?? $_SESSION['gender']) === 'male') ? 'selected' : '' ?>>Male</option>
+                                        <option value="female" <?= (($_POST['gender'] ?? $_SESSION['gender']) === 'female') ? 'selected' : '' ?>>Female</option>
                                     </select>
+                                    <?php if (!empty($errors['gender'])): ?>
+                                        <small class="form-text text-danger"><?= $errors['gender'] ?></small>
+                                    <?php endif; ?> 
                                 </div>
                             </div>
                         </div>
@@ -108,30 +104,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="email" style= "color: #4D1193;">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email" value="<?= htmlspecialchars($_SESSION['email'] ?? '') ?>">
-                                    </div>
+                                <label for="email" style= "color: #4D1193;">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? $_SESSION['email'] ?? '') ?>">
+                                <?php if (isset($_SESSION['errors']['email'])): ?>
+                                    <div class="form-text text-danger"><?php echo $_SESSION['errors']['email']; ?></div>
+                                <?php endif; ?>
+                                <?php unset($_SESSION['errors']); ?>
+                            </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="role" style= "color: #4D1193;">Role</label>
-                                    <select class="form-control" id="role">
+                                    <select class="form-control" id="role" name="role">
                                         <option value="" disabled>Select role</option>
-                                        <option value="tutor" <?= (isset($_SESSION['role']) && $_SESSION['role'] === 'tutor') ? 'selected' : '' ?>>Tutor</option>
-                                        <option value="admin" <?= (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') ? 'selected' : '' ?>>Admin</option>
-                                        <option value="student" <?= (isset($_SESSION['role']) && $_SESSION['role'] === 'student') ? 'selected' : '' ?>>Student</option>
+                                        <option value="tutor" <?= (($_POST['role'] ?? $_SESSION['role']) === 'tutor') ? 'selected' : '' ?>>Tutor</option>
+                                        <option value="student" <?= (($_POST['role'] ?? $_SESSION['role']) === 'student') ? 'selected' : '' ?>>Student</option>
                                     </select>
+                                    <?php if (!empty($errors['role'])): ?>
+                                        <small class="form-text text-danger"><?= $errors['role'] ?></small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="language" style= "color: #4D1193;">Language</label>
-                                    <select class="form-control" id="language">
-                                        <option value="" disabled>Select language</option>
-                                        <option value="english" <?= (isset($_SESSION['language']) && $_SESSION['language'] === 'english') ? 'selected' : '' ?>>English</option>
-                                        <option value="french" <?= (isset($_SESSION['language']) && $_SESSION['language'] === 'french') ? 'selected' : '' ?>>French</option>
-                                        <option value="spanish" <?= (isset($_SESSION['language']) && $_SESSION['language'] === 'spanish') ? 'selected' : '' ?>>Spanish</option>
+                                    <select class="form-control" id="language" name="language">
+                                        <option value="" disabled>Select your language</option>
+                                        <option value="english" <?= (($_POST['language'] ?? $_SESSION['language']) === 'english') ? 'selected' : '' ?>>English</option>
+                                        <option value="french" <?= (($_POST['language'] ?? $_SESSION['language']) === 'french') ? 'selected' : '' ?>>French</option>
+                                        <option value="spanish" <?= (($_POST['language'] ?? $_SESSION['language']) === 'spanish') ? 'selected' : '' ?>>Spanish</option>
                                     </select>
+                                    <?php if (!empty($errors['language'])): ?>
+                                        <small class="form-text text-danger"><?= $errors['language'] ?></small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -144,13 +149,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="newPassword" style= "color: #4D1193;">New Password</label>
-                                    <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                                    <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter new password">
+                                    <?php if (!empty($errors['newPassword'])): ?>
+                                        <small class="form-text text-danger"><?= htmlspecialchars($errors['newPassword']) ?></small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="confirmPassword" style= "color: #4D1193;">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
+                                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
+                                    <?php if (!empty($errors['confirmPassword'])): ?>
+                                        <small class="form-text text-danger"><?= htmlspecialchars($errors['confirmPassword']) ?></small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right">
-                                    <button type="button" id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" id="cancel" name="cancel" class="btn btn-secondary" onclick="handleCancel()">Cancel</button>
                                     <button type="submit" id="update" name="update" class="btn btn-primary" style= "background:#4D1193; border:1px solid #4D1193;">Update</button>
                                 </div>
                             </div>
@@ -170,14 +181,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
       </div>
      </form>
-     <?php if (isset($_SESSION['update_message'])): ?>
-                <div class="alert alert-info mt-3">
-                    <?= $_SESSION['update_message'] ?>
-                </div>
-                <?php unset($_SESSION['update_message']); ?>
-            <?php endif; ?>
 
+        <?php if (isset($_SESSION['update_message'])): ?>
+            <div id="popupAlert" class="popup-alert">
+                <div class="popup-content">
+                    <p><?php echo $_SESSION['update_message']; ?></p>
+                    <button id="closePopup" class="popup-close-btn">Close</button>
+                </div>
+            </div>
+            <?php unset($_SESSION['update_message']); ?>  
+        <?php endif; ?>
+        
     </div>
+
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/userProfile.js"></script>

@@ -1,84 +1,29 @@
-
-document.getElementById('update').addEventListener('click', function() {
-
-    const firstName = document.getElementById('firstName');
-    const lastName = document.getElementById('lastName');
-    const gender = document.getElementById('gender');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirmPassword');
-
-    clearErrors();
-
-    let isValid = true;
-    
-    function displayError(input, message) {
-        const error = document.createElement('small');
-        error.className = 'form-text text-danger';
-        error.innerText = message;
-        input.parentElement.appendChild(error);
+function handleCancel() {
+    if (confirm("Are you sure you want to cancel? All changes will be discarded.")) {
+        window.location.href = "userProfile.php";
     }
+}
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profileImage');
+        output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+// Close the popup when the close button is clicked
+document.addEventListener('DOMContentLoaded', function () {
+    const closePopupBtn = document.getElementById('closePopup');
+    const popupAlert = document.getElementById('popupAlert');
 
-    function clearErrors() {
-        document.querySelectorAll('.text-danger').forEach(el => el.remove());
-    }
+    if (closePopupBtn && popupAlert) {
+        closePopupBtn.addEventListener('click', function () {
+            popupAlert.style.display = 'none';
+        });
 
-    if (firstName.value.trim() === '') {
-        displayError(firstName, 'First name is required');
-        isValid = false;
-    }
-    if (lastName.value.trim() === '') {
-        displayError(lastName, 'Last name is required');
-        isValid = false;
-    }
-
-    if (gender.value === '') {
-        displayError(gender, 'Gender is required');
-        isValid = false;
-    }
-
-    if (email.value.trim() === '') {
-        displayError(email, 'Email is required');
-        isValid = false;
-    }
-
-    if (role.value === '') {
-        displayError(role, 'Role is required');
-        isValid = false;
-    }
-    
-    if (language.value === '') {
-        displayError(language, 'Language is required');
-        isValid = false;
-    }
-
-    if (password.value.trim() === '') {
-        displayError(password, 'Password is required');
-        isValid = false;
-    }
-    if (confirmPassword.value.trim() === '') {
-        displayError(confirmPassword, 'Confirm password is required');
-        isValid = false;
-    }
-
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (email.value && !emailPattern.test(email.value)) {
-        displayError(email, 'Invalid email format');
-        isValid = false;
-    }
-
-    const passwordPattern = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (password.value && !passwordPattern.test(password.value)) {
-        displayError(password, 'Password must be at least 8 characters long and include a number and a special character');
-        isValid = false;
-    }
-
-    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-        displayError(confirmPassword, 'Passwords do not match');
-        isValid = false;
-    }
-
-    if (isValid) {
-        alert('Form is valid! Submitting...');
+        // Optional: Auto-close popup after 5 seconds
+        setTimeout(() => {
+            popupAlert.style.display = 'none';
+        }, 5000);
     }
 });

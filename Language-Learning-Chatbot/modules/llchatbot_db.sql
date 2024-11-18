@@ -103,7 +103,7 @@ CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `comfirmPassword` varchar(128) NOT NULL,
+  `confirmPassword` varchar(128) NOT NULL,
   `firstName` text NOT NULL,
   `lastName` text NOT NULL,
   `gender` text NOT NULL,
