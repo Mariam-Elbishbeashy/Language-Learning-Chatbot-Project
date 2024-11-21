@@ -50,3 +50,18 @@ img{
 .popup-close-btn:hover {
     background-color: #554ae6;
 }
+
+.swal-confirm-btn {
+    background-color: #4D1193; /* Purple color for confirm */
+    border: 1px solid #4D1193;
+    color: #ffffff; /* White text */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.swal-confirm-btn:hover {
+    background-color: #6A1AB2; /* Slightly lighter purple on hover */
+    border-color: #6A1AB2;
+}

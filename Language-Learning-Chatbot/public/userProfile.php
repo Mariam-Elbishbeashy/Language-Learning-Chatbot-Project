@@ -107,7 +107,7 @@ if (!isset($_SESSION['userId'])) {
                                 <label for="email" style= "color: #4D1193;">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? $_SESSION['email'] ?? '') ?>">
                                 <?php if (isset($_SESSION['errors']['email'])): ?>
-                                    <div class="form-text text-danger"><?php echo $_SESSION['errors']['email']; ?></div>
+                                    <small><div class="form-text text-danger"><?php echo $_SESSION['errors']['email']; ?></div></small>
                                 <?php endif; ?>
                                 <?php unset($_SESSION['errors']); ?>
                             </div>
@@ -191,11 +191,13 @@ if (!isset($_SESSION['userId'])) {
             </div>
             <?php unset($_SESSION['update_message']); ?>  
         <?php endif; ?>
-        
+
     </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/userProfile.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

@@ -1,8 +1,8 @@
-function handleCancel() {
-    if (confirm("Are you sure you want to cancel? All changes will be discarded.")) {
-        window.location.href = "userProfile.php";
-    }
-}
+// function handleCancel() {
+//     if (confirm("Are you sure you want to cancel? All changes will be discarded.")) {
+//         window.location.href = "userProfile.php";
+//     }
+// }
 function previewImage(event) {
     var reader = new FileReader();
     reader.onload = function() {
@@ -27,3 +27,40 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     }
 });
+function handleCancel() {
+    event.preventDefault(); 
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-primary swal-confirm-btn", 
+            cancelButton: "btn btn-secondary swal-cancel-btn mr-2"
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, cancel it!",
+        cancelButtonText: "No, close!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire({
+                title: "Canceled!",
+                text: "Your changes have been discarded.",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "userProfile.php";
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+                title: "Closed",
+                text: "Your changes are safe :)",
+                icon: "error"
+            });
+        }
+    });
+}
