@@ -65,3 +65,13 @@ img{
     background-color: #6A1AB2; /* Slightly lighter purple on hover */
     border-color: #6A1AB2;
 }
+
+.profile-picture-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-picture-actions .btn {
+    cursor: pointer;
+}

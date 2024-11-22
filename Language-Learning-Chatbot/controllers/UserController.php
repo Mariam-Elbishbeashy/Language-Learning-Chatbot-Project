@@ -60,9 +60,14 @@ class UserController {
             if (!empty($newPassword) && $newPassword !== $confirmPassword) {
                 $errors['confirmPassword'] = 'Passwords do not match';
             }
-    
-    
-            if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === UPLOAD_ERR_OK) {
+            
+            $profileImagePath = $_SESSION['profileImage']; 
+
+            if (!empty($_POST['removeProfileFlag']) && $_POST['removeProfileFlag'] == "1") 
+            {
+                $profileImagePath = 'images/user.png';
+            } 
+            elseif (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpName = $_FILES['profileImage']['tmp_name'];
                 $fileName = basename($_FILES['profileImage']['name']);
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));

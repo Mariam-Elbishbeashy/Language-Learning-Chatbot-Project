@@ -64,3 +64,10 @@ function handleCancel() {
         }
     });
 }
+function removeProfilePicture() {
+    const profileImage = document.getElementById('profileImage');
+    profileImage.src = '../public/images/user.png';
+
+    document.getElementById('removeProfileFlag').value = "1";
+    alert('Profile picture will be removed upon saving changes.');
+}

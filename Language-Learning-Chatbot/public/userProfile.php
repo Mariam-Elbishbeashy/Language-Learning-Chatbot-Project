@@ -43,8 +43,13 @@ if (!isset($_SESSION['userId'])) {
                                 </div>
                             </div>
                             <div class="text-center mt-4 my-3">
-                                <button type="button" class="btn" style="border: 1px solid lightgrey" onclick="document.getElementById('uploadProfilePic').click()">Change Profile Picture</button>
-                                <input type="file" id="uploadProfilePic" name="profileImage" style="display:none" onchange="previewImage(event)">
+                                <div class="profile-picture-actions">
+                                    <button type="button" class="btn" style="border: 1px solid lightgrey" onclick="document.getElementById('uploadProfilePic').click()">Change Profile </button>
+                                    <input type="file" id="uploadProfilePic" name="profileImage" style="display:none" onchange="previewImage(event)">
+
+                                    <button type="button" class="btn" style="border: 1px solid lightgrey" onclick="removeProfilePicture()">Remove Profile </button>
+                                    <input type="hidden" id="removeProfileFlag" name="removeProfileFlag" value="0">
+                                </div>
                             </div>
                             <div class="text-center about">
                                 <h5 style= color:#4D1193;>About</h5>
@@ -62,7 +67,7 @@ if (!isset($_SESSION['userId'])) {
                         <!-- Personal Details Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 " style="color:#4D1193;">Personal Details</h6>
+                                <h6 class="mb-3 " style="color:#4D1193;">Personal Details</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -100,7 +105,7 @@ if (!isset($_SESSION['userId'])) {
                         <!-- Account Information Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 " style="color:#4D1193;">Account Information</h6>
+                                <h6 class="mt-3 mb-3 " style="color:#4D1193;">Account Information</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -112,19 +117,7 @@ if (!isset($_SESSION['userId'])) {
                                 <?php unset($_SESSION['errors']); ?>
                             </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="role" style= "color: #4D1193;">Role</label>
-                                    <select class="form-control" id="role" name="role">
-                                        <option value="" disabled>Select role</option>
-                                        <option value="tutor" <?= (($_POST['role'] ?? $_SESSION['role']) === 'tutor') ? 'selected' : '' ?>>Tutor</option>
-                                        <option value="student" <?= (($_POST['role'] ?? $_SESSION['role']) === 'student') ? 'selected' : '' ?>>Student</option>
-                                    </select>
-                                    <?php if (!empty($errors['role'])): ?>
-                                        <small class="form-text text-danger"><?= $errors['role'] ?></small>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
+                            
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="language" style= "color: #4D1193;">Language</label>
@@ -144,7 +137,7 @@ if (!isset($_SESSION['userId'])) {
                         <!-- Login Credentials Section -->
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2" style="color:#4D1193;">Login Credentials</h6>
+                                <h6 class="mt-3 mb-3" style="color:#4D1193;">Login Credentials</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
