@@ -22,7 +22,6 @@ class UserController {
             $lastName = mysqli_real_escape_string($this->conn, trim($_POST['lastName'] ?? ''));
             $gender = mysqli_real_escape_string($this->conn, trim($_POST['gender'] ?? ''));
             $email = mysqli_real_escape_string($this->conn, trim($_POST['email'] ?? ''));
-            $role = mysqli_real_escape_string($this->conn, trim($_POST['role'] ?? ''));
             $language = mysqli_real_escape_string($this->conn, trim($_POST['language'] ?? ''));
             $newPassword = mysqli_real_escape_string($this->conn, trim($_POST['newPassword'] ?? ''));
             $confirmPassword = mysqli_real_escape_string($this->conn, trim($_POST['confirmPassword'] ?? ''));
@@ -48,9 +47,7 @@ class UserController {
                     $errors['email'] = 'Email is already taken';
                 }
             }
-            if (empty($role)) {
-                $errors['role'] = 'Role is required';
-            }
+       
             if (empty($language)) {
                 $errors['language'] = 'Language is required';
             }
@@ -105,8 +102,7 @@ class UserController {
                         firstName = '$firstName', 
                         lastName = '$lastName', 
                         gender = '$gender', 
-                        email = '$email', 
-                        role = '$role', 
+                        email = '$email',  
                         language = '$language'";
     
             if (!empty($newPassword)) {
@@ -126,7 +122,6 @@ class UserController {
                 $_SESSION['lastName'] = $lastName;
                 $_SESSION['gender'] = $gender;
                 $_SESSION['email'] = $email;
-                $_SESSION['role'] = $role;
                 $_SESSION['language'] = $language;
                 $_SESSION['profileImage'] = $profileImagePath ?? $_SESSION['profileImage']; 
                 $_SESSION['update_message'] = 'Profile updated successfully!';
