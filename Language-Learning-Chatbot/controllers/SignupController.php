@@ -21,7 +21,9 @@ function signup($email, $username, $password, $confirmPassword, $gender, $role, 
     if ($num == 0) {
         if ($password === $confirmPassword) {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (firstName, lastName, username, password, email, gender, role, language) VALUES ('$firstName', '$lastName', '$username', '$hash', '$email', '$gender', '$role', '$language')";
+            $confirmhash = password_hash($confirmPassword, PASSWORD_DEFAULT);
+            $defaultProfileImage = '../public/images/user.png';
+            $sql = "INSERT INTO users (firstName, lastName, username, password,confirmPassword, email, gender, role, language , profileImage) VALUES ('$firstName', '$lastName', '$username', '$hash','$confirmhash', '$email', '$gender', '$role', '$language' , '$defaultProfileImage')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 unset($_SESSION['firstName']);
