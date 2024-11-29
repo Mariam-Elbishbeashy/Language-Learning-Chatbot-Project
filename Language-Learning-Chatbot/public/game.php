@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once '../config/dbh.inc.php';
+
+if (!isset($_SESSION['userId'])) {
+    header("Location: ../public/error.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +26,8 @@
         <div class="main-content">
             <div class="quiz-buttons">
                 <div class="profile">
-                    <img src="./images/1458201.png" alt="Profile Picture" class="profile-pic">
-                    <span class="username">Hi Danish!</span>
+                    <img src="../public/<?= $_SESSION['profileImage'] ?? '../public/images/user.png' ?>" alt="Profile Picture" class="profile-pic">
+                    <span class="username">Hi <?=$_SESSION['firstName']?>!</span>
                 </div>
                 <div class="points">
                     <img src="./images/star.png" alt="Points Picture" class="points-pic">

@@ -174,6 +174,8 @@ restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users t
     </section>
 
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+    <script src="../public/js/adminmainjs.js"></script>
+
     <script>
         const scores = {
             1: 85,
