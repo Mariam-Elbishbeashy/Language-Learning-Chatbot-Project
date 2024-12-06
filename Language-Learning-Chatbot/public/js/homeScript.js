@@ -1,34 +1,67 @@
 document.getElementById("sendMessage").addEventListener("click", sendMessage);
 
-document.getElementById("messageInput").addEventListener("keydown", function(event) {
+document.getElementById("messageInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        event.preventDefault(); // Prevent the default form submission (if applicable)
-        sendMessage(); 
+        event.preventDefault(); // Prevent default form submission
+        sendMessage();
     }
 });
 
 function sendMessage() {
-    // Get the message input value
-    const message = document.getElementById("messageInput").value;
+    const messageInput = document.getElementById("messageInput");
+    const chatContent = document.getElementById("chatContent");
+    const message = messageInput.value.trim();
 
-    if (message.trim() !== "") {
-        // Create a new paragraph for the message
-        const newMessage = document.createElement("p");
+    if (message !== "") {
+        // Display the user message immediately
+        const newMessage = document.createElement("div");
         newMessage.textContent = message;
-        newMessage.classList.add("new-message"); // Add the new-message class
-
-        // Show the new message
-        newMessage.style.display = "block"; // Display the message after sending
-
-        // Add the message to the chat content
-        document.getElementById("chatContent").appendChild(newMessage);
+        newMessage.classList.add("new-message");
+        newMessage.style.display = "block";
+        chatContent.appendChild(newMessage);
 
         // Clear the input field
-        document.getElementById("messageInput").value = "";
+        messageInput.value = "";
 
-        // Hide the features section
+        // Hide unnecessary UI sections
         document.querySelector(".features").style.display = "none";
         document.querySelector(".logo2").style.display = "none";
         document.querySelector(".intro").style.display = "none";
+
+        // Scroll to the latest message (user's message)
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        // Send the message to the backend (chatbot handler)
+        fetch("../controllers/chatbotController.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ message: message }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.reply) {
+                const botReply = document.createElement("div");
+                botReply.classList.add("chatbot-response");
+                botReply.textContent = data.reply;
+                botReply.classList.add("bot-message");
+                chatContent.appendChild(botReply);
+
+                // Scroll to the latest message (bot's reply)
+                chatContent.scrollTop = chatContent.scrollHeight;
+            } else {
+                console.error("No reply received from the chatbot.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error communicating with the chatbot:", error);
+
+            // Display an error message in the chat
+            const errorMessage = document.createElement("p");
+            errorMessage.textContent = "An error occurred. Please try again.";
+            errorMessage.classList.add("error-message");
+            chatContent.appendChild(errorMessage);
+        });
     }
 }
