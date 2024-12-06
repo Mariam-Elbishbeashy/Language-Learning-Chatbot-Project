@@ -1,3 +1,13 @@
+<?php 
+session_start();
+require_once '../config/dbh.inc.php';
+require_once '../controllers/UserController.php';
+
+if (!isset($_SESSION['userId'])) {
+    header("Location: ../public/error.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
