@@ -280,6 +280,7 @@ body, html {
     border-radius: 20px; 
     padding: 10px; 
     margin-right: 0;
+    margin-bottom: 20px;
     display: none; 
     width: fit-content;
     background-color: transparent; 
@@ -290,6 +291,18 @@ body, html {
     text-align: right; 
     float: right; 
     clear: both; 
+}
+.bot-message {
+    margin: 10px;
+    padding: 10px;
+    background-color: #9072e2;
+    border-radius: 20px;
+    font-size: 17px;
+    color: black;
+    width: fit-content;
+}
+.chatbot-response{
+    margin-top: 60px;
 }
 
 /* Media query for responsiveness */

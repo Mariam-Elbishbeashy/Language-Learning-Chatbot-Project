@@ -1,3 +1,23 @@
+<style>
+    .chat-list ul {
+    list-style-type: none;
+    padding: 0;
+    color: white;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.chat-list li {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+.chat-list li:hover{
+    color:#9072e2;
+}
+</style>
 <div class="sidebar">
             <div class="logo">
                 <h2>Chatrock</h2>
@@ -71,6 +91,11 @@
             <div class="chat-list">
                 <h3>Chat List</h3>
                 <ul>
+                    <li>Project <span>24</span></li>
+                    <li>Favorites <span>12</span></li>
+                    <li>Research <span>8</span></li>
+                    <li>Development <span>36</span></li>
+                    <li>About AI <span>17</span></li>
                     <li>Project <span>24</span></li>
                     <li>Favorites <span>12</span></li>
                     <li>Research <span>8</span></li>
