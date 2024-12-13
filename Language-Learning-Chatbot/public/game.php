@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../config/dbh.inc.php';
+require_once '../db/dbh.inc.php';
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");

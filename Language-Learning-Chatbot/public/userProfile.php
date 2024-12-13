@@ -1,10 +1,13 @@
 <?php 
 session_start();
-require_once '../db/dbh.inc.php';
-require_once '../controllers/UserController.php';
 
-$userController = new UserController($conn);
-$userController->handleProfileUpdate();
+require_once '../controllers/UserController.php';
+require_once '../model/UserModel.php';
+require_once '../db/dbh.inc.php';
+
+$userModel = new UserModel($conn);
+$userController = new UserController($userModel);
+$userController->edit();
 
 $errors = $_SESSION['errors'] ?? [];
 $updateMessage = $_SESSION['update_message'] ?? '';

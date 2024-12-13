@@ -21,4 +21,7 @@ function checkUserRole($userId, $role, $conn) {
     }
     return false;
 }
+
+return $conn;
+
 ?>
