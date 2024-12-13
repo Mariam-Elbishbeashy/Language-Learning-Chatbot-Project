@@ -1,5 +1,5 @@
 <?php
-require_once '../config/dbh.inc.php';
+require_once '../db/dbh.inc.php';
 session_start();
 
 class ChatbotController {

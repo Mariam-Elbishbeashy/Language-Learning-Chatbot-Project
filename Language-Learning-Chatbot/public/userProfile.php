@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once '../config/dbh.inc.php';
+require_once '../db/dbh.inc.php';
 require_once '../controllers/UserController.php';
 
 $userController = new UserController($conn);
