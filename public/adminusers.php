@@ -1,4 +1,4 @@
-<?php include '../controllers/adminusercontroller.php'; ?>
+<?php include '../Language-Learning-Chatbot/controllers/adminusercontroller.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,7 +124,7 @@
 
 <body>
     <!-- =============== Navigation ================ -->
-    <?php include "../views/partials/adminnavbar.php"; ?>
+    <?php include "../Language-Learning-Chatbot/views/partials/adminnavbar.php"; ?>
 
     <!------------------------------ User Management Section ---------------------------->
     <section>

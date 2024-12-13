@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../db/dbh.inc.php';
+require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
@@ -21,8 +21,8 @@ if (!isset($_SESSION['userId'])) {
 <body>
     
     <div class="container">
-
-        <?php include "../views/partials/navbar.php"; ?>
+        
+        <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
         <div class="main-content">
             <div class="quiz-buttons">
                 <div class="profile">

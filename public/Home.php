@@ -1,7 +1,7 @@
 <?php 
 session_start();
-require_once '../db/dbh.inc.php';
-require_once '../controllers/UserController.php';
+require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+require_once '../Language-Learning-Chatbot/controllers/UserController.php';
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
@@ -18,7 +18,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 <body>
     <div class="container">
-        <?php include "../views/partials/navbar.php"; ?>
+        <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
         <div class="main-content">
             <h1 class="logo2">Chatrock</h1>
             <p class="intro">Delve into profound perspectives, participate in enriching dialogues, and discover fresh opportunities with Chatrock.</p>

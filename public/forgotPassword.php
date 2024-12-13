@@ -1,4 +1,4 @@
-<?php include '../controllers/PasswordController.php';?>
+<?php include '../Language-Learning-Chatbot/controllers/PasswordController.php';?>
 
 <!DOCTYPE html>
 <html lang="en">
