@@ -114,7 +114,7 @@ restrictPageAccess('admin', '../public/home.php'); // Redirect non-admin users t
 
 <body>
     <!-- =============== Navigation ================ -->
-    <?php include "../views/partials/adminnavbar.php"; ?>
+    <?php include "../Language-Learning-Chatbot/views/partials/adminnavbar.php"; ?>
     <!------------------------------ Gamification Section ---------------------------->
     <section>
         <div class="dashboard">

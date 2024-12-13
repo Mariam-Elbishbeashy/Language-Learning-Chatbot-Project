@@ -111,7 +111,7 @@ body {
 </head>
 <body>
     <!-- =============== Navigation ================ -->
-    <?php include "../views/partials/adminnavbar.php"; ?>
+    <?php include "../Language-Learning-Chatbot/views/partials/adminnavbar.php"; ?>
        <!------------------------------ User Management Section ---------------------------->
             <section>
              <div class="dashboard">
