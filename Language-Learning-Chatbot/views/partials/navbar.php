@@ -24,7 +24,7 @@
             </div>
             <ul class="menu">
                 <li>
-                    <a href="home.php">
+                    <a href="Home.php">
                         <span class="icon">
                             <i class="bi bi-chat-dots"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
@@ -64,7 +64,7 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-                    <a href="../public/forum.php">
+                    <a href="forum.php">
                         <span class="icon">
                             <i class="bi bi-people"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../public/learningpath.php">
+                    <a href="learningpath.php">
                         <span class="icon">
                             <i class="bi bi-book"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">

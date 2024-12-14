@@ -1,7 +1,14 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
-require_once '../config/dbh.inc.php';
-require_once '../controllers/UserController.php';
+
+require_once '../Language-Learning-Chatbot/controllers/ChatbotController.php';
+require_once '../Language-Learning-Chatbot/model/ChatbotModel.php';
+require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+
+$chatbotModel = new ChatbotModel($apiKey, $conn);
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
@@ -18,7 +25,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 <body>
     <div class="container">
-        <?php include "../views/partials/navbar.php"; ?>
+        <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
         <div class="main-content">
             <h1 class="logo2">Chatrock</h1>
             <p class="intro">Delve into profound perspectives, participate in enriching dialogues, and discover fresh opportunities with Chatrock.</p>

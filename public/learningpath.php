@@ -93,7 +93,7 @@
 
 <body>
     <div class="container" style="padding-right: 0px; padding-left: 0px;">
-        <?php include "../views/partials/navbar.php"; ?>
+    <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
         <div class="main-content" style="align-items:center; width:80%;">
             <div class="row gutters">
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../config/dbh.inc.php";
+require_once __DIR__ . '/../db/dbh.inc.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sign Up

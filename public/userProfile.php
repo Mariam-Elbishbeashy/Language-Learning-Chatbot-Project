@@ -1,10 +1,13 @@
 <?php 
 session_start();
-require_once '../config/dbh.inc.php';
-require_once '../controllers/UserController.php';
 
-$userController = new UserController($conn);
-$userController->handleProfileUpdate();
+require_once '../Language-Learning-Chatbot/controllers/UserController.php';
+require_once '../Language-Learning-Chatbot/model/UserModel.php';
+require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+
+$userModel = new UserModel($conn);
+$userController = new UserController($userModel);
+$userController->edit();
 
 $errors = $_SESSION['errors'] ?? [];
 $updateMessage = $_SESSION['update_message'] ?? '';
@@ -29,7 +32,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 <body>
  <div class="container" style= "padding-right: 0px; padding-left: 0px;">
-    <?php include "../views/partials/navbar.php"; ?>
+    <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
     <div class="main-content">
     <form action="userProfile.php" method="POST" enctype="multipart/form-data">
         <div class="row gutters">
