@@ -32,7 +32,7 @@ function sendMessage() {
         chatContent.scrollTop = chatContent.scrollHeight;
 
         // Send the message to the backend (chatbot handler)
-        fetch("../controllers/chatbotController.php", {
+        fetch("../Language-Learning-Chatbot/controllers/chatbotController.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
