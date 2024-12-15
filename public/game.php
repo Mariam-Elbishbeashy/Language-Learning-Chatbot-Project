@@ -258,7 +258,7 @@ if (!isset($_SESSION['userId'])) {
                             <button onclick="showChallengePopup('Grammar Training Challenge - Present Simple Practice','Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.')">Continue</button>
                         </div>
                         <img src="./images/robot-assistant.png" alt="Grammar Training">
-                    </div>
+                    </div> 
                     <div class="card grammar">
                         <div class= "card-content">
                             <h3>Vocabulary Training Challenge</h3>
@@ -270,22 +270,30 @@ if (!isset($_SESSION['userId'])) {
                 </div>
             </div>
             <!-- Challenge Popup  -->
-            <div class="popup-overlay" id="challengePopupOverlay">
-                <div class="popup-content">
-                    <span class="close-btn" onclick="closeChallengePopup()">&times;</span>
-                    <div class="quiz-buttons">
-                        <h3 id="popupTitle"></h3>
-                        <img class="challenge-pic" src="./images/effect.png" alt="target">
-                    </div>
-                    <div class="points" id="challenge-points">
-                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="gamePoints">40</span>
-                            </div>
-                    <h4 id="popupDescription"></h4>
-                    <button class="challenge-closeBtn" onclick="closeChallengePopup()">Close</button>
+            <div class="popup-overlay" id="challengePopupOverlay" onclick="confirmCancel()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn"  onclick="confirmCancel()">&times;</span>
+                    <form id="challengeForm">
+
+                        <div class="challenge-buttons">
+                            <h3 id="popupTitle"></h3>
+                            <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        </div>
+                        <div class="points" id="challenge-points">
+                            <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                            <span class="score" id="gamePoints">40</span>
+                        </div>
+                        <h4 id="popupDescription"></h4>
+                        <!-- Added Textarea for User Input -->
+                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <div class="quiz-buttons" id="quizButtons">
+                            <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
+                            <button type="button" onclick="confirmCancel()">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
+            
         </div>
     </div>
     <script src="./js/gameScript.js"></script>
