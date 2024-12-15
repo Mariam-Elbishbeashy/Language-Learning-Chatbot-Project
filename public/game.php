@@ -276,16 +276,16 @@ if (!isset($_SESSION['userId'])) {
                     <form id="challengeForm">
 
                         <div class="challenge-buttons">
-                            <h3 id="popupTitle"></h3>
-                            <img class="challenge-pic" src="./images/effect.png" alt="target">
-                        </div>
-                        <div class="points" id="challenge-points">
-                            <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                            <span class="score" id="gamePoints">40</span>
-                        </div>
-                        <h4 id="popupDescription"></h4>
-                        <!-- Added Textarea for User Input -->
-                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <h3 id="popupTitle"></h3>
+                        <img class="challenge-pic" src="./images/effect.png" alt="target">
+                    </div>
+                    <div class="points" id="challenge-points">
+                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                <span class="score" id="gamePoints">40</span>
+                            </div>
+                    <h4 id="popupDescription"></h4>
+                    <!-- Added Textarea for User Input -->
+                    <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
                         <div class="quiz-buttons" id="quizButtons">
                             <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
                             <button type="button" onclick="confirmCancel()">Cancel</button>
@@ -293,7 +293,7 @@ if (!isset($_SESSION['userId'])) {
                     </form>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <script src="./js/gameScript.js"></script>
