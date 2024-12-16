@@ -10,12 +10,15 @@ function openGameSectionPopup() {
 function openConfirmSubmitPopup() {
     document.getElementById("confirmSubmitPopup").style.display = "flex"; // Show the quiz popup
 }
-function showChallengePopup(title, description) {
-    document.getElementById("popupTitle").innerText = title;
-    document.getElementById("popupDescription").innerText = description;
-    document.getElementById("challengePopupOverlay").style.display = "flex";
+function showGrammarChallengePopup() {
+    document.getElementById("grammarchallengePopupOverlay").style.display = "flex";
 }
-
+function showVocabChallengePopup() {
+    document.getElementById("vocabchallengePopupOverlay").style.display = "flex";
+}
+function openConfirmSubmitChallengePopup() {
+    document.getElementById("confirmSubmitChallengePopup").style.display = "flex"; // Show the challenge popup
+}
 
 let isSubmitted = false;
 function confirmCancel() {
@@ -26,7 +29,9 @@ function confirmCancel() {
         document.getElementById("confirmPopup").style.display = "flex"; // Show confirmation popup if not submitted
     }
 }
-
+function confirmCancelChallenge() {
+    document.getElementById("confirmPopup").style.display = "flex"; // Show confirmation popup if not submitted
+}
 
 
 
@@ -34,6 +39,7 @@ function confirmCancel() {
 function closeBothPopups() {
     closePopup(); // Close the quiz popup
     closeConfirmPopup(); // Close the confirmation popup
+    closeChallengePopup()
 }
 function submitQuiz() {
     let points = 0;
@@ -82,6 +88,10 @@ function submitQuiz() {
     quizButtons.innerHTML = '<button type="button" onclick="closePopup()">Close</button>';
     totalUserPoints+=points;
     document.getElementById("totalUserPoints").innerHTML = `${totalUserPoints}`;
+}
+function submitChallenge(){
+    closeConfirmSubmitChallengePopup();
+    document.getElementById("scorePopup").style.display = "flex";
 }
 
 
@@ -335,5 +345,9 @@ function closeGamesPopup() {
     document.getElementById("gamespopupOverlay").style.display = "none";
 }
 function closeChallengePopup() {
-    document.getElementById("challengePopupOverlay").style.display = "none";
+    document.getElementById("grammarchallengePopupOverlay").style.display = "none";
+    document.getElementById("vocabchallengePopupOverlay").style.display = "none";
+}
+function closeConfirmSubmitChallengePopup(){
+    document.getElementById("confirmSubmitChallengePopup").style.display = "none";
 }

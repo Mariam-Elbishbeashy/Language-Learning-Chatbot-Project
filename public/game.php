@@ -7,7 +7,13 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 ?>
-
+<style>
+      #confirmSubmitChallengePopup .popup-content{
+    width: 20%;
+    height: 30%;
+    text-align: center;
+  }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -255,7 +261,7 @@ if (!isset($_SESSION['userId'])) {
                         <div class= "card-content">
                             <h3>Grammar Training challenge</h3>
                             <p>Present Simple</p>
-                            <button onclick="showChallengePopup('Grammar Training Challenge - Present Simple Practice','Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.')">Continue</button>
+                            <button onclick="showGrammarChallengePopup()">Continue</button>
                         </div>
                         <img src="./images/robot-assistant.png" alt="Grammar Training">
                     </div> 
@@ -263,34 +269,94 @@ if (!isset($_SESSION['userId'])) {
                         <div class= "card-content">
                             <h3>Vocabulary Training Challenge</h3>
                             <p>3 lessons</p>
-                            <button onclick="showChallengePopup('Vocabulary Training Challenge - Building Associations','Create a word web for the topic &quot;Daily Routine&quot;. List related words or phrases for each item, including activities, objects, or people involved in your routine.')">Continue</button>
+                            <button onclick="showVocabChallengePopup()">Continue</button>
                         </div>
                         <img src="./images/pinch.png" alt="Grammar Training">
                     </div>
                 </div>
             </div>
-            <!-- Challenge Popup  -->
-            <div class="popup-overlay" id="challengePopupOverlay" onclick="confirmCancel()">
+            <!-- Grammar Challenge Popup  -->
+            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="dispay: flex; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
-                    <span class="close-btn"  onclick="confirmCancel()">&times;</span>
+                    <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
                     <form id="challengeForm">
 
                         <div class="challenge-buttons">
-                        <h3 id="popupTitle"></h3>
-                        <img class="challenge-pic" src="./images/effect.png" alt="target">
-                    </div>
-                    <div class="points" id="challenge-points">
-                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="gamePoints">40</span>
-                            </div>
-                    <h4 id="popupDescription"></h4>
-                    <!-- Added Textarea for User Input -->
-                    <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                            <h3 id="popupTitle">
+                                Grammar Training Challenge - Present Simple Practice'
+                            </h3>
+                            <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        </div>
+                        <div class="points" id="challenge-points">
+                                    <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                    <span class="score" id="gamePoints">40</span>
+                        </div>
+                        <h4 id="popupDescription">
+                            Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.
+                        </h4>
+                        <!-- Added Textarea for User Input -->
+                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
                         <div class="quiz-buttons" id="quizButtons">
-                            <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
-                            <button type="button" onclick="confirmCancel()">Cancel</button>
+                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <!-- Vocabulary Challenge Popup  -->
+            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="dispay: flex; z-index:200;">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
+                    <form id="challengeForm">
+
+                        <div class="challenge-buttons">
+                            <h3 id="vocabpopupTitle">
+                                Vocabulary Training Challenge - Building Associations
+                            </h3>
+                            <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        </div>
+                        <div class="points" id="challenge-points">
+                                    <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                    <span class="score" id="gamePoints">40</span>
+                        </div>
+                        <h4 id="vocabpopupDescription">
+                        Create a word web for the topic &quot;Daily Routine&quot;. List related words or phrases for each item, including activities, objects, or people involved in your routine.
+                        </h4>
+                        <!-- Added Textarea for User Input -->
+                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <div class="quiz-buttons" id="quizButtons">
+                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Challenges Submit Confirm Popup 1 -->
+            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeConfirmPopup()">×</span>
+                    <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
+                    <h2>Are you sure you want to submit?</h2>
+                    <div class="quiz-buttons">
+                        <button onclick="submitChallenge()">Yes</button>
+                        <button onclick="closeConfirmSubmitChallengePopup()">No</button>
+                    </div>
+                </div>
+            </div>
+            <!--Challenge Score Popup -->
+            <div id="scorePopup" class="popup-overlay" onclick="closeScorePopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeScorePopup()">×</span>
+                    <img src="./images/test-results.png" alt="Reading"> 
+                    <h2 id="scoreMessage" >Your Score</h2>
+                    <div class="points" id="quiz-points">
+                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                        <span class="score" id="totalScore">
+                            <!-- Score hereeee -->
+                        </span>
+                    </div>
+                    <p>Points are added to your score.</p>
+                    <button onclick="closeScorePopup()">Close</button>
                 </div>
             </div>
 

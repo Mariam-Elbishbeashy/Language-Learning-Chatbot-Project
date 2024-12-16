@@ -301,9 +301,22 @@ body {
     width: 100px;
     height: 100px;
   }
-#challengePopupOverlay .popup-content{
+#grammarchallengePopupOverlay .popup-content{
   text-align: center;
-  height: 35%;
+  height: 60%;
+}
+#vocabchallengePopupOverlay .popup-content{
+  text-align: center;
+  height: 60%;
+}
+#confirmSubmitChallengePopup .popup-content{
+  width: 20%;
+  height: 30%;
+  text-align: center;
+}
+.Csubmit-pic{
+  width: 35%;
+  height: 40%;
 }
 #challenge-points{
   margin-left: 40%;

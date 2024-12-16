@@ -18,6 +18,18 @@
     color:#9072e2;
 }
 </style>
+<?php
+session_start(); // Start the session
+
+// Check if the logout request has been made
+if (isset($_GET['logout'])) {
+    // Destroy the session
+    session_destroy();
+    // Redirect to the login page or another page
+    header("Location: index.php");
+    exit;
+}
+?>
 <div class="sidebar">
             <div class="logo">
                 <h2>Chatrock</h2>
@@ -114,7 +126,7 @@
                         </svg>
                     </span>
                 </a>
-                <a href="index.php" class="logout">
+                <a href="?logout=true" class="logout">
                 <span class="logout-icon">
                         <i class="bi bi-box-arrow-left"></i>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
