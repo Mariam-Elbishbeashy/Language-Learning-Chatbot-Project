@@ -19,7 +19,6 @@
 }
 </style>
 <?php
-session_start(); // Start the session
 
 // Check if the logout request has been made
 if (isset($_GET['logout'])) {

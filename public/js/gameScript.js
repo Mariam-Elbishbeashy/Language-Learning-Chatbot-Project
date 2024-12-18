@@ -1,5 +1,3 @@
-let totalUserPoints = 320;
-document.getElementById("totalUserPoints").innerHTML = `${totalUserPoints}`;
 
 function openPopup() {
     document.getElementById("popupOverlay").style.display = "flex"; // Show the quiz popup

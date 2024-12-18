@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2024 at 01:10 AM
+-- Generation Time: Dec 18, 2024 at 10:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,15 +35,31 @@ CREATE TABLE `activities` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge`
+-- Table structure for table `challenge_data`
 --
 
-CREATE TABLE `challenge` (
+CREATE TABLE `challenge_data` (
+  `user_id` int(11) NOT NULL,
   `challenge_id` int(11) NOT NULL,
-  `activity_id` int(11) NOT NULL,
-  `challenge_text` text NOT NULL,
-  `points` int(11) NOT NULL,
-  `difficulty_level` enum('easy','medium','hard') NOT NULL
+  `question_id` int(11) NOT NULL,
+  `user_input` text NOT NULL,
+  `ai_feedback` text NOT NULL,
+  `challenge_score` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `challenge_question`
+--
+
+CREATE TABLE `challenge_question` (
+  `question_id` int(11) NOT NULL,
+  `challenge_category` varchar(20) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL,
+  `question_text` text NOT NULL,
+  `language_category` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -124,10 +140,11 @@ CREATE TABLE `users` (
   `score` text NOT NULL,
   `profileImage` text NOT NULL,
   `progress` int(11) NOT NULL,
-  `postsCount` int(11) NOT NULL
+  `postsCount` int(11) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+
 
 --
 -- Table structure for table `user_progress`
@@ -162,15 +179,6 @@ CREATE TABLE `vocabulary` (
   `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE ChatMessages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    message TEXT NOT NULL,
-    response TEXT NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
 --
 -- Indexes for dumped tables
 --
@@ -182,11 +190,18 @@ ALTER TABLE `activities`
   ADD PRIMARY KEY (`activity_id`);
 
 --
--- Indexes for table `challenge`
+-- Indexes for table `challenge_data`
 --
-ALTER TABLE `challenge`
+ALTER TABLE `challenge_data`
   ADD PRIMARY KEY (`challenge_id`),
-  ADD KEY `foreign_key` (`activity_id`) USING BTREE;
+  ADD KEY `fk_challenges_question_id` (`question_id`),
+  ADD KEY `foreign_key_user` (`user_id`);
+
+--
+-- Indexes for table `challenge_question`
+--
+ALTER TABLE `challenge_question`
+  ADD PRIMARY KEY (`question_id`);
 
 --
 -- Indexes for table `chathistory`
@@ -242,10 +257,16 @@ ALTER TABLE `activities`
   MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `challenge`
+-- AUTO_INCREMENT for table `challenge_data`
 --
-ALTER TABLE `challenge`
-  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `challenge_data`
+  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `challenge_question`
+--
+ALTER TABLE `challenge_question`
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `chathistory`
@@ -269,7 +290,7 @@ ALTER TABLE `quiz_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_progress`
@@ -288,10 +309,11 @@ ALTER TABLE `vocabulary`
 --
 
 --
--- Constraints for table `challenge`
+-- Constraints for table `challenge_data`
 --
-ALTER TABLE `challenge`
-  ADD CONSTRAINT `Test` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+ALTER TABLE `challenge_data`
+  ADD CONSTRAINT `fk_challenges_question_id` FOREIGN KEY (`question_id`) REFERENCES `challenge_question` (`question_id`),
+  ADD CONSTRAINT `foreign_key_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
 
 --
 -- Constraints for table `chathistory`

@@ -37,7 +37,7 @@ if (!isset($_SESSION['userId'])) {
                 </div>
                 <div class="points">
                     <img src="./images/star.png" alt="Points Picture" class="points-pic">
-                    <span class="score" id="totalUserPoints"></span>
+                    <span class="score" id="totalUserPoints"><?= $_SESSION['score']?></span>
                 </div>
             </div>
             <div class="plan-section">

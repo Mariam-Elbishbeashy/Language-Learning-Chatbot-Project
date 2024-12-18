@@ -36,8 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['gender'] = $user['gender'];
                 $_SESSION['profileImage'] = $user['profileImage'];
                 $_SESSION['confirmPassword'] = $user['confirmPassword'];
-                
-
+                $_SESSION['score'] = $user['score'];  
+                $_SESSION['difficulty_level'] = $user['difficulty_level'];                
+              
                 // Redirect based on role
                 switch ($user['role']) {
                     case 'student':
