@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2024 at 01:10 AM
+-- Generation Time: Dec 18, 2024 at 07:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,15 +49,46 @@ CREATE TABLE `challenge` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ChatMessages`
+-- Table structure for table `chatmessages`
 --
-CREATE TABLE ChatMessages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    message TEXT NOT NULL,
-    response TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
+CREATE TABLE `chatmessages` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `response` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forum_comments`
+--
+
+CREATE TABLE `forum_comments` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment_text` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forum_posts`
+--
+
+CREATE TABLE `forum_posts` (
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `category` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,167 +181,81 @@ CREATE TABLE `vocabulary` (
   `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE ChatMessages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    message TEXT NOT NULL,
-    response TEXT NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `activities`
+-- Indexes for table `chatmessages`
 --
-ALTER TABLE `activities`
-  ADD PRIMARY KEY (`activity_id`);
+ALTER TABLE `chatmessages`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `challenge`
+-- Indexes for table `forum_comments`
 --
-ALTER TABLE `challenge`
-  ADD PRIMARY KEY (`challenge_id`),
-  ADD KEY `foreign_key` (`activity_id`) USING BTREE;
+ALTER TABLE `forum_comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `chathistory`
+-- Indexes for table `forum_posts`
 --
-ALTER TABLE `chathistory`
-  ADD PRIMARY KEY (`chathistory_id`),
-  ADD KEY `foreign_keyyy` (`user_id`);
-
---
--- Indexes for table `language_analysis`
---
-ALTER TABLE `language_analysis`
-  ADD PRIMARY KEY (`languageAnalysis_id`),
-  ADD KEY `foreign` (`user_id`);
-
---
--- Indexes for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  ADD PRIMARY KEY (`question_id`),
-  ADD KEY `foreign_key` (`activity_id`) USING BTREE;
+ALTER TABLE `forum_posts`
+  ADD PRIMARY KEY (`post_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- Indexes for table `user_progress`
---
-ALTER TABLE `user_progress`
-  ADD PRIMARY KEY (`user_progress_id`),
-  ADD KEY `foreign_keyy` (`activity_id`),
-  ADD KEY `foreign-key` (`user_id`);
-
---
--- Indexes for table `vocabulary`
---
-ALTER TABLE `vocabulary`
-  ADD PRIMARY KEY (`vocab_gane_id`),
-  ADD KEY `foreign_key` (`activity_id`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `activities`
+-- AUTO_INCREMENT for table `chatmessages`
 --
-ALTER TABLE `activities`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `chatmessages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `challenge`
+-- AUTO_INCREMENT for table `forum_comments`
 --
-ALTER TABLE `challenge`
-  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `forum_comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `chathistory`
+-- AUTO_INCREMENT for table `forum_posts`
 --
-ALTER TABLE `chathistory`
-  MODIFY `chathistory_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `language_analysis`
---
-ALTER TABLE `language_analysis`
-  MODIFY `languageAnalysis_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `forum_posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user_progress`
---
-ALTER TABLE `user_progress`
-  MODIFY `user_progress_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `vocabulary`
---
-ALTER TABLE `vocabulary`
-  MODIFY `vocab_gane_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `challenge`
+-- Constraints for table `forum_comments`
 --
-ALTER TABLE `challenge`
-  ADD CONSTRAINT `Test` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+ALTER TABLE `forum_comments`
+  ADD CONSTRAINT `forum_comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `forum_posts` (`post_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `forum_comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `chathistory`
+-- Constraints for table `forum_posts`
 --
-ALTER TABLE `chathistory`
-  ADD CONSTRAINT `foreign_keyyy` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
-
---
--- Constraints for table `language_analysis`
---
-ALTER TABLE `language_analysis`
-  ADD CONSTRAINT `foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
-
---
--- Constraints for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  ADD CONSTRAINT `Test_quiz` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
-
---
--- Constraints for table `user_progress`
---
-ALTER TABLE `user_progress`
-  ADD CONSTRAINT `foreign-key` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`),
-  ADD CONSTRAINT `foreign_keyy` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
-
---
--- Constraints for table `vocabulary`
---
-ALTER TABLE `vocabulary`
-  ADD CONSTRAINT `foreign_key` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+ALTER TABLE `forum_posts`
+  ADD CONSTRAINT `forum_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
