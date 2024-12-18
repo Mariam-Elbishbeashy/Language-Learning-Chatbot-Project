@@ -47,16 +47,28 @@ CREATE TABLE `challenge` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table Chats
+--
+CREATE TABLE Chats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `ChatMessages`
 --
 CREATE TABLE ChatMessages (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    chat_id INT NOT NULL, -- Link to the Chats table
     user_id INT NOT NULL,
     message TEXT NOT NULL,
     response TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (chat_id) REFERENCES Chats(id) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
