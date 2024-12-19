@@ -1,4 +1,16 @@
-<?php include '../Language-Learning-Chatbot/controllers/adminusercontroller.php'; ?>
+<?php
+session_start();
+if (!isset($_SESSION['firstName']) || !isset($_SESSION['lastName'])) {
+    header("Location: ../public/login.php");
+    exit();
+}
+
+include '../Language-Learning-Chatbot/controllers/adminusercontroller.php';
+
+$userManager = new UserManager($conn);
+$users = $userManager->fetchUsers();
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,151 +19,140 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot Admin Dashboard</title>
-    <!-- ======= Styles ====== -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="../public/css/styleadmin.css">
     <link rel="stylesheet" href="../public/css/admintable.css">
     <style>
-        /* Add styles for modal */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; 
-            z-index: 1000; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px;
-        }
+       /* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-        }
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-        /* Styling for the user management area */
-        .user-management { 
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 95%; 
-            max-width: 1500px; 
-            margin-left: auto; 
-            margin-right: auto; 
-        }
+/* Form Styles */
+#user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#user-form input,
+#user-form select,
+#user-form button {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#user-form input:focus,
+#user-form select:focus {
+    border-color: #6a1b9a;
+    outline: none;
+}
+
+#user-form input[type="password"] {
+    font-family: Arial, sans-serif;
+}
+
+#user-form button {
+    background-color: #6a1b9a;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#user-form button:hover {
+    background-color: #4a0072;
+}
+
+/* Style for placeholders */
+#user-form input::placeholder,
+#user-form select::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Optional: Add a background color for the inputs */
+#user-form input,
+#user-form select {
+    background-color: #fafafa;
+}
+
+#user-form input[type="password"] {
+    font-family: "Courier New", monospace;
+}
+
+h2 {
+    color: #6a1b9a;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Button for opening the modal */
+#add-user-btn {
+    padding: 10px 20px;
+    background-color: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#add-user-btn:hover {
+    background-color: #4a0072;
+}
+
+
+
+
+
         
-        .user-management h2 {
-            color: #6a1b9a;
-        }
-
-        .user-management table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-
-        .user-management table,
-        .user-management th,
-        .user-management td {
-            border: 1px solid #ddd;
-        }
-
-        .user-management th {
-            background-color: #6a1b9a;
-            color: white;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .user-management td {
-            padding: 10px;
-            text-align: left;
-            background-color: #f9f9f9;
-        }
-
-        .user-management tr:hover td {
-            background-color: #e1bee7;
-        }
-
-        .user-management input,
-        .user-management select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: calc(15% - 10px);
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-        }
-
-        .user-management button {
-            padding: 8px 12px;
-            background-color: #6a1b9a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .user-management button:hover {
-            background-color: #4a0072;
-        }
     </style>
 </head>
-
 <body>
-    <!-- =============== Navigation ================ -->
+    <!-- Navigation -->
     <?php include "../Language-Learning-Chatbot/views/partials/adminnavbar.php"; ?>
 
-    <!------------------------------ User Management Section ---------------------------->
+    <!-- User Management -->
     <section>
         <div class="user-management">
             <h2>User Management</h2>
-            <form id="user-form" method="post">
-                <input type="hidden" name="id" id="user-id">
-                <input type="text" name="username" id="username" placeholder="Username" required>
-                <select name="role" id="role" required>
-                    <option value="" disabled>Select Role</option>
-                    <option value="Student">Student</option>
-                    <option value="Tutor">Tutor</option>
-                    <option value="Admin">Admin</option>
-                </select>
-                <select name="language" id="language" required>
-                    <option value="" disabled>Select Language</option>
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
-                    <option value="German">German</option>
-                    <option value="Mandarin">Mandarin</option>
-                </select>
-                <input type="email" name="email" id="email" placeholder="Email" required>
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <button type="submit" name="addUser">Add User</button>
-                <button type="submit" name="editUser">Update User</button>
-            </form>
+            <button id="add-user-btn" onclick="openForm()">Add User</button>
 
             <table>
                 <thead>
@@ -164,63 +165,89 @@
                     </tr>
                 </thead>
                 <tbody id="user-list">
-                    <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?php echo $user['username']; ?></td>
-                        <td><?php echo $user['role']; ?></td>
-                        <td><?php echo $user['language']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td>
-                            <form method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $user['Id']; ?>">
-                                <button type="submit" name="removeUser" onclick="return confirm('Are you sure you want to remove this user?');">Remove</button>
-                            </form>
-                            <button onclick="editUser('<?php echo $user['Id']; ?>', '<?php echo $user['username']; ?>', '<?php echo $user['email']; ?>', '<?php echo $user['role']; ?>', '<?php echo $user['language']; ?>', '<?php echo $user['password']; ?>')">Edit</button>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                    <?php if (isset($users) && !empty($users)): ?>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?php echo $user['username']; ?></td>
+                                <td><?php echo $user['role']; ?></td>
+                                <td><?php echo $user['language']; ?></td>
+                                <td><?php echo $user['email']; ?></td>
+                                <td>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo $user['Id']; ?>">
+                                        <button type="submit" name="removeUser" onclick="return confirm('Are you sure you want to remove this user?');">Remove</button>
+                                    </form>
+                                    <button onclick="editUser('<?php echo $user['Id']; ?>', '<?php echo $user['username']; ?>', '<?php echo $user['email']; ?>', '<?php echo $user['role']; ?>', '<?php echo $user['language']; ?>')">Edit</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No users found.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <!-- Modal for notifications -->
-    <div id="successModal" class="modal">
+    <!-- Modal for User Form -->
+    <div id="userModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p id="modalMessage"></p>
+            <span class="close" onclick="closeForm()">&times;</span>
+            <form id="user-form" method="post" action="../public/adminusers.php">
+                <input type="hidden" name="id" id="user-id"> <!-- For editing existing users -->
+                <input type="text" name="first_name" id="first_name" placeholder="First Name" required>
+                <input type="text" name="last_name" id="last_name" placeholder="Last Name" required>
+                <input type="text" name="username" id="username" placeholder="Username" required>
+                <select name="role" id="role" required>
+                    <option value="" disabled>Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="tutor">Tutor</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <select name="language" id="language" required>
+                    <option value="" disabled>Select Language</option>
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="French">French</option>
+                    <option value="German">German</option>
+                    <option value="Mandarin">Mandarin</option>
+                </select>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+                <select name="gender" id="gender" required>
+                    <option value="" disabled>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="hidden" name="action" value="addUser"> <!-- Action to add a user -->
+                <button type="submit">Save</button>
+            </form>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../public/js/adminmainjs.js"></script>
     <script>
-        function editUser(id, username, email, role, language, password) {
+        function openForm() {
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        function closeForm() {
+            document.getElementById('userModal').style.display = 'none';
+        }
+
+        function editUser(id, username, email, role, language) {
             document.getElementById('user-id').value = id;
             document.getElementById('username').value = username;
             document.getElementById('email').value = email;
             document.getElementById('role').value = role;
             document.getElementById('language').value = language;
-            document.getElementById('password').value = password; 
+            openForm();
         }
-
-        function showModal(message) {
-            document.getElementById('modalMessage').innerText = message;
-            document.getElementById('successModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
-
-        window.onload = function() {
-            var message = <?php echo json_encode($message); ?>;
-            if (message) {
-                showModal(message);
-            }
-        };
     </script>
-
-    <!-- =========== Scripts =========  -->
-    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
-    <script src="../public/js/adminmainjs.js"></script>
 </body>
 </html>
