@@ -23,7 +23,9 @@ function signup($email, $username, $password, $confirmPassword, $gender, $role, 
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $confirmhash = password_hash($confirmPassword, PASSWORD_DEFAULT);
             $defaultProfileImage = '../public/images/user.png';
-            $sql = "INSERT INTO users (firstName, lastName, username, password,confirmPassword, email, gender, role, language , profileImage) VALUES ('$firstName', '$lastName', '$username', '$hash','$confirmhash', '$email', '$gender', '$role', '$language' , '$defaultProfileImage')";
+            $defaultScore = 0;
+            $defaultDifficultyLevel = 'Beginner';
+            $sql = "INSERT INTO users (firstName, lastName, username, password,confirmPassword, email, gender, role, language , profileImage, score , difficulty_level) VALUES ('$firstName', '$lastName', '$username', '$hash','$confirmhash', '$email', '$gender', '$role', '$language' , '$defaultProfileImage', '$defaultScore', '$defaultDifficultyLevel')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 unset($_SESSION['firstName']);
