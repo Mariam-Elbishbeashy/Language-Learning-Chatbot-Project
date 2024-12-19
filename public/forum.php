@@ -1,3 +1,26 @@
+<?php
+require_once '../Language-Learning-Chatbot/controllers/forumController.php';
+
+$forumController = new forumController();
+$questions = $forumController->loadQuestions();
+
+function timeAgo($datetime) {
+    $time = strtotime($datetime);
+    $timeDiff = time() - $time;
+
+    if ($timeDiff < 60) {
+        return 'Just now';
+    } elseif ($timeDiff < 3600) {
+        return floor($timeDiff / 60) . ' minutes ago';
+    } elseif ($timeDiff < 86400) {
+        return floor($timeDiff / 3600) . ' hours ago';
+    } elseif ($timeDiff < 604800) {
+        return floor($timeDiff / 86400) . ' days ago';
+    } else {
+        return date('F j, Y', $time);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,13 +107,13 @@
             </div>
         </div>
    
-
+<!-- 
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
             <input type="text" class="form-control form-control8392" placeholder="Ask any question and you be sure find your answer ?">
             <span class="input-group-addon"><a href="#">Ask Now</a></span>
         
-            </div>
+            </div> -->
             </div>
         </div>
     </section>
@@ -145,6 +168,47 @@
     </div>
     </section>
           <!--missing-->    
+          <?php if (!empty($questions)): ?>
+            <?php foreach ($questions as $question): ?>
+                <div class="question-type2033">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="left-user12923 left-user12923-repeat">
+                            <img src="<?php echo htmlspecialchars($question['profileImage']); ?>" alt="Profile Image">
+                                <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                <p style="text-align: center; font-size: 12px; margin-top: 5px;"><?php echo htmlspecialchars($question['username']); ?></p>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="right-description893">
+                                <div id="que-hedder2983">
+                                    <h3><a href="#" target="_blank"><?php echo htmlspecialchars($question['title']); ?></a></h3>
+                                </div>
+                                <div class="ques-details10018">
+                                    <p><?php echo htmlspecialchars($question['content']); ?></p>
+                                </div>
+                                <hr>
+                                <div class="ques-icon-info3293">
+                                    <a href="#"><i class="fa fa-star" aria-hidden="true"> 0 </i></a>
+                                    <a href="#"><i class="fa fa-folder" aria-hidden="true"> <?php echo htmlspecialchars($question['category']); ?></i></a>
+                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true"> <?php echo timeAgo($question['created_at']); ?></i></a>
+                                    <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> Comment</i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="ques-type302">
+                                <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                                <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-lists"></div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No questions have been posted yet. Be the first to ask!</p>
+        <?php endif; ?>
             
     </div>
     </div>
