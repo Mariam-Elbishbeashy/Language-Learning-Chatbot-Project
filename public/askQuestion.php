@@ -1,3 +1,4 @@
+<?php include '../Language-Learning-Chatbot/controllers/askQuestionController.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +13,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="../public/css/forum.css" rel="stylesheet" type="text/css">
-    <link href="../public/css/askQuestion.css" rel="stylesheet" type="text/css">
+    <link href="../public/css/forum.css" rel="stylesheet" >
+    <link href="../public/css/askQuestion.css" rel="stylesheet" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="../public/css/responsive.css" rel="stylesheet" type="text/css"> </head>
     
+    <style>
+    /* Style for the textarea */
+    textarea#txtEditor {
+        width: 100%;
+        height: 300px; 
+        padding: 15px;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        background-color: #f4f4f9; 
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+        resize: none; 
+    }
+
+    textarea#txtEditor:focus {
+        border-color: #fd6372; 
+        box-shadow: 0 0 10px rgb(145, 55, 64); 
+        outline: none; 
+    }
+
+    textarea#txtEditor::placeholder {
+        font-style: italic;
+        color: #aaa;
+    }
+</style>
 
 <body>
     <div class="top-bar">
@@ -70,35 +97,42 @@
                 <div class="ask-question-input-part032">
                       <h4>Ask Question</h4>
                  <hr>
-                    <form>
-                        <div class="question-title39">
-                            <span class="form-description433">Question-Title* </span><input type="text" name="fname" class="question-ttile32" placeholder="Write Your Question Title">
-                        </div>
-                        
+
+                 <?php if (isset($_SESSION['errorMessage'])): ?>
+    <div class="error"><?php echo $_SESSION['errorMessage']; unset($_SESSION['errorMessage']); ?></div>
+<?php endif; ?>
+<?php if (isset($_SESSION['successMessage'])): ?>
+    <div class="success"><?php echo $_SESSION['successMessage']; unset($_SESSION['successMessage']); ?></div>
+<?php endif; ?>
+<form action="../Language-Learning-Chatbot/controllers/askQuestionController.php" method="POST" enctype="multipart/form-data">
+
+    <div class="question-title39">
+        <span class="form-description433">Question-Title* </span>
+        <input type="text" name="title" class="question-ttile32" placeholder="Write Your Question Title" required>
+    </div>
+                    
     <div class="categori49">
         <span class="form-description43305">Category* </span>
         <label>
-<input list="browsers" name="myBrowser" class="list-category53"/></label>
-<datalist id="browsers">
-  <option value="English">
-  <option value="French">
-  <option value="Spanish">
-</datalist>
+            <input list="browsers" name="category" class="list-category53" required>
+        </label>
+        <datalist id="browsers">
+            <option value="English">
+            <option value="French">
+            <option value="Spanish">
+        </datalist>
     </div>
-    <div class="button-group-addfile3239">
-        <span class="form-description23993">Attactment</span><input type="file" name="ffile" class="question-ttile3226">
-        
-    </div>
-       <div class="details2-239">
+
+    <div class="details2-239">
         <div class="col-md-12 nopadding">
-            <textarea id="txtEditor"></textarea> 
+            <textarea id="txtEditor" name="content" placeholder="Write your question details here..." required></textarea> 
         </div>
-                        </div>	
-                     
+    </div>  
+    <div class="publish-button2389">
+                <button type="submit" name="publishQuestion" class="publis1291">Publish your Question</button>
+            </div>
 </form>
-                 <div class="publish-button2389">
-                    <button type="button" class="publis1291">Publish your Question</button>
-                </div>
+
                 </div>
                 </div>
            <aside class="col-md-3 sidebar97239">
@@ -201,16 +235,10 @@
     <li><a href="#">communication skills</a></li>
     </ul>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="../public/js/askQuestion.js"></script>
-      
-   	<script>
-			$(document).ready(function() {
-				$("#txtEditor").Editor();
-			});
-		</script>
   
 </body>
 
