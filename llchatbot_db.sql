@@ -127,7 +127,7 @@ CREATE TABLE `quiz_questions` (
 --
 
 CREATE TABLE `users` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,

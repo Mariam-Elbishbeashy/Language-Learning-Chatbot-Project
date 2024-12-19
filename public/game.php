@@ -1,6 +1,13 @@
 <?php
 session_start();
 require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+require_once '../Language-Learning-Chatbot/controllers/ChallengesController.php';
+require_once '../Language-Learning-Chatbot/model/ChallengesModel.php';
+
+// Instantiate the controller
+$challengeModel = new ChallengesModel($conn);
+$controller = new ChallengesController($challengeModel);
+
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
@@ -276,7 +283,7 @@ if (!isset($_SESSION['userId'])) {
                 </div>
             </div>
             <!-- Grammar Challenge Popup  -->
-            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="dispay: flex; z-index:200;">
+            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
                     <form id="challengeForm">
@@ -292,7 +299,11 @@ if (!isset($_SESSION['userId'])) {
                                     <span class="score" id="gamePoints">40</span>
                         </div>
                         <h4 id="popupDescription">
-                            Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.
+                        <?php   
+                            $userId = $_SESSION['userId'];
+                            $category = 'grammar';
+                            $questionText = $controller->getQuestionForUser($userId, $category);      
+                        ?>
                         </h4>
                         <!-- Added Textarea for User Input -->
                         <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
@@ -304,7 +315,7 @@ if (!isset($_SESSION['userId'])) {
                 </div>
             </div>
             <!-- Vocabulary Challenge Popup  -->
-            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="dispay: flex; z-index:200;">
+            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
                     <form id="challengeForm">
@@ -320,8 +331,11 @@ if (!isset($_SESSION['userId'])) {
                                     <span class="score" id="gamePoints">40</span>
                         </div>
                         <h4 id="vocabpopupDescription">
-                        Create a word web for the topic &quot;Daily Routine&quot;. List related words or phrases for each item, including activities, objects, or people involved in your routine.
-                        </h4>
+                        <?php   
+                            $userId = $_SESSION['userId'];
+                            $category = 'vocabulary';
+                            $questionText = $controller->getQuestionForUser($userId, $category);      
+                        ?>                        </h4>
                         <!-- Added Textarea for User Input -->
                         <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
                         <div class="quiz-buttons" id="quizButtons">
