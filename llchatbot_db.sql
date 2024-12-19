@@ -4,6 +4,7 @@
 --
 -- Host: 127.0.0.1
 -- Generation Time: Dec 19, 2024 at 03:54 PM
+
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,33 +36,22 @@ CREATE TABLE `activities` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge`
+-- Table structure for table `challenge_data`
 --
 
-CREATE TABLE `challenge` (
-  `challenge_id` int(11) NOT NULL,
-  `activity_id` int(11) NOT NULL,
-  `challenge_text` text NOT NULL,
-  `points` int(11) NOT NULL,
-  `difficulty_level` enum('easy','medium','hard') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chatmessages`
---
-
-CREATE TABLE `chatmessages` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `challenge_data` (
   `user_id` int(11) NOT NULL,
-  `message` text NOT NULL,
-  `response` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `challenge_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_input` text NOT NULL,
+  `ai_feedback` text NOT NULL,
+  `challenge_score` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
+--
 --
 -- Table structure for table `forum_comments`
 --
@@ -89,6 +79,43 @@ CREATE TABLE `forum_posts` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Table structure for table `challenge_question`
+--
+
+CREATE TABLE `challenge_question` (
+  `question_id` int(11) NOT NULL,
+  `challenge_category` varchar(20) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL,
+  `question_text` text NOT NULL,
+  `language_category` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table Chats
+--
+CREATE TABLE Chats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ChatMessages`
+--
+CREATE TABLE ChatMessages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    chat_id INT NOT NULL, -- Link to the Chats table
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    response TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (chat_id) REFERENCES Chats(id) ON DELETE CASCADE
+);
+
 
 -- --------------------------------------------------------
 
@@ -119,8 +146,24 @@ CREATE TABLE `quiz_questions` (
   `option_c` varchar(255) NOT NULL,
   `option_d` varchar(255) NOT NULL,
   `correct_answer` varchar(255) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL,
+  `language_category` varchar(20) NOT NULL,
   `points` int(11) NOT NULL,
   `activity_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_solved_questions`
+--
+
+CREATE TABLE `user_solved_questions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_answer` text NOT NULL,
+  `solved_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -130,7 +173,7 @@ CREATE TABLE `quiz_questions` (
 --
 
 CREATE TABLE `users` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
@@ -143,10 +186,11 @@ CREATE TABLE `users` (
   `score` text NOT NULL,
   `profileImage` text NOT NULL,
   `progress` int(11) NOT NULL,
-  `postsCount` int(11) NOT NULL
+  `postsCount` int(11) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+
 
 --
 -- Table structure for table `user_progress`
@@ -186,10 +230,24 @@ CREATE TABLE `vocabulary` (
 --
 
 --
--- Indexes for table `chatmessages`
+-- Indexes for table `activities`
 --
-ALTER TABLE `chatmessages`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `activities`
+  ADD PRIMARY KEY (`activity_id`);
+
+--
+-- Indexes for table `challenge_data`
+--
+ALTER TABLE `challenge_data`
+  ADD PRIMARY KEY (`challenge_id`),
+  ADD KEY `fk_challenges_question_id` (`question_id`),
+  ADD KEY `foreign_key_user` (`user_id`);
+
+--
+-- Indexes for table `challenge_question`
+--
+ALTER TABLE `challenge_question`
+  ADD PRIMARY KEY (`question_id`);
 
 --
 -- Indexes for table `forum_comments`
@@ -217,10 +275,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `chatmessages`
+-- AUTO_INCREMENT for table `activities`
 --
-ALTER TABLE `chatmessages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `activities`
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `challenge_data`
+--
+ALTER TABLE `challenge_data`
+  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `challenge_question`
+--
+ALTER TABLE `challenge_question`
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `forum_comments`
@@ -235,17 +305,59 @@ ALTER TABLE `forum_posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- Indexes for table `user_solved_questions`
+--
+ALTER TABLE `user_solved_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_user_question` (`user_id`,`question_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user_solved_questions`
+--
+ALTER TABLE `user_solved_questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `forum_comments`
+-- Constraints for table `challenge_data`
+--
+ALTER TABLE `challenge_data`
+  ADD CONSTRAINT `fk_challenges_question_id` FOREIGN KEY (`question_id`) REFERENCES `challenge_question` (`question_id`),
+  ADD CONSTRAINT `foreign_key_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
+
+--
+-- Constraints for table `chathistory`
+--
+ALTER TABLE `chathistory`
+  ADD CONSTRAINT `foreign_keyyy` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
+
+--
+-- Constraints for table `language_analysis`
+--
+ALTER TABLE `language_analysis`
+  ADD CONSTRAINT `foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`);
+
+--
+-- Constraints for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  ADD CONSTRAINT `Test_quiz` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`activity_id`);
+
+--
+-- Constraints for table `user_progress`
 --
 ALTER TABLE `forum_comments`
   ADD CONSTRAINT `forum_comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `forum_posts` (`post_id`) ON DELETE CASCADE,
