@@ -36,6 +36,21 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
     height: 30%;
     text-align: center;
   }
+  #confirmSubmitVocabChallengePopup .popup-content{
+  width: 20%;
+  height: 30%;
+  text-align: center;
+}
+#VocabscorePopup .popup-content {
+    width: 20%;
+    height: 40%;
+    text-align: center;
+  }
+  #GrammarscorePopup .popup-content {
+    width: 20%;
+    height: 40%;
+    text-align: center;
+  }
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -334,6 +349,34 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                     </form>
                 </div>
             </div>
+            <!-- Challenges Submit Confirm Popup 1 -->
+            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeConfirmPopup()">×</span>
+                    <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
+                    <h2>Are you sure you want to submit?</h2>
+                    <div class="quiz-buttons">
+                        <button onclick="submitGrammarChallenge()">Yes</button>
+                        <button onclick="closeConfirmSubmitChallengePopup()">No</button>
+                    </div>
+                </div>
+            </div>
+            <!--Challenge Score Popup -->
+            <div id="GrammarscorePopup" class="popup-overlay" onclick="closeGrammarScorePopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeGrammarScorePopup()">×</span>
+                    <img src="./images/test-results.png" alt="Reading" style="width: 110px; height: 120px;"> 
+                    <h2 id="scoreMessage" >Your Score</h2>
+                    <div class="points" id="quiz-points">
+                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                        <span class="score" id="totalScore">
+                            <!-- Score hereeee -->
+                        </span>
+                    </div>
+                    <p>Points are added to your score.</p>
+                    <button onclick="closeGrammarScorePopup()">Close</button>
+                </div>
+            </div>
             <!-- Vocabulary Challenge Popup  -->
             <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
@@ -359,38 +402,38 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                         <!-- Added Textarea for User Input -->
                         <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
                         <div class="quiz-buttons" id="quizButtons">
-                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" onclick="openConfirmSubmitVocabChallengePopup()">Submit</button>
                             <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- Challenges Submit Confirm Popup 1 -->
-            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+             <!-- Challenges Submit Confirm Popup 2 (For Vocabulary) -->
+             <div id="confirmSubmitVocabChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn" onclick="closeConfirmPopup()">×</span>
                     <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
                     <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
-                        <button onclick="submitChallenge()">Yes</button>
-                        <button onclick="closeConfirmSubmitChallengePopup()">No</button>
+                        <button onclick="submitVocabChallenge()">Yes</button>
+                        <button onclick="closeConfirmSubmitVocabChallengePopup()">No</button>
                     </div>
                 </div>
             </div>
-            <!--Challenge Score Popup -->
-            <div id="scorePopup" class="popup-overlay" onclick="closeScorePopup()">
+            <!--Challenge Score Popup (For Vocabulary) -->
+            <div id="VocabscorePopup" class="popup-overlay" onclick="closeVocabScorePopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">
-                    <span class="close-btn" onclick="closeScorePopup()">×</span>
-                    <img src="./images/test-results.png" alt="Reading"> 
+                    <span class="close-btn" onclick="closeVocabScorePopup()">×</span>
+                    <img src="./images/test-results.png" alt="Reading" class="score-result-pic" style="width: 110px; height: 120px;"> 
                     <h2 id="scoreMessage" >Your Score</h2>
                     <div class="points" id="quiz-points">
-                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="vocab-points-pic">
                         <span class="score" id="totalScore">
                             <!-- Score hereeee -->
                         </span>
                     </div>
                     <p>Points are added to your score.</p>
-                    <button onclick="closeScorePopup()">Close</button>
+                    <button onclick="closeVocabScorePopup()">Close</button>
                 </div>
             </div>
 

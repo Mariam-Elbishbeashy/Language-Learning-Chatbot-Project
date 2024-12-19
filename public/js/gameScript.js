@@ -17,6 +17,9 @@ function showVocabChallengePopup() {
 function openConfirmSubmitChallengePopup() {
     document.getElementById("confirmSubmitChallengePopup").style.display = "flex"; // Show the challenge popup
 }
+function openConfirmSubmitVocabChallengePopup() {
+    document.getElementById("confirmSubmitVocabChallengePopup").style.display = "flex"; // Show the challenge popup
+}
 
 let isSubmitted = false;
 function confirmCancel() {
@@ -50,9 +53,13 @@ function submitQuiz() {
     quizButtons.innerHTML = '<button type="button" onclick="closePopup()">Close</button>';
     
 }
-function submitChallenge(){
+function submitGrammarChallenge(){
     closeConfirmSubmitChallengePopup();
-    document.getElementById("scorePopup").style.display = "flex";
+    document.getElementById("GrammarscorePopup").style.display = "flex";
+}
+function submitVocabChallenge(){
+    closeConfirmSubmitVocabChallengePopup();
+    document.getElementById("VocabscorePopup").style.display = "flex";
 }
 
 
@@ -301,6 +308,12 @@ function closeConfirmSubmitPopup() {
 function closeScorePopup() {
     document.getElementById("scorePopup").style.display = "none";
 }
+function closeGrammarScorePopup() {
+    document.getElementById("GrammarscorePopup").style.display = "none";
+}
+function closeVocabScorePopup() {
+    document.getElementById("VocabscorePopup").style.display = "none";
+}
 
 function closeGamesPopup() {
     document.getElementById("gamespopupOverlay").style.display = "none";
@@ -311,4 +324,7 @@ function closeChallengePopup() {
 }
 function closeConfirmSubmitChallengePopup(){
     document.getElementById("confirmSubmitChallengePopup").style.display = "none";
+}
+function closeConfirmSubmitVocabChallengePopup(){
+    document.getElementById("confirmSubmitVocabChallengePopup").style.display = "none";
 }
