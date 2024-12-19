@@ -40,6 +40,26 @@ class ChallengesModel extends Model {
         return $row ? $row['question_text'] : null;
     }
 
+    public function saveUserInput($userId, $questionId, $userInput) {
+        $query = "INSERT INTO challenge_data 
+                  (user_id, question_id, user_input, ai_feedback, challenge_score, created_at) 
+                  VALUES (?, ?, ?, NULL, NULL, NOW())";
+        
+        $stmt = $this->conn->prepare($query); // Use the connection from Model
+        $stmt->bind_param(
+            'iis', 
+            $userId, 
+            $questionId, 
+            $userInput
+        );
+        
+        if ($stmt->execute()) {
+            return true; // Return true if insertion is successful
+        } else {
+            return false; // Return false if there’s an error
+        }
+    }
+
 
 }
 
