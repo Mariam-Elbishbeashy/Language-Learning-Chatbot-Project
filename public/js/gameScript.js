@@ -32,7 +32,6 @@ function confirmCancelChallenge() {
 }
 
 
-
 // Function to close both popups when confirming cancellation
 function closeBothPopups() {
     closePopup(); // Close the quiz popup
@@ -40,52 +39,16 @@ function closeBothPopups() {
     closeChallengePopup()
 }
 function submitQuiz() {
-    let points = 0;
-    closeConfirmSubmitPopup();
-    isSubmitted = true;
-    // Get the form and initialize score
-    const form = document.getElementById("quizForm");
-    let score = 0;
-
-    // Correct answers for the quiz
-    const correctAnswers = {
-        question1: "Cold",
-        question2: "went", 
-        question3: "True",
-        question4: "Children",
-        question5: "Joyful"
-    };
-
-    
-    for (let i = 1; i <= 5; i++) {
-        const question = "question" + i;
-        const userAnswer = form[question].value;
-        
-        // Handle feedback for each question
-        const feedbackElement = document.getElementById(`feedback${i}`);
-        if (userAnswer) {
-            if (userAnswer === correctAnswers[question]) {
-                points +=5;
-                score++;
-                feedbackElement.innerHTML = "<span style='color: green;'>Correct!</span>";
-            } else {
-                feedbackElement.innerHTML = `<span style='color: red;'>Wrong! The correct answer is: ${correctAnswers[question]}</span>`;
-            }
-        } else {
-            feedbackElement.innerHTML = "<span style='color: red;'>You must answer this question!</span>";
-        }
-    }
+    // Close the confirm submit popup
+    closeConfirmSubmitPopup()
 
     // Show score popup
-    document.getElementById("scoreMessage").innerText = `You scored ${score} out of 5!`;
-    document.getElementById("totalScore").innerText = `${points}`;
     document.getElementById("scorePopup").style.display = "flex";
 
-
+    // Assigning the closing popup function to close button at score popup 
     const quizButtons = document.getElementById("quizButtons");
     quizButtons.innerHTML = '<button type="button" onclick="closePopup()">Close</button>';
-    totalUserPoints+=points;
-    document.getElementById("totalUserPoints").innerHTML = `${totalUserPoints}`;
+    
 }
 function submitChallenge(){
     closeConfirmSubmitChallengePopup();

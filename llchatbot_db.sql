@@ -116,8 +116,24 @@ CREATE TABLE `quiz_questions` (
   `option_c` varchar(255) NOT NULL,
   `option_d` varchar(255) NOT NULL,
   `correct_answer` varchar(255) NOT NULL,
+  `difficulty_level` varchar(20) NOT NULL,
+  `language_category` varchar(20) NOT NULL,
   `points` int(11) NOT NULL,
   `activity_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_solved_questions`
+--
+
+CREATE TABLE `user_solved_questions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_answer` text NOT NULL,
+  `solved_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -286,6 +302,23 @@ ALTER TABLE `language_analysis`
 ALTER TABLE `quiz_questions`
   MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- Indexes for table `user_solved_questions`
+--
+ALTER TABLE `user_solved_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_user_question` (`user_id`,`question_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user_solved_questions`
+--
+ALTER TABLE `user_solved_questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
 --
 -- AUTO_INCREMENT for table `users`
 --
