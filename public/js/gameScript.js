@@ -40,8 +40,18 @@ function closeBothPopups() {
     closePopup(); // Close the quiz popup
     closeConfirmPopup(); // Close the confirmation popup
     closeChallengePopup()
+    const form = document.getElementById('quizForm');
+    if (form) {
+        form.reset(); // This will clear all input fields
+    }
+
+    // Optionally reload the page to clear any PHP-generated feedback
+    window.location.href = window.location.pathname;
 }
 function submitQuiz() {
+
+    const quizForm = document.getElementById('quizForm');
+    quizForm.submit(); 
     // Close the confirm submit popup
     closeConfirmSubmitPopup()
 
@@ -297,6 +307,7 @@ const associationWords = [
 
 function closePopup() {
     document.getElementById("popupOverlay").style.display = "none"; 
+    
 }
 function closeConfirmPopup() {
     document.getElementById("confirmPopup").style.display = "none"; 

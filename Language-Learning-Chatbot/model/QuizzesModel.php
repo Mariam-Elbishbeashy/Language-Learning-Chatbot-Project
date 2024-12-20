@@ -16,7 +16,9 @@ class QuizModel extends Model {
                 qq.option_a,
                 qq.option_b,
                 qq.option_c,
-                qq.option_d
+                qq.option_d,
+                correct_answer,
+                question_type
             FROM 
                 quiz_questions qq
             INNER JOIN 
@@ -38,7 +40,35 @@ class QuizModel extends Model {
         // Return the question_text or null if not found
         return $result->fetch_all(MYSQLI_ASSOC); // Return all rows
     }
-    
+
+
+    public function getConnection() {
+        return $this->conn;
+    }
+
+    public function saveScore($userId, $score) {
+        $query = "UPDATE users SET score = score + ? WHERE Id = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt) {
+            $stmt->bind_param("ii", $score, $userId);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            throw new Exception("Database error: Unable to prepare statement.");
+        }
+    }
+
+    public function getCurrentScore($userId) {
+        $query = "SELECT score FROM users WHERE Id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $userId); // Assuming user_id is a string, adjust if it's an integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['score'] ?? 0;  // Default to 0 if no score is found
+    }
 
 }
 ?>

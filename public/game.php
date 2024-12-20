@@ -21,7 +21,12 @@ if (!isset($_SESSION['userId'])) {
 
 $quizModel = new QuizModel($conn);
 $quizController = new QuizzesController($quizModel);
+
 $userId = $_SESSION['userId']; // Get the logged-in user's ID from the session
+
+// Variables to store quiz data and results
+$isSubmitted = false;
+
 
 $mcqQuestions = $quizModel->getQuestionsForUser($userId, 'MCQ');
 $fillInTheBlankQuestion = $quizModel->getQuestionsForUser($userId, 'fill-in-the-blank')[0] ?? null;
@@ -36,6 +41,27 @@ $quizQuestions = [
     'trueFalse' => $trueFalseQuestion
 ];
 
+
+$feedback = [];
+$isSubmitted = false;
+$userAnswers = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz'])) {
+    // Get user answers
+    $userAnswers = $_POST['answers'] ?? [];
+
+    // Pass data to the controller
+    $quizResult = $quizController->handleQuizSubmission($quizQuestions, $userAnswers, $userId);
+
+    // Extract feedback and score from the result
+    $feedback = $quizResult['feedback'];
+    $score = $quizResult['score'];
+
+    // Store feedback and score in the session if needed
+    $_SESSION['feedback'] = $feedback;
+    $_SESSION['score'] = $score;
+    $isSubmitted = true;
+}
 
 ?>
 <style>
@@ -101,74 +127,65 @@ $quizQuestions = [
                         <button onclick="openPopup()">Start</button>
                     </div>
                     <img src="./images/online-exam.png" alt="Listening">
-                    <div id="popupOverlay" class="popup-overlay" onclick="confirmCancel()">
-                        <div class="popup-content" onclick="event.stopPropagation()">
-                            <span class="close-btn" onclick="confirmCancel()">&times;</span>
+                        <div id="popupOverlay" class="popup-overlay" onclick="confirmCancel()">
+                            <div class="popup-content" onclick="event.stopPropagation()">
+                                <span class="close-btn" onclick="confirmCancel()">&times;</span>
+                                <form id="quizForm" method="POST" action="game.php">
+                                    <?php if ($quizQuestions): ?>
+                                        <?php foreach ($quizQuestions as $key => $question): ?>
+                                            <?php if ($question): ?>
+                                                <div class="question">
+                                                    <p><strong><?= htmlspecialchars($question['question_text']) ?></strong></p>
 
-                            <form id="quizForm" method="POST" action="game.php">
+                                                    <?php if ($question['question_type'] == 'MCQ'): ?>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="<?= htmlspecialchars($question['option_a']) ?>" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == $question['option_a'] ? 'checked' : '' ?> required> <?= htmlspecialchars($question['option_a']) ?><br>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="<?= htmlspecialchars($question['option_b']) ?>" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == $question['option_b'] ? 'checked' : '' ?>> <?= htmlspecialchars($question['option_b']) ?><br>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="<?= htmlspecialchars($question['option_c']) ?>" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == $question['option_c'] ? 'checked' : '' ?>> <?= htmlspecialchars($question['option_c']) ?><br>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="<?= htmlspecialchars($question['option_d']) ?>" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == $question['option_d'] ? 'checked' : '' ?>> <?= htmlspecialchars($question['option_d']) ?><br>
+                                                    <?php elseif ($question['question_type'] == 'fill-in-the-blank'): ?>
+                                                        <input type="text" name="answers[<?= $question['question_id'] ?>]" value="<?= htmlspecialchars($userAnswers[$question['question_id']] ?? '') ?>" required>
+                                                    <?php elseif ($question['question_type'] == 'true/false'): ?>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="True" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == 'True' ? 'checked' : '' ?>> True<br>
+                                                        <input type="radio" name="answers[<?= $question['question_id'] ?>]" value="False" <?= isset($userAnswers[$question['question_id']]) && $userAnswers[$question['question_id']] == 'False' ? 'checked' : '' ?>> False<br>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <p>No quiz questions available.</p>
+                                    <?php endif; ?>
 
-                                <!-- Question 1: Multiple Choice -->
-                                 <div class="quiz-buttons">
-                                    <div class="question">
-                                    <p><strong>1. <?= htmlspecialchars($mcqQuestions[0]['question_text']) ?></strong></p>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[0]['option_a']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_b']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_c']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_d']) ?><br>
-                                        <span class="feedback" id="feedback">
-                                        <?php if (isset($feedback[$quizQuestions['mcq1']['question_id']])): ?>
-                                            <?= $feedback[$quizQuestions['mcq1']['question_id']]['is_correct'] 
-                                                ? '<span style="color: green;">Correct!</span>' 
-                                                : '<span style="color: red;">Incorrect! Correct answer: ' . htmlspecialchars($feedback[$quizQuestions['mcq1']['question_id']]['correct_answer']) . '</span>' ?>
-                                        <?php endif; ?>
-                                        </span> <!-- Feedback placeholder -->
+                                    <div class="quiz-buttons">
+                                        <button type="submit" name="final_submit_quiz" >Submit</button>
+                                        <button type="button" onclick="confirmCancel()">Cancel</button>
                                     </div>
+                                </form>
 
-                                    <img src="./images/quiz.png" alt="quiz picture">
-                                </div>
+                                <?php if ($isSubmitted): ?>
+                                    <h3>Quiz Feedback</h3>
+                                    <?php foreach ($feedback as $questionId => $item): ?>
+                                        <div class="question-feedback">
+                                            <?php
+                                            $questionText = null;
+                                            foreach ($quizQuestions as $question) {
+                                                if ($question && $question['question_id'] == $questionId) {
+                                                    $questionText = htmlspecialchars($question['question_text']);
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+                                            <p><strong>Question: <?= $questionText ?: 'Question not found' ?></strong></p>
+                                            <?php if ($item['is_correct']): ?>
+                                                <span style="color: green;">Correct!</span>
+                                            <?php else: ?>
+                                                <span style="color: red;">Incorrect! Correct answer: <?= htmlspecialchars($item['correct_answer'] ?? 'N/A') ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                    <p>Total Score: <?= $_SESSION['score'] ?? 0 ?> out of 5!</p>
 
-                                <!-- Question 2: Fill in the Blank -->
-                                <div class="question">
-                                    <p><strong>2. <?= htmlspecialchars($fillInTheBlankQuestion['question_text']) ?></strong></p>
-                                    <input type="text" name="question2" required>
-                                    <span class="feedback" id="feedback<?= $quizQuestions['fillInTheBlank']['question_id'] ?>"></span> <!-- Feedback placeholder -->
-                                </div>
-
-                                <!-- Question 3: True/False -->
-                                <div class="question">
-                                <p><strong>3. <?= htmlspecialchars($trueFalseQuestion['question_text']) ?></strong></p>
-                                    <input type="radio" name="question3" value="True" required> True<br>
-                                    <input type="radio" name="question3" value="False"> False<br>
-                                    <span class="feedback" id="feedback<?= $quizQuestions['trueFalse']['question_id'] ?>"></span> <!-- Feedback placeholder -->
-                                </div>
-
-                                <!-- Question 4: Multiple Choice -->
-                                <div class="question">
-                                <p><strong>4. <?= htmlspecialchars($mcqQuestions[1]['question_text']) ?></strong></p>
-                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[1]['option_a']) ?><br>
-                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_b']) ?><br>
-                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_c']) ?><br>
-                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_d']) ?><br>
-                                    <span class="feedback" id="feedback<?= $quizQuestions['mcq2']['question_id'] ?>"></span> <!-- Feedback placeholder -->
-                                </div>
-
-                                <!-- Question 6: Another Multiple Choice -->
-                                <div class="question">
-                                <p><strong>5. <?= htmlspecialchars($mcqQuestions[2]['question_text']) ?></strong></p>
-                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[2]['option_a']) ?><br>
-                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_b']) ?><br>
-                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_c']) ?><br>
-                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_d']) ?><br>
-                                    <span class="feedback" id="feedback<?= $quizQuestions['mcq3']['question_id'] ?>"></span> <!-- Feedback placeholder -->
-                                </div>
-
-                                <!-- Submit and Cancel Buttons -->
-                                <div class="quiz-buttons">
-                                <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
-                                    <button type="button" onclick="confirmCancel()">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
+                                <?php endif; ?>
+                            </div>
                     </div>
                     <!-- Confirmation Popup -->
                     <div id="confirmPopup" class="popup-overlay" onclick="closeConfirmPopup()">
@@ -177,12 +194,10 @@ $quizQuestions = [
                             <img src="./images/research.png" alt="confirmation"> 
                             <h2>Are you sure you want to cancel?</h2>
                             <p>Your answers will not be saved, and points will not be added.</p>
-                            <form id="quizForm" method="POST" action="game.php">
                             <div class="quiz-buttons">
-                                <button type="submit" name="submit_quiz" onclick="closeBothPopups()">Yes</button>
+                                <button onclick="closeBothPopups()">Yes</button>
                                 <button onclick="closeConfirmPopup()">No</button>
                             </div>
-                            </form>
 
                         </div>
                     </div>
@@ -190,11 +205,13 @@ $quizQuestions = [
                         <div class="popup-content" onclick="event.stopPropagation()">
                             <span class="close-btn" onclick="closeConfirmPopup()">×</span>
                             <img src="./images/research.png" alt="confirmation"> 
-                            <h2>Are you sure you want to submit?</h2>
+                            <h2>Are you sure you want to submit?</h2>   
+                            <form id="confirmSubmit" method="POST" action="game.php">          
                             <div class="quiz-buttons">
-                                <button onclick="submitQuiz()">Yes</button>
+                                <button type="submit" name="submit_quiz" onclick="submitQuiz()">Yes</button>
                                 <button onclick="closeConfirmSubmitPopup()">No</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Score Popup -->
@@ -202,10 +219,10 @@ $quizQuestions = [
                         <div class="popup-content" onclick="event.stopPropagation()">
                             <span class="close-btn" onclick="closeScorePopup()">×</span>
                             <img src="./images/test-results.png" alt="Reading"> 
-                            <h2 id="scoreMessage" >You scored 3 out of 5!</h2>
+                            <h2 id="scoreMessage" >You scored <?= htmlspecialchars($_SESSION['score']) ?> out of 5!</h2>
                             <div class="points" id="quiz-points">
                                 <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="totalScore">15</span>
+                                <span class="score" id="totalScore"><?= htmlspecialchars($_SESSION['score']) ?></span>
                             </div>
                             <p>Points are added to your score.</p>
                             <button onclick="closeScorePopup()">Close</button>
