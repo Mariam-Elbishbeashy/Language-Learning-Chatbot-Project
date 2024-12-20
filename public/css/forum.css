@@ -2005,61 +2005,16 @@ hr {
     float: left;
     margin-right: 20px;
 }
-.comment-box {
+.comments-section {
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
-.comment-box textarea {
-    width: 100%;
-    resize: none;
-}
-.comment-box button {
-    margin-top: 5px;
-}
+
+/* Style for the Post Comment button */
 .btn-comment {
-    background-color: #5b428f;
-    color: #fff;
-    border: none;
-}
-.btn-comment:hover {
-    background-color: #472e6d;
-    color: #fff;
-}
-.user-comment {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-.user-comment .comment-name {
-    font-weight: bold;
-    color: #5b428f;
-    margin-bottom: 5px;
-}
-.user-comment p {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-}
-.comment-section {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f7f7f7;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: none; /* Initially hidden */
-}
-
-.comment-box textarea {
-    width: 100%;
-    font-size: 14px;
-}
-
-.comment-box .btn-comment {
     background-color: #5b428f;
     color: white;
     border: none;
@@ -2068,34 +2023,9 @@ hr {
     cursor: pointer;
 }
 
-.comment-box .btn-comment:hover {
-    background-color: #473070;
-}
-
-.comments-list {
-    margin-top: 10px;
-    border: none;
-    background: transparent;
-    position: relative;
-}
-
-.user-comment {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.user-comment .comment-name {
-    font-weight: bold;
-    color: #5b428f;
-    margin-bottom: 5px;
-}
-
-.user-comment p {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
+/* Change the background color on hover */
+.btn-comment:hover {
+    background-color: #472e6d; /* A slightly darker shade */
+    color: white;
 }
 

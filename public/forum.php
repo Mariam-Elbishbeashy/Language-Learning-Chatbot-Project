@@ -130,85 +130,59 @@ function timeAgo($datetime) {
                         <!--missing-->
                         
                         <section id="content1"> 
-    <!-- Question 1 -->
-    <div class="question-type2033">
-        <div class="row">
-            <div class="col-md-1">
-                <div class="left-user12923 left-user12923-repeat">
-                    <a href="#"><img src="./images/boy.png" alt="image"> </a>
-                    <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>
-                    <p style="text-align: center; font-size: 12px; margin-top: 5px;">jake123</p>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="right-description893">
-                    <div id="que-hedder2983">
-                        <h3><a href="#" target="_blank">How to Conjugate Verbs in French Past Tense?</a></h3>
-                    </div>
-                    <div class="ques-details10018">
-                        <p>Can someone explain the rules for conjugating verbs in the past tense in French? I keep getting confused with the -er, -ir, and -re verb endings.</p>
-                    </div>
-                    <hr>
-                    <div class="ques-icon-info3293">
-                        <a href="#"><i class="fa fa-star" aria-hidden="true"> 3 </i></a>
-                        <a href="#"><i class="fa fa-folder" aria-hidden="true"> French</i></a>
-                        <a href="#"><i class="fa fa-clock-o" aria-hidden="true"> 10 min ago</i></a>
-                        <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> Comment</i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="ques-type302">
-                        <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
-                        <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 19 views</i></button>
-                </div>
-            </div>
-        </div>
-        <div class="comments-lists">
-    </div>
-    </section>
+   
           <!--missing-->    
           <?php if (!empty($questions)): ?>
-            <?php foreach ($questions as $question): ?>
-                <div class="question-type2033">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <div class="left-user12923 left-user12923-repeat">
-                            <img src="<?php echo htmlspecialchars($question['profileImage']); ?>" alt="Profile Image">
-                                <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                <p style="text-align: center; font-size: 12px; margin-top: 5px;"><?php echo htmlspecialchars($question['username']); ?></p>
-                            </div>
+    <?php foreach ($questions as $question): ?>
+        <div class="question-type2033" data-post-id="<?php echo $question['post_id']; ?>" id="<?php echo $question['post_id']; ?>">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="left-user12923 left-user12923-repeat">
+                        <img src="<?php echo htmlspecialchars($question['profileImage']); ?>" alt="Profile Image">
+                        <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>
+                        <p style="text-align: center; font-size: 12px; margin-top: 5px;"><?php echo htmlspecialchars($question['username']); ?></p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="right-description893">
+                        <div id="que-hedder2983">
+                            <h3><a href="#" target="_blank"><?php echo htmlspecialchars($question['title']); ?></a></h3>
                         </div>
-                        <div class="col-md-9">
-                            <div class="right-description893">
-                                <div id="que-hedder2983">
-                                    <h3><a href="#" target="_blank"><?php echo htmlspecialchars($question['title']); ?></a></h3>
-                                </div>
-                                <div class="ques-details10018">
-                                    <p><?php echo htmlspecialchars($question['content']); ?></p>
-                                </div>
-                                <hr>
-                                <div class="ques-icon-info3293">
-                                    <a href="#"><i class="fa fa-star" aria-hidden="true"> 0 </i></a>
-                                    <a href="#"><i class="fa fa-folder" aria-hidden="true"> <?php echo htmlspecialchars($question['category']); ?></i></a>
-                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true"> <?php echo timeAgo($question['created_at']); ?></i></a>
-                                    <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> Comment</i></a>
-                                </div>
-                            </div>
+                        <div class="ques-details10018">
+                            <p><?php echo htmlspecialchars($question['content']); ?></p>
                         </div>
-                        <div class="col-md-2">
-                            <div class="ques-type302">
-                                <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
-                                <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
-                            </div>
+                        <hr>
+                        <div class="ques-icon-info3293">
+                            <a href="#"><i class="fa fa-star" aria-hidden="true"> 0 </i></a>
+                            <a href="#"><i class="fa fa-folder" aria-hidden="true"> <?php echo htmlspecialchars($question['category']); ?></i></a>
+                            <a href="#"><i class="fa fa-clock-o" aria-hidden="true"> <?php echo timeAgo($question['created_at']); ?></i></a>
+                            <a href="#" class="toggle-comment"><i class="fa fa-question-circle-o" aria-hidden="true"> Comment</i></a>
                         </div>
                     </div>
-                    <div class="comments-lists"></div>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No questions have been posted yet. Be the first to ask!</p>
-        <?php endif; ?>
+                <div class="col-md-2">
+                    <div class="ques-type302">
+                        <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                        <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="comments-section" style="display: none;">
+                <!-- Add form for comment submission -->
+                <form action="../Language-Learning-Chatbot/controllers/submit_comment.php" method="POST">
+                    <textarea class="form-control mt-2" name="comment_text" placeholder="Write your comment here..." rows="2"></textarea>
+                    <!-- Pass the post_id as a hidden input -->
+                    <input type="hidden" name="post_id" value="<?php echo $question['post_id']; ?>">
+                    <button type="submit" class="btn btn-comment btn-sm mt-2">Post Comment</button>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No questions have been posted yet. Be the first to ask!</p>
+<?php endif; ?>
+</section>
+
             
     </div>
     </div>
