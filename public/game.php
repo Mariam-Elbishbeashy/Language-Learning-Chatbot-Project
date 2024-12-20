@@ -367,9 +367,9 @@ $quizQuestions = [
                 </div>
             </div>
             <!-- Challenges Submit Confirm Popup 1 -->
-            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmSubmitChallengePopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">
-                    <span class="close-btn" onclick="closeConfirmPopup()">×</span>
+                    <span class="close-btn" onclick="closeConfirmSubmitChallengePopup()">×</span>
                     <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
                     <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
@@ -426,9 +426,9 @@ $quizQuestions = [
                 </div>
             </div>
              <!-- Challenges Submit Confirm Popup 2 (For Vocabulary) -->
-             <div id="confirmSubmitVocabChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+             <div id="confirmSubmitVocabChallengePopup" class="popup-overlay" onclick="closeConfirmSubmitVocabChallengePopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">
-                    <span class="close-btn" onclick="closeConfirmPopup()">×</span>
+                    <span class="close-btn" onclick="closeConfirmSubmitVocabChallengePopup()">×</span>
                     <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
                     <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
