@@ -19,14 +19,22 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
-$difficulty = $_SESSION['difficulty_level'];
-$language = $_SESSION['language'];
-
 $quizModel = new QuizModel($conn);
-$quizController = new QuizzesController($conn);
+$quizController = new QuizzesController($quizModel);
+$userId = $_SESSION['userId']; // Get the logged-in user's ID from the session
 
-$quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
+$mcqQuestions = $quizModel->getQuestionsForUser($userId, 'MCQ');
+$fillInTheBlankQuestion = $quizModel->getQuestionsForUser($userId, 'fill-in-the-blank')[0] ?? null;
+$trueFalseQuestion = $quizModel->getQuestionsForUser($userId, 'true/false')[0] ?? null;
 
+
+$quizQuestions = [
+    'mcq1' => $mcqQuestions[0] ?? null,
+    'mcq2' => $mcqQuestions[1] ?? null,
+    'mcq3' => $mcqQuestions[2] ?? null,
+    'fillInTheBlank' => $fillInTheBlankQuestion,
+    'trueFalse' => $trueFalseQuestion
+];
 
 
 ?>
@@ -102,49 +110,55 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                                 <!-- Question 1: Multiple Choice -->
                                  <div class="quiz-buttons">
                                     <div class="question">
-                                        <p><strong>1. <?= htmlspecialchars($quizQuestions['mcq1']['question_text']) ?></strong></p>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq1']['option_a']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_b']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_c']) ?><br>
-                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_d']) ?><br>
-                                        <span class="feedback" id="feedback<?= htmlspecialchars($quizQuestions['mcq1']['question_id']) ?>"></span> <!-- Feedback placeholder -->
+                                    <p><strong>1. <?= htmlspecialchars($mcqQuestions[0]['question_text']) ?></strong></p>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[0]['option_a']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_b']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_c']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($mcqQuestions[0]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[0]['option_d']) ?><br>
+                                        <span class="feedback" id="feedback">
+                                        <?php if (isset($feedback[$quizQuestions['mcq1']['question_id']])): ?>
+                                            <?= $feedback[$quizQuestions['mcq1']['question_id']]['is_correct'] 
+                                                ? '<span style="color: green;">Correct!</span>' 
+                                                : '<span style="color: red;">Incorrect! Correct answer: ' . htmlspecialchars($feedback[$quizQuestions['mcq1']['question_id']]['correct_answer']) . '</span>' ?>
+                                        <?php endif; ?>
+                                        </span> <!-- Feedback placeholder -->
                                     </div>
 
                                     <img src="./images/quiz.png" alt="quiz picture">
                                 </div>
 
-                                <!-- Question 3: Fill in the Blank -->
+                                <!-- Question 2: Fill in the Blank -->
                                 <div class="question">
-                                    <p><strong>2. <?= htmlspecialchars($quizQuestions['fillInTheBlank']['question_text']) ?></strong></p>
-                                    <input type="text" name="question3" required>
+                                    <p><strong>2. <?= htmlspecialchars($fillInTheBlankQuestion['question_text']) ?></strong></p>
+                                    <input type="text" name="question2" required>
                                     <span class="feedback" id="feedback<?= $quizQuestions['fillInTheBlank']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
-                                <!-- Question 4: True/False -->
+                                <!-- Question 3: True/False -->
                                 <div class="question">
-                                    <p><strong>3. <?= htmlspecialchars($quizQuestions['trueFalse']['question_text']) ?></strong></p>
-                                    <input type="radio" name="question4" value="True" required> True<br>
-                                    <input type="radio" name="question4" value="False"> False<br>
+                                <p><strong>3. <?= htmlspecialchars($trueFalseQuestion['question_text']) ?></strong></p>
+                                    <input type="radio" name="question3" value="True" required> True<br>
+                                    <input type="radio" name="question3" value="False"> False<br>
                                     <span class="feedback" id="feedback<?= $quizQuestions['trueFalse']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
-                                <!-- Question 5: Multiple Choice -->
+                                <!-- Question 4: Multiple Choice -->
                                 <div class="question">
-                                    <p><strong>4. <?= htmlspecialchars($quizQuestions['mcq2']['question_text']) ?></strong></p>
-                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq2']['option_a']) ?><br>
-                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_b']) ?><br>
-                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_c']) ?><br>
-                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_d']) ?><br>
+                                <p><strong>4. <?= htmlspecialchars($mcqQuestions[1]['question_text']) ?></strong></p>
+                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[1]['option_a']) ?><br>
+                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_b']) ?><br>
+                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_c']) ?><br>
+                                <input type="radio" name="question4" value="<?= htmlspecialchars($mcqQuestions[1]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[1]['option_d']) ?><br>
                                     <span class="feedback" id="feedback<?= $quizQuestions['mcq2']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
                                 <!-- Question 6: Another Multiple Choice -->
                                 <div class="question">
-                                    <p><strong>5. <?= htmlspecialchars($quizQuestions['mcq3']['question_text']) ?></strong></p>
-                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq3']['option_a']) ?><br>
-                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_b']) ?><br>
-                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_c']) ?><br>
-                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_d']) ?><br>
+                                <p><strong>5. <?= htmlspecialchars($mcqQuestions[2]['question_text']) ?></strong></p>
+                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_a']) ?>" required> <?= htmlspecialchars($mcqQuestions[2]['option_a']) ?><br>
+                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_b']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_b']) ?><br>
+                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_c']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_c']) ?><br>
+                                <input type="radio" name="question5" value="<?= htmlspecialchars($mcqQuestions[2]['option_d']) ?>"> <?= htmlspecialchars($mcqQuestions[2]['option_d']) ?><br>
                                     <span class="feedback" id="feedback<?= $quizQuestions['mcq3']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
@@ -163,10 +177,13 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                             <img src="./images/research.png" alt="confirmation"> 
                             <h2>Are you sure you want to cancel?</h2>
                             <p>Your answers will not be saved, and points will not be added.</p>
+                            <form id="quizForm" method="POST" action="game.php">
                             <div class="quiz-buttons">
-                                <button onclick="closeBothPopups()">Yes</button>
+                                <button type="submit" name="submit_quiz" onclick="closeBothPopups()">Yes</button>
                                 <button onclick="closeConfirmPopup()">No</button>
                             </div>
+                            </form>
+
                         </div>
                     </div>
                     <div id="confirmSubmitPopup" class="popup-overlay" onclick="closeConfirmPopup()">
@@ -318,7 +335,7 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                 </div>
             </div>
             <!-- Grammar Challenge Popup  -->
-            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
+            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: none; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
                     <form id="challengeForm">
@@ -378,7 +395,7 @@ $quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
                 </div>
             </div>
             <!-- Vocabulary Challenge Popup  -->
-            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
+            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: none; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
                     <form id="challengeForm">

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/Model.php'; 
-
+require_once  __DIR__ .'/../db/dbh.inc.php';
 class QuizModel extends Model {
     protected $conn;
 
@@ -8,47 +8,37 @@ class QuizModel extends Model {
         $this->conn = $conn; 
     }
 
-    public function getQuestionsByType($difficulty, $language, $type) {
-        $query = "SELECT * FROM quiz_questions WHERE difficulty_level = ? AND language_category = ? AND question_type = ?";
+    public function getQuestionsForUser($userId,  $questionType) {
+        $query = "
+            SELECT 
+                qq.question_id,
+                qq.question_text,
+                qq.option_a,
+                qq.option_b,
+                qq.option_c,
+                qq.option_d
+            FROM 
+                quiz_questions qq
+            INNER JOIN 
+                users u 
+            ON 
+                qq.language_category = u.language
+                AND qq.difficulty_level = u.difficulty_level
+            WHERE 
+                u.Id = ?
+                AND qq.question_type = ?              
+        ";
+
         $stmt = $this->conn->prepare($query);
-    
-        // Bind parameters explicitly
-        $stmt->bind_param('sss', $difficulty, $language, $type);
-    
+        $stmt->bind_param('is', $userId, $questionType);
         $stmt->execute();
         $result = $stmt->get_result();
-    
-        if ($result) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return [];
-        }
+
+
+        // Return the question_text or null if not found
+        return $result->fetch_all(MYSQLI_ASSOC); // Return all rows
     }
     
 
-    public function saveQuizAnswers($answers) {
-        foreach ($answers as $question_id => $answer) {
-            $query = "INSERT INTO user_quiz_answers (user_id, question_id, answer) VALUES (?, ?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$_SESSION['userId'], $question_id, $answer]);
-        }
-    }
-
-    public function getCorrectAnswers($questionIds) {
-        $placeholders = implode(',', array_fill(0, count($questionIds), '?'));
-        $query = "SELECT question_id, correct_answer FROM quiz_questions WHERE question_id IN ($placeholders)";
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->bind_param(str_repeat('i', count($questionIds)), ...$questionIds);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        $correctAnswers = [];
-        while ($row = $result->fetch_assoc()) {
-            $correctAnswers[$row['question_id']] = $row['correct_answer'];
-        }
-        return $correctAnswers;
-    }
-    
 }
 ?>
