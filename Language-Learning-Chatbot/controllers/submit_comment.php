@@ -7,7 +7,6 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
-// Require necessary files
 require_once __DIR__ . '/../model/commentModel.php';
 require_once __DIR__ . '/../controllers/commentController.php';
 
@@ -16,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['comment_text']) && !empty($_POST['comment_text']) && isset($_POST['post_id']) && !empty($_POST['post_id'])) {
         $commentText = $_POST['comment_text'];
         $postId = $_POST['post_id'];
-        $userId = $_SESSION['userId']; // Get the user ID from session
+        $userId = $_SESSION['userId']; 
 
         // Call the Comment Controller to handle saving the comment
         $commentController = new CommentController();

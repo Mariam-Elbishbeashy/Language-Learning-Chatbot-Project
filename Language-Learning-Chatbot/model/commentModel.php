@@ -14,7 +14,38 @@ class CommentModel {
             return false;
         }
     }
+
+    public function getCommentsByPostId($postId) {
+        global $conn;
+        $stmt = $conn->prepare("
+            SELECT 
+                fc.comment_text, 
+                fc.created_at, 
+                u.username, 
+                u.profileImage 
+            FROM 
+                forum_comments fc
+            JOIN 
+                users u 
+            ON 
+                fc.user_id = u.Id
+            WHERE 
+                fc.post_id = ?
+            ORDER BY 
+                fc.created_at DESC
+        ");
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $comments = [];
+        while ($row = $result->fetch_assoc()) {
+            $comments[] = $row;
+        }
+    
+        return $comments;
+    }
+    
 }
 ?>
 
-?>

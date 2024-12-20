@@ -15,7 +15,11 @@ class CommentController {
             exit();
         }
     }
-}
-?>
 
+    public function getCommentsForPost($postId) {
+        $commentModel = new CommentModel();
+        return $commentModel->getCommentsByPostId($postId);
+    }
+    
+}
 ?>

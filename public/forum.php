@@ -1,8 +1,11 @@
 <?php
 require_once '../Language-Learning-Chatbot/controllers/forumController.php';
+require_once __DIR__ . '/../Language-Learning-Chatbot/controllers/commentController.php';
 
 $forumController = new forumController();
 $questions = $forumController->loadQuestions();
+
+$commentController = new CommentController();
 
 function timeAgo($datetime) {
     $time = strtotime($datetime);
@@ -162,28 +165,51 @@ function timeAgo($datetime) {
                 </div>
                 <div class="col-md-2">
                     <div class="ques-type302">
-                        <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                        <button type="button" class="q-type238" ><i class="fa fa-comment" aria-hidden="true"></i></button>
                         <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
                     </div>
                 </div>
             </div>
             <div class="comments-section" style="display: none;">
-                <!-- Add form for comment submission -->
                 <form action="../Language-Learning-Chatbot/controllers/submit_comment.php" method="POST">
                     <textarea class="form-control mt-2" name="comment_text" placeholder="Write your comment here..." rows="2"></textarea>
                     <!-- Pass the post_id as a hidden input -->
                     <input type="hidden" name="post_id" value="<?php echo $question['post_id']; ?>">
                     <button type="submit" class="btn btn-comment btn-sm mt-2">Post Comment</button>
                 </form>
+                <br>
+                
+    </div>
+    <br>
+    <div class="comments-lists" style="background: linear-gradient(to bottom,#f0f0f0, #e6e6ff); padding: 20px; border-radius: 10px; display:block;">
+    <?php
+    $comments = $commentController->getCommentsForPost($question['post_id']);
+    if (!empty($comments)):
+        foreach ($comments as $comment): ?>
+            <div class="comment" style="display: flex; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                <div style="flex-shrink: 0; margin-right: 10px;">
+                    <img src="<?php echo htmlspecialchars($comment['profileImage']); ?>" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div>
+                    <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($comment['username']); ?></p>
+                    <p style="margin: 0; font-size: 12px; color: grey;"><?php echo timeAgo($comment['created_at']); ?></p>
+                    <p style="margin-top: 10px;"><?php echo htmlspecialchars($comment['comment_text']); ?></p>
+                </div>
             </div>
-        </div>
+        <?php endforeach; 
+    else: ?>
+        <p>No comments yet. Be the first to comment!</p>
+    <?php endif; ?>
+</div>
+
+</div>
+
     <?php endforeach; ?>
 <?php else: ?>
     <p>No questions have been posted yet. Be the first to ask!</p>
 <?php endif; ?>
 </section>
-
-            
+ 
     </div>
     </div>
                 <!--end of col-md-9 -->
