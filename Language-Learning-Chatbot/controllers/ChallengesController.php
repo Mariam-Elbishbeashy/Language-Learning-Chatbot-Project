@@ -17,7 +17,6 @@ class ChallengesController extends Controller {
     }
 
     public function saveChallengeData() {
-        session_start();
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_SESSION['userId'];

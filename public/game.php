@@ -63,6 +63,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
     $isSubmitted = true;
 }
 
+// Get the challenge category dynamically from the URL (default to 'grammar' if not set)
+$category = isset($_GET['category']) ? $_GET['category'] : 'grammar';
+
+// Fetch challenge question
+$questionData = $challengeModel->getQuestionForUser($userId, $category);
+
+if ($questionData) {
+    $questionId = $questionData['question_id'];
+    $questionText = $questionData['question_text'];
+} else {
+    $questionId = null;
+    $questionText = "No question available.";
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_challenge'])) {
+    $userInput = trim($_POST['user_input'] ?? '');
+
+    if ($questionId && !empty($userInput)) {
+        $isSaved = $challengeModel->saveUserInput($userId, $questionId, $userInput);
+
+        if ($isSaved) {
+            $successMessage = "Challenge data saved successfully.";
+        } else {
+            $errorMessage = "Failed to save challenge data.";
+        }
+    } else {
+        $errorMessage = "Invalid question or empty input.";
+    }
+}
 ?>
 <style>
       #confirmSubmitChallengePopup .popup-content{
@@ -351,11 +381,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                     </div>
                 </div>
             </div>
+            <form id="challengeForm" method="POST" >
             <!-- Grammar Challenge Popup  -->
             <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: none; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
-                    <form id="challengeForm">
+                    
 
                         <div class="challenge-buttons">
                             <h3 id="popupTitle">
@@ -368,19 +399,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                                     <span class="score" id="gamePoints">40</span>
                         </div>
                         <h4 id="popupDescription">
-                        <?php   
-                            $userId = $_SESSION['userId'];
-                            $category = 'grammar';
-                            $questionText = $controller->getQuestionForUser($userId, $category);      
-                        ?>
+                            <?php echo htmlspecialchars($questionText); ?>
                         </h4>
+                        <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($questionId); ?>">
+                        <input type="hidden" name="category" id="categoryField" value="grammar">
+                        
                         <!-- Added Textarea for User Input -->
-                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <textarea id="challengeResponse" placeholder="Write your response here..." name="user_input" rows="6" style="width: 100%;"> <?php echo isset($_POST['user_input']) ? htmlspecialchars($_POST['user_input']) : ''; ?></textarea>
                         <div class="quiz-buttons" id="quizButtons">
                             <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
                             <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
                         </div>
-                    </form>
+
                 </div>
             </div>
             <!-- Challenges Submit Confirm Popup 1 -->
@@ -390,11 +420,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                     <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
                     <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
-                        <button onclick="submitGrammarChallenge()">Yes</button>
+                        <button type="submit" name="submit_challenge">Yes</button>
                         <button onclick="closeConfirmSubmitChallengePopup()">No</button>
                     </div>
                 </div>
             </div>
+            </form>
+
             <!--Challenge Score Popup -->
             <div id="GrammarscorePopup" class="popup-overlay" onclick="closeGrammarScorePopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">
@@ -411,11 +443,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                     <button onclick="closeGrammarScorePopup()">Close</button>
                 </div>
             </div>
+            
             <!-- Vocabulary Challenge Popup  -->
+            <form id="challengeForm" method="POST" >
             <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: none; z-index:200;">
                 <div class="popup-content" onclick="event.stopPropagation()">
                     <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
-                    <form id="challengeForm">
 
                         <div class="challenge-buttons">
                             <h3 id="vocabpopupTitle">
@@ -428,18 +461,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                                     <span class="score" id="gamePoints">40</span>
                         </div>
                         <h4 id="vocabpopupDescription">
-                        <?php   
-                            $userId = $_SESSION['userId'];
-                            $category = 'vocabulary';
-                            $questionText = $controller->getQuestionForUser($userId, $category);      
-                        ?>                        </h4>
+                        <h4 id="popupDescription">
+                            <?php echo htmlspecialchars($questionText); ?>
+                        </h4>
+                        <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($questionId); ?>">
+                        <input type="hidden" name="category" id="categoryField" value="vocabulary">
+
                         <!-- Added Textarea for User Input -->
-                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <textarea id="challengeResponse" placeholder="Write your response here..." name="user_input" rows="6" style="width: 100%;"><?php echo isset($_POST['user_input']) ? htmlspecialchars($_POST['user_input']) : ''; ?></textarea>
                         <div class="quiz-buttons" id="quizButtons">
                             <button type="button" onclick="openConfirmSubmitVocabChallengePopup()">Submit</button>
                             <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
                         </div>
-                    </form>
                 </div>
             </div>
              <!-- Challenges Submit Confirm Popup 2 (For Vocabulary) -->
@@ -449,11 +482,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
                     <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
                     <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
-                        <button onclick="submitVocabChallenge()">Yes</button>
+                        <button type="submit" name="submit_challenge">Yes</button>
                         <button onclick="closeConfirmSubmitVocabChallengePopup()">No</button>
                     </div>
                 </div>
             </div>
+            </form>
             <!--Challenge Score Popup (For Vocabulary) -->
             <div id="VocabscorePopup" class="popup-overlay" onclick="closeVocabScorePopup()">
                 <div class="popup-content" onclick="event.stopPropagation()">

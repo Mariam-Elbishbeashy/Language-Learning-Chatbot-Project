@@ -40,7 +40,7 @@ CREATE TABLE `activities` (
 
 CREATE TABLE `challenge_data` (
   `user_id` int(11) NOT NULL,
-  `challenge_id` int(11) NOT NULL,
+  `challenge_id` INT AUTO_INCREMENT PRIMARY KEY,
   `question_id` int(11) NOT NULL,
   `user_input` text NOT NULL,
   `ai_feedback` text NOT NULL,

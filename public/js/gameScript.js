@@ -339,3 +339,17 @@ function closeConfirmSubmitChallengePopup(){
 function closeConfirmSubmitVocabChallengePopup(){
     document.getElementById("confirmSubmitVocabChallengePopup").style.display = "none";
 }
+
+function handleChallengeResponse(response) {
+    const feedbackSection = document.getElementById('feedbackSection');
+    const feedbackText = document.getElementById('aiFeedback');
+    const scoreText = document.getElementById('aiScore');
+
+    if (response.success) {
+        feedbackText.innerText = response.feedback;
+        scoreText.innerText = response.score;
+        feedbackSection.style.display = 'block'; // Show feedback section
+    } else {
+        alert('Error: ' + response.message);
+    }
+}

@@ -13,13 +13,14 @@ class ChallengesModel extends Model {
     public function getQuestionForUser($userId,  $category) {
         // Query to fetch question based on user's attributes
         $query = "
-            SELECT cq.question_text
+            SELECT cq.question_id, cq.question_text 
             FROM challenge_question cq
             JOIN users u 
             ON cq.language_category = u.language 
             AND cq.difficulty_level = u.difficulty_level
             WHERE u.ID = ?
             AND cq.challenge_category = ?
+            ORDER BY RAND() 
             LIMIT 1;
         ";
         
@@ -28,22 +29,22 @@ class ChallengesModel extends Model {
         $stmt->execute();
         
         $result = $stmt->get_result();
+        
+    if ($result->num_rows > 0) {
+        // Fetch the result if available
         $row = $result->fetch_assoc();
-
-        if (!$row) {
-            // Debugging: Log the issue
-            error_log("No question found for user_id: $userId");
-            error_log("Query: SELECT cq.question_text FROM challenge_question cq JOIN users u ON cq.language_category = u.language AND cq.difficulty_level = u.difficulty_level WHERE u.user_id = $userId LIMIT 1");
-        }
-    
-        // Return the question_text or null if not found
-        return $row ? $row['question_text'] : null;
+        return $row;
+    } else {
+        // No data found
+        error_log("No question found for userId: $userId and category: $category");
+        return null;
+    }
     }
 
     public function saveUserInput($userId, $questionId, $userInput) {
         $query = "INSERT INTO challenge_data 
                   (user_id, question_id, user_input, ai_feedback, challenge_score, created_at) 
-                  VALUES (?, ?, ?, NULL, NULL, NOW())";
+                  VALUES (?, ?, ?, '', '', NOW())";
         
         $stmt = $this->conn->prepare($query); // Use the connection from Model
         $stmt->bind_param(
@@ -59,6 +60,58 @@ class ChallengesModel extends Model {
             return false; // Return false if there’s an error
         }
     }
+
+    public function checkGrammarAndSave($userInput, $chatId) {
+        // Step 1: Send user input to the API to get grammar feedback
+        $feedbackAI = $this->getGrammarFeedback($userInput);
+    
+        // Step 2: Save the user input and the grammar feedback to the database
+        $this->saveToDatabase($chatId, $userInput, $feedbackAI);
+    
+        // Return the feedback for display
+        return $feedbackAI;
+    }
+    
+    private function getGrammarFeedback($userInput) {
+        $data = [
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                ['role' => 'system', 'content' => 'You are a grammar checking assistant. Analyze the text for grammar mistakes and provide suggestions without altering the original meaning.'],
+                ['role' => 'user', 'content' => $userInput]
+            ]
+        ];
+    
+        $ch = curl_init('https://api.openai.com/v1/chat/completions');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiKey
+        ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    
+        $response = curl_exec($ch);
+        if ($response) {
+            $result = json_decode($response, true);
+            return $result['choices'][0]['message']['content'] ?? 'No feedback available.';
+        }
+    
+        return 'Error: Unable to process your request.';
+    }
+    
+    private function saveToDatabase($chatId, $userInput, $feedbackAI) {
+        $userId = $_SESSION['userId'];
+    
+        $sql = "INSERT INTO ChatMessages (chat_id, user_id, message, response) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("iiss", $chatId, $userId, $userInput, $feedbackAI);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+    
 
 
 }
