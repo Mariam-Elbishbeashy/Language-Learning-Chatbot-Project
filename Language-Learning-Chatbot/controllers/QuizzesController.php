@@ -22,7 +22,7 @@ class QuizzesController extends Controller {
                         'is_correct' => true,
                         'correct_answer' => $correctAnswer
                     ];
-                    $score++;
+                    $score+=5;
                 } else {
                     $feedback[$question['question_id']] = [
                         'is_correct' => false,
@@ -50,6 +50,11 @@ class QuizzesController extends Controller {
 
         // Update the total score in the database
         $this->model->saveScore($userId, $totalScore);
+    }
+
+    public function CurrentScore($userId){
+        $currentScore = $this->model->getCurrentScore($userId);
+        return $currentScore;
     }
     
 }

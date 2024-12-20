@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['final_submit_quiz']))
     $_SESSION['score'] = $score;
     $isSubmitted = true;
 }
+$totalScore = $quizModel->getCurrentScore($userId);
 
 // Get the challenge category dynamically from the URL (default to 'grammar' if not set)
 $category = isset($_GET['category']) ? $_GET['category'] : 'grammar';
@@ -139,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_challenge'])) 
                 </div>
                 <div class="points">
                     <img src="./images/star.png" alt="Points Picture" class="points-pic">
-                    <span class="score" id="totalUserPoints"><?= $_SESSION['score']?></span>
+                    <span class="score" id="totalUserPoints"><?= $totalScore ?></span>
                 </div>
             </div>
             <div class="plan-section">
@@ -212,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_challenge'])) 
                                             <?php endif; ?>
                                         </div>
                                     <?php endforeach; ?>
-                                    <p>Total Score: <?= $_SESSION['score'] ?? 0 ?> out of 5!</p>
+                                    <p>Total Score: <?= $_SESSION['score']/5 ?? 0 ?> out of 5!</p>
 
                                 <?php endif; ?>
                             </div>
