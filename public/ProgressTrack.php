@@ -2,22 +2,33 @@
 // Example user data (This would typically be fetched from a database)
 $userProgress = [
     "conversations" => [
-        ["date" => "2024-10-01", "score" => 5],
-        ["date" => "2024-10-05", "score" => 7],
-        ["date" => "2024-10-10", "score" => 9],
-        ["date" => "2024-10-15", "score" => 10],
+        ["date" => "2024-12-01", "score" => 5],
+        ["date" => "2024-12-05", "score" => 7],
+        ["date" => "2024-12-10", "score" => 9],
+        ["date" => "2024-12-15", "score" => 10],
     ],
     "vocabularyFocus" => [
-        "grammar" => 30,
-        "pronunciation" => 20,
-        "vocabulary" => 50,
+        // Generate random percentages for grammar, pronunciation, and vocabulary
+        "grammar" => rand(1, 50),
+        "pronunciation" => rand(1, 50),
     ],
     "correctionsReceived" => [
-        "Grammar" => 15,
-        "Pronunciation" => 10,
-        "Vocabulary" => 8
+        "Grammar" => rand(1, 10), // Random value between 1 and 10
+        "Pronunciation" => rand(1, 10), // Random value between 1 and 10
+        "Vocabulary" => rand(1, 10), // Random value between 1 and 10
     ]
 ];
+
+// Calculate the remaining percentage for "vocabulary"
+$userProgress["vocabularyFocus"]["vocabulary"] = 100 - ($userProgress["vocabularyFocus"]["grammar"] + $userProgress["vocabularyFocus"]["pronunciation"]);
+
+// Ensure the sum of the percentages is exactly 100 (in case of small rounding issues)
+if ($userProgress["vocabularyFocus"]["grammar"] + $userProgress["vocabularyFocus"]["pronunciation"] + $userProgress["vocabularyFocus"]["vocabulary"] != 100) {
+    $diff = 100 - ($userProgress["vocabularyFocus"]["grammar"] + $userProgress["vocabularyFocus"]["pronunciation"] + $userProgress["vocabularyFocus"]["vocabulary"]);
+    $userProgress["vocabularyFocus"]["vocabulary"] += $diff; // Adjust the vocabulary to make the sum exactly 100
+}
+
+// The $userProgress array now contains the updated values
 
 // Extracting data for the charts
 $conversations = json_encode(array_column($userProgress["conversations"], "score"));
@@ -26,9 +37,30 @@ $vocabulary = json_encode(array_values($userProgress["vocabularyFocus"]));
 $vocabularyLabels = json_encode(array_keys($userProgress["vocabularyFocus"]));
 
 // Example student scores for the bar chart
-$studentScores = [5, 7, 9, 10, 6]; // Replace with actual student scores if available
+$studentScores = [];
+for ($i = 0; $i < 5; $i++) {
+    $studentScores[] = rand(9, 15); // Random score between 9 and 15
+}
+
 $daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-$usagePercentages = [15, 25, 20, 10, 5, 15, 10]; // Example percentages for chatbot usage
+
+// Generate random percentages for each day
+$randomPercentages = [];
+for ($i = 0; $i < 6; $i++) {
+    $randomPercentages[] = rand(1, 30); // Random percentage for each day, between 1 and 30
+}
+
+// Calculate the remaining percentage for the last day
+$remainingPercentage = 100 - array_sum($randomPercentages);
+
+// Ensure the sum is exactly 100
+$randomPercentages[] = $remainingPercentage;
+
+// Shuffle the array so the percentages are mixed
+shuffle($randomPercentages);
+
+// Assign to usage percentages
+$usagePercentages = $randomPercentages;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -278,15 +310,15 @@ function myFunction() {
     <script>
         // Scatter chart data for progress over time
         const scatterData = [
-            {x:50, y:7},
-            {x:60, y:8},
-            {x:70, y:8},
-            {x:80, y:9},
-            {x:90, y:9},
-            {x:100, y:9},
-            {x:110, y:10},
-            {x:120, y:11},
-            {x:130, y:14},
+            {x:50, y:9},
+            {x:60, y:10},
+            {x:70, y:11},
+            {x: 80, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
+            {x: 90, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
+            {x: 100, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
+            {x: 110, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
+            {x: 120, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
+            {x: 130, y: Math.floor(Math.random() * (15 - 10 + 1)) + 10},
             {x:140, y:14},
             {x:150, y:15}
         ];

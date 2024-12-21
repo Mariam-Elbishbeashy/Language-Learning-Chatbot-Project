@@ -7,15 +7,8 @@
     overflow-y: auto;
 }
 
-.chat-list li {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    font-size: 16px;
-    cursor: pointer;
-}
-.chat-list li:hover{
-    color:#9072e2;
+.invisible-text {
+    visibility: hidden; /* Makes the text invisible but maintains the space */
 }
 </style>
 <?php
@@ -100,21 +93,18 @@ if (isset($_GET['logout'])) {
                 
             </ul>
             <div class="chat-list">
-                <h3>Chat List</h3>
-                <ul>
-                    <li>Project <span>24</span></li>
-                    <li>Favorites <span>12</span></li>
-                    <li>Research <span>8</span></li>
-                    <li>Development <span>36</span></li>
-                    <li>About AI <span>17</span></li>
-                    <li>Project <span>24</span></li>
-                    <li>Favorites <span>12</span></li>
-                    <li>Research <span>8</span></li>
-                    <li>Development <span>36</span></li>
-                    <li>About AI <span>17</span></li>
-                </ul>
-            </div>
-            <button class="new-list-btn">New List</button>
+    <h3 class="invisible-text">Chat List</h3>
+    <ul>
+        <li><span class="invisible-text">Project</span> <span class="invisible-text">24</span></li>
+        <li><span class="invisible-text">Favorites</span> <span class="invisible-text">12</span></li>
+        <li><span class="invisible-text">Research</span> <span class="invisible-text">8</span></li>
+        <li><span class="invisible-text">Development</span> <span class="invisible-text">36</span></li>
+        <li><span class="invisible-text">About AI</span> <span class="invisible-text">17</span></li>
+        <li><span class="invisible-text">Project</span> <span class="invisible-text">24</span></li>
+    </ul>
+</div>
+
+            <button class="invisible-text">New Chat</button>
             <div class="user-info">
                 <a href="userProfile.php" class="user-profile">
                     <span class="user-icon">

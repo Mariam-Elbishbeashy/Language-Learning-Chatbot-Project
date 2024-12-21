@@ -18,23 +18,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `llchatbot_db`
+-- Database: llchatbot_db
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activities`
+-- Table structure for table activities
 --
 
-CREATE TABLE `activities` (
-  `activity_id` int(11) NOT NULL,
-  `activity_type` enum('quiz','challenge','reading','vocabGame') NOT NULL
+CREATE TABLE activities (
+  activity_id int(11) NOT NULL,
+  activity_type enum('quiz','challenge','reading','vocabGame') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
+
 -- Table structure for table `challenge_data`
 --
 
@@ -105,8 +106,30 @@ CREATE TABLE `forum_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table Chats
+--
+CREATE TABLE Chats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- --------------------------------------------------------
 
 --
+
+-- Table structure for table ChatMessages
+--
+CREATE TABLE ChatMessages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    chat_id INT NOT NULL, -- Link to the Chats table
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    response TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (chat_id) REFERENCES Chats(id) ON DELETE CASCADE
+);
 -- Table structure for table `forum_posts`
 --
 
@@ -123,22 +146,23 @@ CREATE TABLE `forum_posts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `language_analysis`
+-- Table structure for table language_analysis
 --
 
-CREATE TABLE `language_analysis` (
-  `languageAnalysis_id` int(11) NOT NULL,
-  `language_name` varchar(50) NOT NULL,
-  `usage_percentage` decimal(5,2) NOT NULL,
-  `common_topics` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+CREATE TABLE language_analysis (
+  languageAnalysis_id int(11) NOT NULL,
+  language_name varchar(50) NOT NULL,
+  usage_percentage decimal(5,2) NOT NULL,
+  common_topics varchar(255) NOT NULL,
+  user_id int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quiz_questions`
+-- Table structure for table quiz_questions
 --
+
 
 CREATE TABLE `quiz_questions` (
   `question_id` int(11) NOT NULL,
@@ -158,6 +182,7 @@ CREATE TABLE `quiz_questions` (
 -- --------------------------------------------------------
 
 --
+
 -- Table structure for table `users`
 --
 
@@ -179,29 +204,31 @@ CREATE TABLE `users` (
   `difficulty_level` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_progress`
+-- Table structure for table user_progress
 --
 
-CREATE TABLE `user_progress` (
-  `user_progress_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `conversation_date` date NOT NULL,
-  `conversation_score` int(11) NOT NULL,
-  `vocabulary_focus_grammar` int(11) NOT NULL,
-  `vocabulary_focus_pronunciation` int(11) NOT NULL,
-  `vocabulary_focus_vocabulary` int(11) NOT NULL,
-  `correction_grammar` int(11) NOT NULL,
-  `correction_pronunciation` int(11) NOT NULL,
-  `correction_vocabulary` int(11) NOT NULL,
-  `activity_id` int(11) NOT NULL
+CREATE TABLE user_progress (
+  user_progress_id int(11) NOT NULL,
+  user_id int(11) NOT NULL,
+  conversation_date date NOT NULL,
+  conversation_score int(11) NOT NULL,
+  vocabulary_focus_grammar int(11) NOT NULL,
+  vocabulary_focus_pronunciation int(11) NOT NULL,
+  vocabulary_focus_vocabulary int(11) NOT NULL,
+  correction_grammar int(11) NOT NULL,
+  correction_pronunciation int(11) NOT NULL,
+  correction_vocabulary int(11) NOT NULL,
+  activity_id int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
+
 -- Table structure for table `user_solved_questions`
 --
 
@@ -219,13 +246,13 @@ CREATE TABLE `user_solved_questions` (
 -- Table structure for table `vocabulary`
 --
 
-CREATE TABLE `vocabulary` (
-  `vocab_gane_id` int(11) NOT NULL,
-  `activity_id` int(11) NOT NULL,
-  `game_name` int(11) NOT NULL,
-  `game_description` int(11) NOT NULL,
-  `vocab_list` int(11) NOT NULL,
-  `points` int(11) NOT NULL
+CREATE TABLE vocabulary (
+  vocab_gane_id int(11) NOT NULL,
+  activity_id int(11) NOT NULL,
+  game_name int(11) NOT NULL,
+  game_description int(11) NOT NULL,
+  vocab_list int(11) NOT NULL,
+  points int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -233,12 +260,13 @@ CREATE TABLE `vocabulary` (
 --
 
 --
--- Indexes for table `activities`
+-- Indexes for table activities
 --
-ALTER TABLE `activities`
-  ADD PRIMARY KEY (`activity_id`);
+ALTER TABLE activities
+  ADD PRIMARY KEY (activity_id);
 
 --
+
 -- Indexes for table `challenge_data`
 --
 ALTER TABLE `challenge_data`
@@ -291,6 +319,7 @@ ALTER TABLE `users`
 --
 
 --
+
 -- AUTO_INCREMENT for table `chatmessages`
 --
 ALTER TABLE `chatmessages`
@@ -314,17 +343,21 @@ ALTER TABLE `forum_comments`
 ALTER TABLE `forum_posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
+
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table users
 --
+
 ALTER TABLE `users`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- Constraints for dumped tables
 --
 
 --
+
 -- Constraints for table `chatmessages`
 --
 ALTER TABLE `chatmessages`

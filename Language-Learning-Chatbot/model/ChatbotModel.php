@@ -52,7 +52,7 @@ class ChatbotModel extends Model {
     /**
      * Handle finding or creating the first session and generating the chat title using ChatGPT.
      */
-    private function findOrCreateChatSession($userInput) {
+    private function findOrCreateChatSession($userInput): mixed {
         $userId = $_SESSION['userId'];
 
         // Check if there is an active session for this user
@@ -80,11 +80,12 @@ class ChatbotModel extends Model {
 
         return $this->conn->insert_id;
     }
+    
 
     /**
      * Call the chatbot API with the first user input to generate a title.
      */
-    private function generateDynamicChatTitle($userInput) {
+    public function generateDynamicChatTitle($userInput) {
         $data = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
