@@ -10,7 +10,7 @@ if (!isset($_SESSION['firstName']) || !isset($_SESSION['lastName'])) {
 $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
 
-include_once "../db/dbh.inc.php";
+include_once(__DIR__ . '/../db/dbh.inc.php');
 
 function signup($email, $username, $password, $confirmPassword, $gender, $role, $language, $firstName, $lastName, $conn) {
     $error = '';

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../db/dbh.inc.php'; // Database connection file
+include_once(__DIR__ . '/../db/dbh.inc.php'); // Database connection file
 
 function resetPassword($email, $new_password, $conn) {
     $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
