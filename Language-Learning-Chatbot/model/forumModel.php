@@ -10,12 +10,32 @@ class forumModel extends Model2 {
                 ORDER BY forum_posts.created_at DESC";
     
         $result = $this->conn->query($sql);
-    
+        $questions = [];
+
         if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
+            while ($row = $result->fetch_assoc()) {
+                // Decode both title and content before returning
+                $row['title'] = html_entity_decode($row['title'], ENT_QUOTES, 'UTF-8');
+                $row['content'] = html_entity_decode($row['content'], ENT_QUOTES, 'UTF-8');
+                $questions[] = $row;
+            }
         }
-        return [];
+    
+        return $questions;
     }    
+
+    public function getTopUsers() {
+        $sql = "SELECT username, profileImage, postsCount FROM users ORDER BY postsCount DESC LIMIT 5";
+        $result = $this->conn->query($sql);
+
+        $topUsers = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $topUsers[] = $row;
+            }
+        }
+        return $topUsers;
+    }
     
 }
 ?>

@@ -12,5 +12,10 @@ class forumController {
     public function loadQuestions() {
         return $this->forumModel->getQuestions();
     }
+
+    public function getTopUsers() {
+        // Delegate to forumModel to handle the database query
+        return $this->forumModel->getTopUsers();
+    }
 }
 ?>

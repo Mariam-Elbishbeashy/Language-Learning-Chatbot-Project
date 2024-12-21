@@ -1,11 +1,16 @@
 <?php
 require_once '../Language-Learning-Chatbot/controllers/forumController.php';
 require_once __DIR__ . '/../Language-Learning-Chatbot/controllers/commentController.php';
+require_once __DIR__ . '/../Language-Learning-Chatbot/model/forumModel.php';
 
 $forumController = new forumController();
 $questions = $forumController->loadQuestions();
+$topUsers = $forumController->getTopUsers();
 
 $commentController = new CommentController();
+
+$forumModel = new forumModel();
+$topUsers = $forumModel->getTopUsers();
 
 function timeAgo($datetime) {
     $time = strtotime($datetime);
@@ -225,52 +230,24 @@ function timeAgo($datetime) {
                     </div>
                     <!--              highest points-->
                     <div class="highest-part302">
-                        <h4>Top Users</h4>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="./images/boy.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                            <a href="#"><h5>ahmed2002</h5></a>
-                            <br>
-                            </span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="./images/girl.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                            <a href="#"><h5>emily03</h5></a>
-                            <br>
-                            </span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="./images/girl.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                            <a href="#"><h5>dalia77</h5></a>
-                            <br>
-                            </span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="./images/boy.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                            <a href="#"><h5>liam099</h5></a>
-                            <br>
-                            </span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="./images/girl.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-                            <a href="#"><h5>alice05</h5></a>
-                            <br>
-                            </span> </div>
-                    </div>
+    <h4>Top Users</h4>
+    <?php foreach ($topUsers as $user): ?>
+        <div class="pints-wrapper">
+            <div class="left-user3898">
+                <a href="#"><img src="<?php echo htmlspecialchars($user['profileImage']); ?>" alt="Image"></a>
+                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
+            </div>
+            <span class="points-details938">
+                <a href="#"><h5><?php echo htmlspecialchars($user['username']); ?></h5></a>
+                <br>
+                <small>Posts: <?php echo $user['postsCount']; ?></small>
+            </span>
+        </div>
+        <hr>
+    <?php endforeach; ?>
+</div>
+
+
                     <!--               end of Highest points -->
                     <!--          start tags part-->
                     <div class="tags-part2398">
