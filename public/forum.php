@@ -12,6 +12,9 @@ $commentController = new CommentController();
 $forumModel = new forumModel();
 $topUsers = $forumModel->getTopUsers();
 
+$sessionUserId = $_SESSION['userId']; // Assuming user is logged in and session contains user_id
+$userQuestions = $forumController->loadUserQuestions($sessionUserId);
+
 function timeAgo($datetime) {
     $time = strtotime($datetime);
     $timeDiff = time() - $time;
@@ -129,19 +132,92 @@ function timeAgo($datetime) {
     
     <!-- ======content section/body=====-->
     <section class="main-content920">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div id="main">
-                        <input id="tab1" type="radio" name="tabs" checked>
-                        <label for="tab1">All Questions</label>
-                        <!--missing-->
-                        
-                        <section id="content1"> 
-   
-          <!--missing-->    
-          <?php if (!empty($questions)): ?>
-    <?php foreach ($questions as $question): ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="main">
+                    <input id="tab1" type="radio" name="tabs" checked>
+                    <label for="tab1">All Questions</label>
+                    <input id="tab2" type="radio" name="tabs">
+                    <label for="tab2">Your Questions</label>
+
+                    <!-- Content Section 1 - All Questions -->
+                    <section id="content1">
+                        <?php if (!empty($questions)): ?>
+                            <?php foreach ($questions as $question): ?>
+                                <div class="question-type2033" data-post-id="<?php echo $question['post_id']; ?>" id="<?php echo $question['post_id']; ?>">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <div class="left-user12923 left-user12923-repeat">
+                                                <img src="<?php echo htmlspecialchars($question['profileImage']); ?>" alt="Profile Image">
+                                                <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                                <p style="text-align: center; font-size: 12px; margin-top: 5px;"><?php echo htmlspecialchars($question['username']); ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="right-description893">
+                                                <div id="que-hedder2983">
+                                                    <h3><a href="#" target="_blank"><?php echo htmlspecialchars($question['title']); ?></a></h3>
+                                                </div>
+                                                <div class="ques-details10018">
+                                                    <p><?php echo htmlspecialchars($question['content']); ?></p>
+                                                </div>
+                                                <hr>
+                                                <div class="ques-icon-info3293">
+                                                    <a href="#"><i class="fa fa-star" aria-hidden="true"> 0 </i></a>
+                                                    <a href="#"><i class="fa fa-folder" aria-hidden="true"> <?php echo htmlspecialchars($question['category']); ?></i></a>
+                                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true"> <?php echo timeAgo($question['created_at']); ?></i></a>
+                                                    <a href="#" class="toggle-comment"><i class="fa fa-question-circle-o" aria-hidden="true"> Comment</i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="ques-type302">
+                                                <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                                                <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comments-section" style="display: none;">
+                                        <form action="../Language-Learning-Chatbot/controllers/submit_comment.php" method="POST">
+                                            <textarea class="form-control mt-2" name="comment_text" placeholder="Write your comment here..." rows="2"></textarea>
+                                            <input type="hidden" name="post_id" value="<?php echo $question['post_id']; ?>">
+                                            <button type="submit" class="btn btn-comment btn-sm mt-2">Post Comment</button>
+                                        </form>
+                                        <br>
+                                    </div>
+                                    <br>
+                                    <div class="comments-lists" style="background: linear-gradient(to bottom,#f0f0f0, #e6e6ff); padding: 20px; border-radius: 10px; display:block;">
+                                        <?php
+                                        $comments = $commentController->getCommentsForPost($question['post_id']);
+                                        if (!empty($comments)):
+                                            foreach ($comments as $comment): ?>
+                                                <div class="comment" style="display: flex; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                                                    <div style="flex-shrink: 0; margin-right: 10px;">
+                                                        <img src="<?php echo htmlspecialchars($comment['profileImage']); ?>" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                                    </div>
+                                                    <div>
+                                                        <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($comment['username']); ?></p>
+                                                        <p style="margin: 0; font-size: 12px; color: grey;"><?php echo timeAgo($comment['created_at']); ?></p>
+                                                        <p style="margin-top: 10px;"><?php echo htmlspecialchars($comment['comment_text']); ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; 
+                                        else: ?>
+                                            <p>No comments yet. Be the first to comment!</p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No questions have been posted yet. Be the first to ask!</p>
+                        <?php endif; ?>
+                    </section>
+
+                    <!-- Content Section 2 - Your Questions -->
+                    <section id="content2">
+                    <?php if (!empty($userQuestions)): ?>
+    <?php foreach ($userQuestions as $question): ?>
         <div class="question-type2033" data-post-id="<?php echo $question['post_id']; ?>" id="<?php echo $question['post_id']; ?>">
             <div class="row">
                 <div class="col-md-1">
@@ -170,7 +246,7 @@ function timeAgo($datetime) {
                 </div>
                 <div class="col-md-2">
                     <div class="ques-type302">
-                        <button type="button" class="q-type238" ><i class="fa fa-comment" aria-hidden="true"></i></button>
+                        <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true"></i></button>
                         <button type="button" class="q-type23 button-ques2973"><i class="fa fa-user-circle-o" aria-hidden="true"> 0 views</i></button>
                     </div>
                 </div>
@@ -178,45 +254,45 @@ function timeAgo($datetime) {
             <div class="comments-section" style="display: none;">
                 <form action="../Language-Learning-Chatbot/controllers/submit_comment.php" method="POST">
                     <textarea class="form-control mt-2" name="comment_text" placeholder="Write your comment here..." rows="2"></textarea>
-                    <!-- Pass the post_id as a hidden input -->
+                    <!-- Set post_id dynamically from session -->
                     <input type="hidden" name="post_id" value="<?php echo $question['post_id']; ?>">
+                    <!-- Set user_id dynamically from session -->
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>"> <!-- Assuming the session contains 'user_id' -->
                     <button type="submit" class="btn btn-comment btn-sm mt-2">Post Comment</button>
                 </form>
                 <br>
-                
-    </div>
-    <br>
-    <div class="comments-lists" style="background: linear-gradient(to bottom,#f0f0f0, #e6e6ff); padding: 20px; border-radius: 10px; display:block;">
-    <?php
-    $comments = $commentController->getCommentsForPost($question['post_id']);
-    if (!empty($comments)):
-        foreach ($comments as $comment): ?>
-            <div class="comment" style="display: flex; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
-                <div style="flex-shrink: 0; margin-right: 10px;">
-                    <img src="<?php echo htmlspecialchars($comment['profileImage']); ?>" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-                </div>
-                <div>
-                    <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($comment['username']); ?></p>
-                    <p style="margin: 0; font-size: 12px; color: grey;"><?php echo timeAgo($comment['created_at']); ?></p>
-                    <p style="margin-top: 10px;"><?php echo htmlspecialchars($comment['comment_text']); ?></p>
-                </div>
             </div>
-        <?php endforeach; 
-    else: ?>
-        <p>No comments yet. Be the first to comment!</p>
-    <?php endif; ?>
-</div>
-
-</div>
-
+            <br>
+            <div class="comments-lists" style="background: linear-gradient(to bottom,#f0f0f0, #e6e6ff); padding: 20px; border-radius: 10px; display:block;">
+                <?php
+                $comments = $commentController->getCommentsForPost($question['post_id']);
+                if (!empty($comments)):
+                    foreach ($comments as $comment): ?>
+                        <div class="comment" style="display: flex; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                            <div style="flex-shrink: 0; margin-right: 10px;">
+                                <img src="<?php echo htmlspecialchars($comment['profileImage']); ?>" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <div>
+                                <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($comment['username']); ?></p>
+                                <p style="margin: 0; font-size: 12px; color: grey;"><?php echo timeAgo($comment['created_at']); ?></p>
+                                <p style="margin-top: 10px;"><?php echo htmlspecialchars($comment['comment_text']); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; 
+                else: ?>
+                    <p>No comments yet. Be the first to comment!</p>
+                <?php endif; ?>
+            </div>
+        </div>
     <?php endforeach; ?>
 <?php else: ?>
     <p>No questions have been posted yet. Be the first to ask!</p>
 <?php endif; ?>
-</section>
- 
-    </div>
-    </div>
+
+                    </section>
+                        </div>
+                        </div>
+
                 <!--end of col-md-9 -->
                 <!--strart col-md-3 (side bar)-->
                 <aside class="col-md-3 sidebar97239">
@@ -246,6 +322,7 @@ function timeAgo($datetime) {
         <hr>
     <?php endforeach; ?>
 </div>
+
 
 
                     <!--               end of Highest points -->

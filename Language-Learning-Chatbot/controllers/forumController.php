@@ -17,5 +17,10 @@ class forumController {
         // Delegate to forumModel to handle the database query
         return $this->forumModel->getTopUsers();
     }
+
+    public function loadUserQuestions($userId) {
+        return $this->forumModel->getUserQuestions($userId);
+    }
+    
 }
 ?>
