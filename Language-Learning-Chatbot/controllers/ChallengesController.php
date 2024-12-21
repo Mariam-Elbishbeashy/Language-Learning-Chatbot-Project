@@ -4,6 +4,9 @@ require_once __DIR__ . '/Controller.php';
 require_once __DIR__ . '/../model/ChallengesModel.php';
 
 class ChallengesController extends Controller {
+    public function handle() {
+		$this->model->handleRequest();
+	}
     
     public function getQuestionForUser($userId, $category) {
         // Fetch the question text using the model

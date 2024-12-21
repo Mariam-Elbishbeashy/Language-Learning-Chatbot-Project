@@ -20,6 +20,78 @@ function openConfirmSubmitChallengePopup() {
 function openConfirmSubmitVocabChallengePopup() {
     document.getElementById("confirmSubmitVocabChallengePopup").style.display = "flex"; // Show the challenge popup
 }
+document.getElementById("sendFeedback").addEventListener("click", sendMessage);
+document.getElementById("sendFeedback2").addEventListener("click", sendMessageB);
+
+function sendMessage() {
+    const messageInput = document.getElementById("challengeResponse");
+    const message = messageInput.value.trim();
+
+    if (message !== "") {
+        fetch("../Language-Learning-Chatbot/controllers/ChallengesController.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ message: message }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                // Display error message or handle accordingly
+            } else {
+                const botReply = document.getElementById("aiFeedback");
+                botReply.textContent = data.reply;
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+    } else {
+        alert("Message is required.");
+    }
+}
+function sendMessageB() {
+    const messageInput = document.getElementById("challengeResponse2");
+    const message = messageInput.value.trim();
+
+    if (message !== "") {
+        fetch("../Language-Learning-Chatbot/controllers/ChallengesController.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ message: message }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                // Display error message or handle accordingly
+            } else {
+                const botReply = document.getElementById("aiFeedback2");
+                botReply.textContent = data.reply;
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+    } else {
+        alert("Message is required.");
+    }
+}
+
 
 let isSubmitted = false;
 function confirmCancel() {

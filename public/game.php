@@ -10,7 +10,7 @@ require_once '../Language-Learning-Chatbot/controllers/ChallengesController.php'
 require_once '../Language-Learning-Chatbot/model/ChallengesModel.php';
 
 // Instantiate the controller
-$challengeModel = new ChallengesModel($conn);
+$challengeModel = new ChallengesModel($apiKey, $conn);
 $controller = new ChallengesController($challengeModel);
 
 
@@ -408,8 +408,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_challenge'])) 
                         <!-- Added Textarea for User Input -->
                         <textarea id="challengeResponse" placeholder="Write your response here..." name="user_input" rows="6" style="width: 100%;"> <?php echo isset($_POST['user_input']) ? htmlspecialchars($_POST['user_input']) : ''; ?></textarea>
                         <div class="quiz-buttons" id="quizButtons">
-                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" id="sendFeedback">Submit</button>
                             <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
+                        </div>
+                        <div>
+                            <p id="aiFeedback">
+                                <!-- Ai Feedback here -->
+                            </p>
                         </div>
 
                 </div>
@@ -469,10 +474,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_challenge'])) 
                         <input type="hidden" name="category" id="categoryField" value="vocabulary">
 
                         <!-- Added Textarea for User Input -->
-                        <textarea id="challengeResponse" placeholder="Write your response here..." name="user_input" rows="6" style="width: 100%;"><?php echo isset($_POST['user_input']) ? htmlspecialchars($_POST['user_input']) : ''; ?></textarea>
+                        <textarea id="challengeResponse2" placeholder="Write your response here..." name="user_input" rows="6" style="width: 100%;"><?php echo isset($_POST['user_input']) ? htmlspecialchars($_POST['user_input']) : ''; ?></textarea>
                         <div class="quiz-buttons" id="quizButtons">
-                            <button type="button" onclick="openConfirmSubmitVocabChallengePopup()">Submit</button>
+                            <button type="button" id="sendFeedback2">Submit</button>
                             <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
+                        </div>
+                        <div>
+                            <p id="aiFeedback2">
+                                <!-- Ai Feedback here -->
+                            </p>
                         </div>
                 </div>
             </div>

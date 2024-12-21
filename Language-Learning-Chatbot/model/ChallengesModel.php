@@ -6,7 +6,8 @@ class ChallengesModel extends Model {
     private $apiKey;
     protected $conn;
 
-    public function __construct( $conn) {
+    public function __construct($apiKey, $conn) {
+        $this->apiKey = $apiKey;
         $this->conn = $conn; 
     }
     //retrieve question from database to display it 
@@ -61,18 +62,46 @@ class ChallengesModel extends Model {
         }
     }
 
-    public function checkGrammarAndSave($userInput, $chatId) {
-        // Step 1: Send user input to the API to get grammar feedback
-        $feedbackAI = $this->getGrammarFeedback($userInput);
     
-        // Step 2: Save the user input and the grammar feedback to the database
-        $this->saveToDatabase($chatId, $userInput, $feedbackAI);
     
-        // Return the feedback for display
-        return $feedbackAI;
+    public function handleRequest() {
+        if (!isset($_SESSION['userId'])) {
+            echo json_encode(['error' => 'User not authenticated']);
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return; // Ignore the error for non-POST requests
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+    
+            $userInput = $_POST['message'] ?? '';
+    
+            if (empty($userInput)) {
+                echo json_encode(['error' => 'Message is required']);
+                exit;
+            }
+            $response = $this->sendToApi($userInput);
+    
+            if (isset($response['error'])) {
+                echo json_encode(['error' => $response['error']]);
+            } else {
+                echo json_encode([
+                    'reply' => $response['reply'] ?? 'No response from ChatGPT'
+                ]);
+            }
+    
+            // Log the conversation in database
+            //$this->saveToDatabase($chatId, $userInput, $response['reply'] ?? 'No response from ChatGPT');
+        } else {
+            echo json_encode(['error' => 'Invalid request method']);
+        }
     }
     
-    private function getGrammarFeedback($userInput) {
+    
+    public function sendToApi($userInput) {
         $data = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
@@ -80,7 +109,7 @@ class ChallengesModel extends Model {
                 ['role' => 'user', 'content' => $userInput]
             ]
         ];
-    
+
         $ch = curl_init('https://api.openai.com/v1/chat/completions');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -89,30 +118,40 @@ class ChallengesModel extends Model {
         ]);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    
+
         $response = curl_exec($ch);
         if ($response) {
             $result = json_decode($response, true);
-            return $result['choices'][0]['message']['content'] ?? 'No feedback available.';
+            return [
+                'reply' => $result['choices'][0]['message']['content'] ?? null
+            ];
         }
-    
-        return 'Error: Unable to process your request.';
-    }
-    
-    private function saveToDatabase($chatId, $userInput, $feedbackAI) {
-        $userId = $_SESSION['userId'];
-    
-        $sql = "INSERT INTO ChatMessages (chat_id, user_id, message, response) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-    
-        if ($stmt) {
-            $stmt->bind_param("iiss", $chatId, $userId, $userInput, $feedbackAI);
-            $stmt->execute();
-            $stmt->close();
-        }
-    }
-    
 
+        return ['error' => 'No response'];
+    }
+    
+    public function savoToDatabase($userId, $questionId, $userInput) {
+        $query = "INSERT INTO challenge_data 
+                  (user_id, question_id, user_input, ai_feedback, challenge_score, created_at) 
+                  VALUES (?, ?, ?, '', '', NOW())";
+    
+        $stmt = $this->conn->prepare($query); // Use the connection from Model
+        $stmt->bind_param(
+            'iis', 
+            $userId, 
+            $questionId, 
+            $userInput
+        );
+    
+        if ($stmt->execute()) {
+            return true; // Return true if insertion is successful
+        } else {
+            return false; // Return false if there’s an error
+        }
+    }    
 
 }
+$apiKey = getenv('OPENAI_API_KEY');
+$ChallengesModel = new ChallengesModel($apiKey, $conn);
+$ChallengesModel->handleRequest();
 
