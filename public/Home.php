@@ -89,14 +89,14 @@ $chatbotModel = new ChatbotModel($apiKey, $conn);
             <?php foreach ($messages as $message): ?>
                 <!-- Display user message -->
                 <div class="message user-message">
-                    <p><strong>User:</strong> <?= htmlspecialchars($message['message']) ?></p>
+                    <p><strong>You:</strong> <?= htmlspecialchars($message['message']) ?></p>
                     <small><?= htmlspecialchars($message['timestamp']) ?></small>
                 </div>
                 
                 <!-- Display bot response if it exists -->
                 <?php if (!empty($message['response'])): ?>
                     <div class="message bot-message">
-                        <p><strong>Bot:</strong> <?= htmlspecialchars($message['response']) ?></p>
+                        <p><strong>Chatbot:</strong> <?= htmlspecialchars($message['response']) ?></p>
                         <small><?= htmlspecialchars($message['timestamp']) ?></small>
                     </div>
                 <?php endif; ?>
@@ -246,7 +246,7 @@ $chatbotModel = new ChatbotModel($apiKey, $conn);
 .btn-new-chat {
     display: inline-block;
     padding: 12px 24px;
-    background: linear-gradient(135deg, #4a90e2, #0056b3);
+    background: radial-gradient(666px at 0.4% 48%, rgb(202, 204, 227) 0%, rgb(89, 89, 99) 97.5%);
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
@@ -264,7 +264,7 @@ $chatbotModel = new ChatbotModel($apiKey, $conn);
 
 /* Hover Effect */
 .btn-new-chat:hover {
-    background: linear-gradient(135deg, #0056b3, #004080);
+    background: radial-gradient(666px at 0.4% 48%, rgb(202, 204, 227) 0%, rgb(89, 89, 99) 97.5%);
     box-shadow: 0 6px 16px rgba(0, 86, 179, 0.4);
     transform: translateY(-3px);
     color: #f0f0f0;
