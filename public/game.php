@@ -1,13 +1,42 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
+require_once '../Language-Learning-Chatbot/controllers/QuizzesController.php';
+require_once '../Language-Learning-Chatbot/model/QuizzesModel.php';
 require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+require_once '../Language-Learning-Chatbot/controllers/ChallengesController.php';
+require_once '../Language-Learning-Chatbot/model/ChallengesModel.php';
+
+// Instantiate the controller
+$challengeModel = new ChallengesModel($conn);
+$controller = new ChallengesController($challengeModel);
+
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
     exit();
 }
-?>
 
+$difficulty = $_SESSION['difficulty_level'];
+$language = $_SESSION['language'];
+
+$quizModel = new QuizModel($conn);
+$quizController = new QuizzesController($conn);
+
+$quizQuestions = $quizController->getQuizQuestions($difficulty, $language);
+
+
+
+?>
+<style>
+      #confirmSubmitChallengePopup .popup-content{
+    width: 20%;
+    height: 30%;
+    text-align: center;
+  }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +60,7 @@ if (!isset($_SESSION['userId'])) {
                 </div>
                 <div class="points">
                     <img src="./images/star.png" alt="Points Picture" class="points-pic">
-                    <span class="score" id="totalUserPoints"></span>
+                    <span class="score" id="totalUserPoints"><?= $_SESSION['score']?></span>
                 </div>
             </div>
             <div class="plan-section">
@@ -53,56 +82,60 @@ if (!isset($_SESSION['userId'])) {
                         <div class="popup-content" onclick="event.stopPropagation()">
                             <span class="close-btn" onclick="confirmCancel()">&times;</span>
 
-                            <form id="quizForm">
-                                <div class="quiz-buttons">
-                                    <!-- Question 1: Multiple Choice -->
+                            <form id="quizForm" method="POST" action="game.php">
+
+                                <!-- Question 1: Multiple Choice -->
+                                 <div class="quiz-buttons">
                                     <div class="question">
-                                        <p><strong>1. What is the opposite of 'hot'?</strong></p>
-                                        <input type="radio" name="question1" value="Cold" required> Cold<br>
-                                        <input type="radio" name="question1" value="Warm"> Warm<br>
-                                        <input type="radio" name="question1" value="Cool"> Cool<br>
-                                        <span class="feedback" id="feedback1"></span> <!-- Feedback placeholder -->
+                                        <p><strong>1. <?= htmlspecialchars($quizQuestions['mcq1']['question_text']) ?></strong></p>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq1']['option_a']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_b']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_c']) ?><br>
+                                        <input type="radio" name="question1" value="<?= htmlspecialchars($quizQuestions['mcq1']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq1']['option_d']) ?><br>
+                                        <span class="feedback" id="feedback<?= htmlspecialchars($quizQuestions['mcq1']['question_id']) ?>"></span> <!-- Feedback placeholder -->
                                     </div>
+
                                     <img src="./images/quiz.png" alt="quiz picture">
                                 </div>
-                                <!-- Question 2: Fill in the Blank -->
+
+                                <!-- Question 3: Fill in the Blank -->
                                 <div class="question">
-                                    <p><strong>2. I ___ to the store yesterday. (go)</strong></p>
-                                    <input type="text" name="question2" required>
-                                    <span class="feedback" id="feedback2"></span> <!-- Feedback placeholder -->
+                                    <p><strong>2. <?= htmlspecialchars($quizQuestions['fillInTheBlank']['question_text']) ?></strong></p>
+                                    <input type="text" name="question3" required>
+                                    <span class="feedback" id="feedback<?= $quizQuestions['fillInTheBlank']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
-                                <!-- Question 3: True/False -->
+                                <!-- Question 4: True/False -->
                                 <div class="question">
-                                    <p><strong>3. The sky is blue. (True/False)</strong></p>
-                                    <input type="radio" name="question3" value="True" required> True<br>
-                                    <input type="radio" name="question3" value="False"> False<br>
-                                    <span class="feedback" id="feedback3"></span> <!-- Feedback placeholder -->
+                                    <p><strong>3. <?= htmlspecialchars($quizQuestions['trueFalse']['question_text']) ?></strong></p>
+                                    <input type="radio" name="question4" value="True" required> True<br>
+                                    <input type="radio" name="question4" value="False"> False<br>
+                                    <span class="feedback" id="feedback<?= $quizQuestions['trueFalse']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
-                                <!-- Question 4: Multiple Choice -->
+                                <!-- Question 5: Multiple Choice -->
                                 <div class="question">
-                                    <p><strong>4. What is the plural of 'child'?</strong></p>
-                                    <input type="radio" name="question4" value="Children" required> Children<br>
-                                    <input type="radio" name="question4" value="Childs"> Childs<br>
-                                    <input type="radio" name="question4" value="Childes"> Childes<br>
-                                    <span class="feedback" id="feedback4"></span> <!-- Feedback placeholder -->
+                                    <p><strong>4. <?= htmlspecialchars($quizQuestions['mcq2']['question_text']) ?></strong></p>
+                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq2']['option_a']) ?><br>
+                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_b']) ?><br>
+                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_c']) ?><br>
+                                    <input type="radio" name="question5" value="<?= htmlspecialchars($quizQuestions['mcq2']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq2']['option_d']) ?><br>
+                                    <span class="feedback" id="feedback<?= $quizQuestions['mcq2']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
 
-                                <!-- Question 5: Matching -->
+                                <!-- Question 6: Another Multiple Choice -->
                                 <div class="question">
-                                    <p><strong>5. Match the word with its meaning:</strong></p>
-                                    <label for="match1">Happy:</label>
-                                    <select name="question5" id="match1" required>
-                                        <option value="">Select...</option>
-                                        <option value="Sad">Sad</option>
-                                        <option value="Joyful">Joyful</option>
-                                        <option value="Angry">Angry</option>
-                                    </select>
-                                    <span class="feedback" id="feedback5"></span> <!-- Feedback placeholder -->
+                                    <p><strong>5. <?= htmlspecialchars($quizQuestions['mcq3']['question_text']) ?></strong></p>
+                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_a']) ?>" required> <?= htmlspecialchars($quizQuestions['mcq3']['option_a']) ?><br>
+                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_b']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_b']) ?><br>
+                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_c']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_c']) ?><br>
+                                    <input type="radio" name="question6" value="<?= htmlspecialchars($quizQuestions['mcq3']['option_d']) ?>"> <?= htmlspecialchars($quizQuestions['mcq3']['option_d']) ?><br>
+                                    <span class="feedback" id="feedback<?= $quizQuestions['mcq3']['question_id'] ?>"></span> <!-- Feedback placeholder -->
                                 </div>
-                                <div class="quiz-buttons" id="quizButtons">
-                                    <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
+
+                                <!-- Submit and Cancel Buttons -->
+                                <div class="quiz-buttons">
+                                <button type="button" onclick="openConfirmSubmitPopup()">Submit</button>
                                     <button type="button" onclick="confirmCancel()">Cancel</button>
                                 </div>
                             </form>
@@ -137,10 +170,10 @@ if (!isset($_SESSION['userId'])) {
                         <div class="popup-content" onclick="event.stopPropagation()">
                             <span class="close-btn" onclick="closeScorePopup()">×</span>
                             <img src="./images/test-results.png" alt="Reading"> 
-                            <h2 id="scoreMessage" >Your Score</h2>
+                            <h2 id="scoreMessage" >You scored 3 out of 5!</h2>
                             <div class="points" id="quiz-points">
                                 <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="totalScore"></span>
+                                <span class="score" id="totalScore">15</span>
                             </div>
                             <p>Points are added to your score.</p>
                             <button onclick="closeScorePopup()">Close</button>
@@ -255,34 +288,109 @@ if (!isset($_SESSION['userId'])) {
                         <div class= "card-content">
                             <h3>Grammar Training challenge</h3>
                             <p>Present Simple</p>
-                            <button onclick="showChallengePopup('Grammar Training Challenge - Present Simple Practice','Write a short diary entry describing a typical day. Use only present simple tense verbs to describe actions, routines, and preferences. Focus on accuracy and consistency with the present simple tense.')">Continue</button>
+                            <button onclick="showGrammarChallengePopup()">Continue</button>
                         </div>
                         <img src="./images/robot-assistant.png" alt="Grammar Training">
-                    </div>
+                    </div> 
                     <div class="card grammar">
                         <div class= "card-content">
                             <h3>Vocabulary Training Challenge</h3>
                             <p>3 lessons</p>
-                            <button onclick="showChallengePopup('Vocabulary Training Challenge - Building Associations','Create a word web for the topic &quot;Daily Routine&quot;. List related words or phrases for each item, including activities, objects, or people involved in your routine.')">Continue</button>
+                            <button onclick="showVocabChallengePopup()">Continue</button>
                         </div>
                         <img src="./images/pinch.png" alt="Grammar Training">
                     </div>
                 </div>
             </div>
-            <!-- Challenge Popup  -->
-            <div class="popup-overlay" id="challengePopupOverlay">
-                <div class="popup-content">
-                    <span class="close-btn" onclick="closeChallengePopup()">&times;</span>
+            <!-- Grammar Challenge Popup  -->
+            <div class="popup-overlay" id="grammarchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
+                    <form id="challengeForm">
+
+                        <div class="challenge-buttons">
+                            <h3 id="popupTitle">
+                                Grammar Training Challenge - Present Simple Practice'
+                            </h3>
+                            <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        </div>
+                        <div class="points" id="challenge-points">
+                                    <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                    <span class="score" id="gamePoints">40</span>
+                        </div>
+                        <h4 id="popupDescription">
+                        <?php   
+                            $userId = $_SESSION['userId'];
+                            $category = 'grammar';
+                            $questionText = $controller->getQuestionForUser($userId, $category);      
+                        ?>
+                        </h4>
+                        <!-- Added Textarea for User Input -->
+                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <div class="quiz-buttons" id="quizButtons">
+                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Vocabulary Challenge Popup  -->
+            <div class="popup-overlay" id="vocabchallengePopupOverlay" onclick="confirmCancelChallenge()" style="display: flex; z-index:200;">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn"  onclick="confirmCancelChallenge()">&times;</span>
+                    <form id="challengeForm">
+
+                        <div class="challenge-buttons">
+                            <h3 id="vocabpopupTitle">
+                                Vocabulary Training Challenge - Building Associations
+                            </h3>
+                            <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        </div>
+                        <div class="points" id="challenge-points">
+                                    <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                                    <span class="score" id="gamePoints">40</span>
+                        </div>
+                        <h4 id="vocabpopupDescription">
+                        <?php   
+                            $userId = $_SESSION['userId'];
+                            $category = 'vocabulary';
+                            $questionText = $controller->getQuestionForUser($userId, $category);      
+                        ?>                        </h4>
+                        <!-- Added Textarea for User Input -->
+                        <textarea id="challengeResponse" placeholder="Write your response here..." rows="6" style="width: 100%;"></textarea>
+                        <div class="quiz-buttons" id="quizButtons">
+                            <button type="button" onclick="openConfirmSubmitChallengePopup()">Submit</button>
+                            <button type="button" onclick="confirmCancelChallenge()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Challenges Submit Confirm Popup 1 -->
+            <div id="confirmSubmitChallengePopup" class="popup-overlay" onclick="closeConfirmPopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeConfirmPopup()">×</span>
+                    <img class="Csubmit-pic" src="./images/research.png" alt="confirmation"> 
+                    <h2>Are you sure you want to submit?</h2>
                     <div class="quiz-buttons">
-                        <h3 id="popupTitle"></h3>
-                        <img class="challenge-pic" src="./images/effect.png" alt="target">
+                        <button onclick="submitChallenge()">Yes</button>
+                        <button onclick="closeConfirmSubmitChallengePopup()">No</button>
                     </div>
-                    <div class="points" id="challenge-points">
-                                <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
-                                <span class="score" id="gamePoints">40</span>
-                            </div>
-                    <h4 id="popupDescription"></h4>
-                    <button class="challenge-closeBtn" onclick="closeChallengePopup()">Close</button>
+                </div>
+            </div>
+            <!--Challenge Score Popup -->
+            <div id="scorePopup" class="popup-overlay" onclick="closeScorePopup()">
+                <div class="popup-content" onclick="event.stopPropagation()">
+                    <span class="close-btn" onclick="closeScorePopup()">×</span>
+                    <img src="./images/test-results.png" alt="Reading"> 
+                    <h2 id="scoreMessage" >Your Score</h2>
+                    <div class="points" id="quiz-points">
+                        <img src="./images/star.png" alt="Points Picture" class="points-pic" id="quiz-points-pic">
+                        <span class="score" id="totalScore">
+                            <!-- Score hereeee -->
+                        </span>
+                    </div>
+                    <p>Points are added to your score.</p>
+                    <button onclick="closeScorePopup()">Close</button>
                 </div>
             </div>
 

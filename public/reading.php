@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <?php include "../views/partials/navbar.php"; ?>
+        <?php include "../Language-Learning-Chatbot/views/partials/navbar.php"; ?>
         
         <div class="main-content">
             <form action="game.php">

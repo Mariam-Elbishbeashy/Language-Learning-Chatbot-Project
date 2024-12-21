@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../db/dbh.inc.php";
+include_once(__DIR__ . '/../db/dbh.inc.php');
 
 function restrictPageAccess($requiredRole, $redirectUrl) {
     if (!isset($_SESSION['userId'])) {

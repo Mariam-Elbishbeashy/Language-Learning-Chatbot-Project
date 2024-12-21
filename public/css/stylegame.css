@@ -1,6 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif;
-    overflow-y: auto;
+    /* overflow-y: auto; */
   }
   .plan-section{
     margin-bottom: 15px;
@@ -104,8 +104,8 @@ body {
 /* Popup Content Style */
   .popup-content {
     background-color: #fefefe; 
-    width: 30%; 
-    height: 70%;
+    width: 35%; 
+    height: 80%;
     padding: 20px;
     border-radius: 15px; 
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
@@ -301,9 +301,22 @@ body {
     width: 100px;
     height: 100px;
   }
-#challengePopupOverlay .popup-content{
+#grammarchallengePopupOverlay .popup-content{
   text-align: center;
-  height: 35%;
+  height: 60%;
+}
+#vocabchallengePopupOverlay .popup-content{
+  text-align: center;
+  height: 60%;
+}
+#confirmSubmitChallengePopup .popup-content{
+  width: 20%;
+  height: 30%;
+  text-align: center;
+}
+.Csubmit-pic{
+  width: 35%;
+  height: 40%;
 }
 #challenge-points{
   margin-left: 40%;

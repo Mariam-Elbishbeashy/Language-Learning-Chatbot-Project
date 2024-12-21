@@ -1,12 +1,13 @@
-<?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+<?php 
 session_start();
-
+if (!isset($_SESSION['userId'])) {
+    header("Location: ../public/error.php");
+    exit();
+}
 require_once '../Language-Learning-Chatbot/controllers/ChatbotController.php';
 require_once '../Language-Learning-Chatbot/model/ChatbotModel.php';
 require_once '../Language-Learning-Chatbot/db/dbh.inc.php';
+
 
 if (!isset($_SESSION['userId'])) {
     header("Location: ../public/error.php");
@@ -61,6 +62,9 @@ if ($chatId) {
     }
 }
 
+
+
+$chatbotModel = new ChatbotModel($apiKey, $conn);
 
 
 ?>

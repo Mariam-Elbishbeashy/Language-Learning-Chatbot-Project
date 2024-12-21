@@ -3,7 +3,7 @@
 
 session_start();
 
-include '../db/dbh.inc.php';
+include_once(__DIR__ . '/../db/dbh.inc.php');
 
 
 class UserManager {
